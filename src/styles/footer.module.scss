@@ -1,0 +1,24 @@
+@import "colors";
+@import "typography.scss";
+
+.footer {
+  &__ul {
+    display: flex;
+    gap: 2rem;
+    font-size: $regular-12-text;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    a {
+      color: $light-paragraph;
+      text-decoration: none;
+    }
+  }
+
+  p {
+    color: $light-paragraph;
+    text-align: center;
+    font-size: $regular-12-text;
+    margin-bottom: 5rem;
+  }
+}

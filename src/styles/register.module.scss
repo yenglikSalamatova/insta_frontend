@@ -1,6 +1,14 @@
+@import "colors";
+@import "typography.scss";
+
 .main_center {
-  height: 100vh;
+  height: 95vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
 }
+
+@import "form.module.scss";
+@import "buttons.scss";

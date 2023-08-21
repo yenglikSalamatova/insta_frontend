@@ -1,0 +1,13 @@
+@import "colors";
+@import "typography";
+
+.button_blue {
+  cursor: pointer;
+  font-size: $regular-14-text;
+  font-weight: 600;
+  background-color: $button-blue;
+  padding: 0.8rem;
+  color: $white;
+  border: none;
+  border-radius: 0.8rem;
+}

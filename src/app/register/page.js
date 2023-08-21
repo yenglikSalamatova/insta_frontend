@@ -1,7 +1,5 @@
 import styles from "../../styles/register.module.scss";
-import formStyles from "../../styles/form.module.scss";
 
-import { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata = {
@@ -11,9 +9,9 @@ export const metadata = {
 export default function Register() {
   return (
     <>
-      <main className={styles.main_center}>
-        <form className={formStyles.form}>
-          <div className={formStyles.form__header}>
+      <div className={styles.main_center}>
+        <form className={styles.form}>
+          <div className={styles.form__header}>
             <Image
               src="/logo.png"
               width={175}
@@ -21,7 +19,7 @@ export default function Register() {
               style={{ height: "auto" }}
               alt="Instagram logo"
             />
-            <p className={formStyles.form__text}>
+            <p className={styles.form__text}>
               Зарегистрируйтесь, чтобы смотреть фото и видео ваших друзей.
             </p>
           </div>
@@ -29,40 +27,47 @@ export default function Register() {
           <input
             type="text"
             placeholder="Моб.телефон или эл.адрес"
-            className={formStyles.form__input}
+            className={styles.form__input}
           />
           <input
             type="text"
             placeholder="Имя и фамилия"
-            className={formStyles.form__input}
+            className={styles.form__input}
           />
-          <input
-            type="text"
-            placeholder="Имя и фамилия"
-            className={formStyles.form__input}
-          />
+
           <input
             type="text"
             placeholder="Имя пользователя"
-            className={formStyles.form__input}
+            className={styles.form__input}
           />
           <input
             type="password"
             placeholder="Пароль"
-            className={formStyles.form__input}
+            className={styles.form__input}
           />
-          <span className={formStyles.form__info}>
+          <span className={styles.form__info}>
             Люди, которые пользуются нашим сервисом, могли загрузить вашу
-            контактную информацию в Instagram. <a>Подробнее</a>
+            контактную информацию в Instagram.{" "}
+            <a className={styles.form__link}>Подробнее</a>
           </span>
-          <span className={formStyles.form__info}>
-            Регистрируясь, вы принимаете наши <a>Условия</a> ,{" "}
-            <a>Политику конфиденциальности</a> и{" "}
-            <a>Политику в отношении файлов cookie</a>.
+          <span className={styles.form__info}>
+            Регистрируясь, вы принимаете наши{" "}
+            <a className={styles.form__link}>Условия</a>,{" "}
+            <a className={styles.form__link}>Политику конфиденциальности</a> и{" "}
+            <a className={styles.form__link}>
+              Политику в отношении файлов cookie
+            </a>
+            .
           </span>
-          <button>Регистрация</button>
+          <button className={styles.button_blue}>Регистрация</button>
         </form>
-      </main>
+
+        <div className={styles.form}>
+          <p className={styles.text}>
+            Есть аккаунт? <a>Вход</a>
+          </p>
+        </div>
+      </div>
     </>
   );
 }
