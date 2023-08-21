@@ -5,9 +5,14 @@
   width: 35rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1.5rem;
   border: 0.1rem solid $light-gray;
   padding: 3.8rem;
+
+  &__image {
+    height: auto;
+  }
 
   &__header {
     display: flex;
@@ -25,6 +30,8 @@
     font-weight: 600;
   }
   &__input {
+    box-sizing: border-box;
+    width: 100%;
     border-radius: 0.4rem;
     padding: 1rem;
     border: 0.1rem solid $light-gray;
@@ -49,12 +56,8 @@
     color: $form-link;
   }
 
-  .text {
+  .text,
+  .textBold {
     text-align: center;
-
-    a {
-      cursor: pointer;
-      color: $button-blue;
-    }
   }
 }
