@@ -56,6 +56,16 @@
     color: $form-link;
   }
 
+  &__birth {
+    display: flex;
+    gap: 1rem;
+
+    select {
+      padding: 0.6rem;
+      border: 0.1rem solid $light-gray;
+    }
+  }
+
   .text,
   .textBold {
     text-align: center;

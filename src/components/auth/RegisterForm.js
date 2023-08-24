@@ -3,9 +3,14 @@
 import styles from "@/styles/register.module.scss";
 import Image from "next/image";
 import { useState } from "react";
+import { DaySelector, MonthSelector, YearSelector } from "./DateSelectors";
 
 export default function RegisterForm() {
   const [currentStep, setCurrentStep] = useState(1);
+
+  const [day, setDay] = useState("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
 
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
@@ -13,6 +18,18 @@ export default function RegisterForm() {
 
   const prevStep = () => {
     setCurrentStep(currentStep - 1);
+  };
+
+  const handleDayChange = (event) => {
+    setDay(event.target.value);
+  };
+
+  const handleMonthChange = (event) => {
+    setMonth(event.target.value);
+  };
+
+  const handleYearChange = (event) => {
+    setYear(event.target.value);
   };
 
   return (
@@ -91,11 +108,13 @@ export default function RegisterForm() {
             <a className={styles.link}>Почему нужно указывать дату рождения?</a>
           </div>
 
-          <input
-            type="text"
-            placeholder="Моб.телефон или эл.адрес"
-            className={styles.form__input}
-          />
+          <div className={styles.form__birth}>
+            {" "}
+            <DaySelector value={day} onChange={handleDayChange} />
+            <MonthSelector value={month} onChange={handleMonthChange} />
+            <YearSelector value={year} onChange={handleYearChange} />
+          </div>
+
           <p className={styles.form__info}>
             Требуется ввести дату вашего рождения
           </p>
