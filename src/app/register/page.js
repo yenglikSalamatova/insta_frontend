@@ -1,18 +1,31 @@
+"use client";
 import styles from "@/styles/register.module.scss";
-import RegisterForm from "@/components/auth/RegisterForm";
-import RegisterLogin from "@/components/auth/RegisterLogin";
+import { useState } from "react";
+import Step1 from "@/components/auth/Step1";
+import Step2 from "@/components/auth/Step2";
 
-export const metadata = {
-  title: "Зарегистрироваться • Instagram",
-};
+export default function RegisterPage() {
+  const [currentStep, setCurrentStep] = useState(1);
 
-export default function Register() {
+  const nextStep = () => {
+    setCurrentStep(currentStep + 1);
+  };
+
+  const prevStep = () => {
+    setCurrentStep(currentStep - 1);
+  };
+
   return (
-    <>
-      <div className={styles.main_center}>
-        <RegisterForm />
-        <RegisterLogin />
+    <main className={styles.main_center}>
+      <form className={styles.form}>
+        {currentStep === 1 && <Step1 onNext={nextStep} />}
+        {currentStep === 2 && <Step2 onNext={nextStep} onPrev={prevStep} />}
+      </form>
+      <div className={styles.form}>
+        <p className={styles.text}>
+          Есть аккаунт? <a className={styles.link}>Вход</a>
+        </p>
       </div>
-    </>
+    </main>
   );
 }

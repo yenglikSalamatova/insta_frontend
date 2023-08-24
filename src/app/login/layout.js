@@ -1,7 +1,5 @@
-import "@/styles/globals.scss";
-
 export const metadata = {
-  title: "Instagram",
+  title: "Вход • Instagram",
 };
 
 export default function RootLayout({ children }) {
