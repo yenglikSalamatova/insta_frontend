@@ -9,6 +9,8 @@ const Step2 = ({ onNext, onPrev }) => {
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
 
+  const isFormValid = day && month && year;
+
   const handleDayChange = (event) => {
     setDay(event.target.value);
   };
@@ -29,7 +31,7 @@ const Step2 = ({ onNext, onPrev }) => {
           width={100}
           height={0}
           className={styles.form__image}
-          alt="Instagram logo"
+          alt="Cake icon"
         />
         <p className={styles.textBold}>Укажите дату вашего рождения</p>
         <p className={styles.text}>
@@ -50,7 +52,11 @@ const Step2 = ({ onNext, onPrev }) => {
         Укажите собственный день рождения, даже если вы создаете этот аккаунт
         для компании, домашнего животного и пр.
       </p>
-      <button className={styles.button_blue} onClick={onNext}>
+      <button
+        className={styles.button_blue}
+        onClick={onNext}
+        disabled={!isFormValid}
+      >
         Далее
       </button>
       <button className={styles.button_regular} onClick={onPrev}>

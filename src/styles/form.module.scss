@@ -35,12 +35,17 @@
     border-radius: 0.4rem;
     padding: 1rem;
     border: 0.1rem solid $light-gray;
-    font-size: $regular-12-text;
+    font-size: $regular-14-text;
     background-color: $white-gray;
-  }
+    outline: none;
 
-  &__input::placeholder {
-    color: $light-paragraph;
+    &::placeholder {
+      color: $light-input;
+    }
+
+    &:focus {
+      border: 0.1rem solid $light-paragraph;
+    }
   }
 
   &__info {

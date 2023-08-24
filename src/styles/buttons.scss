@@ -11,6 +11,10 @@
   color: $white;
   border: none;
   border-radius: 0.8rem;
+
+  &:disabled {
+    opacity: 0.4;
+  }
 }
 
 .button_regular {
