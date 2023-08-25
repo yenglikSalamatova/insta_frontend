@@ -6,9 +6,9 @@ export const metadata = {
 
 export default function RegisterLayout({ children }) {
   return (
-    <>
-      <section>{children}</section>;
+    <div className="container">
+      {children};
       <Footer />
-    </>
+    </div>
   );
 }

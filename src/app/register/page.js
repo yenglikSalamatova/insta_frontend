@@ -1,6 +1,9 @@
 "use client";
-import styles from "@/styles/register.module.scss";
+import Link from "next/link";
 import { useState } from "react";
+
+import styles from "@/styles/register.module.scss";
+
 import Step1 from "@/components/auth/Step1";
 import Step2 from "@/components/auth/Step2";
 import Step3 from "@/components/auth/Step3";
@@ -25,7 +28,10 @@ export default function RegisterPage() {
       </form>
       <div className={styles.form}>
         <p className={styles.text}>
-          Есть аккаунт? <a className={styles.link}>Вход</a>
+          Есть аккаунт?{" "}
+          <Link href="/login" className={styles.link}>
+            Вход
+          </Link>
         </p>
       </div>
     </main>

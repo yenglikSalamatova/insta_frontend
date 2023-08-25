@@ -8,4 +8,11 @@ html {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+.container {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 5rem;
+  min-height: 100vh;
+}
+
 @import "reset";
