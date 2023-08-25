@@ -30,7 +30,7 @@ const Step1 = ({ onNext }) => {
     <>
       <div className={styles.form__header}>
         <Image
-          className={styles.form__image}
+          className="logo"
           src="/logo.png"
           width={175}
           height={0}

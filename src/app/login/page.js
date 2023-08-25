@@ -24,7 +24,7 @@ const LoginPage = () => {
       <form className={styles.form}>
         <div className={styles.form__header}>
           <Image
-            className={styles.form__image}
+            className="logo"
             src="/logo.png"
             width={175}
             height={0}
