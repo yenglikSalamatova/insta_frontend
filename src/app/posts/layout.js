@@ -1,16 +1,20 @@
 import Footer from "@/components/Footer";
 import NavBar from "@/components/NavBar";
+import RightSideBar from "@/components/RightSideBar";
 
 export const metadata = {
-  title: "Вход • Instagram",
+  title: "Instagram",
 };
 
 export default function LoginLayout({ children }) {
   return (
-    <div className="container">
+    <div className="container-main">
       <NavBar />
-      {children}
-      <Footer />
+      <div className="container">
+        {children}
+        <RightSideBar />
+        <Footer />
+      </div>
     </div>
   );
 }

@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "@/styles/register.module.scss";
 import Link from "next/link";
 
 const LoginPage = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,6 +20,11 @@ const LoginPage = () => {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+  };
+
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    router.replace("/posts");
   };
 
   return (
@@ -46,7 +54,11 @@ const LoginPage = () => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <button className={styles.button_blue} disabled={!isFormValid}>
+        <button
+          className={styles.button_blue}
+          disabled={!isFormValid}
+          onClick={handleButtonClick}
+        >
           Войти
         </button>
       </form>

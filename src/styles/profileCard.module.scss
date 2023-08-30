@@ -1,0 +1,25 @@
+@import "typography";
+@import "colors";
+@import "buttons";
+
+.profile_card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card_image_username {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.card_usernames {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  p {
+    color: $light-paragraph;
+    font-size: $regular-14-text;
+  }
+}

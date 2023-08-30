@@ -1,0 +1,30 @@
+@import "colors";
+@import "typography.scss";
+@import "buttons";
+.nav {
+  width: 28rem;
+  height: auto;
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+
+  a {
+    font-size: 1.2rem;
+  }
+
+  .text {
+    color: $light-paragraph;
+    font-weight: 500;
+  }
+}
+
+.recomended {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+
+  .link {
+    color: $black;
+  }
+}

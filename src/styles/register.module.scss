@@ -2,6 +2,7 @@
 @import "typography.scss";
 
 .main_center {
+  grid-column: 1/-1;
   margin-top: 8rem;
   display: flex;
   align-items: center;

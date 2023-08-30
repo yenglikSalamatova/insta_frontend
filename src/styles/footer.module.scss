@@ -2,6 +2,8 @@
 @import "typography.scss";
 
 .footer {
+  margin-top: 10rem;
+  grid-area: footer;
   &__ul {
     display: flex;
     gap: 2rem;

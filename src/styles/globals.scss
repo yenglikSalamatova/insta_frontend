@@ -9,14 +9,41 @@ html {
 }
 
 .container {
+  grid-column: 2/3;
+  padding-top: 5rem;
   display: grid;
+  grid-template-columns: minmax(62rem, 1fr) 1fr;
   grid-template-rows: 1fr auto;
-  gap: 5rem;
+  grid-template-areas:
+    "main sidebar"
+    "footer footer";
   min-height: 100vh;
+  justify-items: center;
 }
 
-.logo {
+.container-main {
+  display: grid;
+  grid-template-columns: 33rem 1fr;
+}
+
+.logo,
+.img {
   height: auto;
+}
+
+.avatar {
+  height: auto;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+h5 {
+  font-size: $regular-14-text;
+}
+
+.main {
+  grid-area: main;
+  background-color: bisque;
 }
 
 @import "reset";
