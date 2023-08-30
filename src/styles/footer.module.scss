@@ -11,14 +11,17 @@
     justify-content: center;
     margin-bottom: 2rem;
 
+    li {
+      text-align: center;
+    }
     a {
-      color: $light-paragraph;
+      color: $light-input;
       text-decoration: none;
     }
   }
 
   p {
-    color: $light-paragraph;
+    color: $light-input;
     text-align: center;
     font-size: $regular-12-text;
     margin-bottom: 5rem;

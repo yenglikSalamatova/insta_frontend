@@ -1,6 +1,7 @@
 @import "colors";
 @import "typography.scss";
 @import "buttons";
+@import "footer.module";
 .nav {
   width: 28rem;
   height: auto;
@@ -16,6 +17,18 @@
   .text {
     color: $light-paragraph;
     font-weight: 500;
+  }
+  .footer {
+    margin-top: 3rem;
+
+    ul {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 1rem;
+    }
+    p {
+      text-align: start;
+    }
   }
 }
 

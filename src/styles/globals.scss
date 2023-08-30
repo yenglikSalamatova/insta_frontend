@@ -9,16 +9,19 @@ html {
 }
 
 .container {
+  max-width: 100rem;
+  margin: 0 auto;
   grid-column: 2/3;
   padding-top: 5rem;
   display: grid;
-  grid-template-columns: minmax(62rem, 1fr) 1fr;
+  grid-template-columns: minmax(66rem, 1fr) 1fr;
   grid-template-rows: 1fr auto;
   grid-template-areas:
     "main sidebar"
     "footer footer";
   min-height: 100vh;
   justify-items: center;
+  gap: 8rem;
 }
 
 .container-main {
@@ -42,8 +45,9 @@ h5 {
 }
 
 .main {
+  justify-self: center;
+  width: 100%;
   grid-area: main;
-  background-color: bisque;
 }
 
 @import "reset";

@@ -18,6 +18,35 @@ const RightSideBar = () => {
       <ProfileCard linkName="Переключиться" />
       <ProfileCard linkName="Переключиться" />
       <ProfileCard linkName="Переключиться" />
+      <footer className={styles.footer}>
+        <ul className={styles.footer__ul}>
+          <li>
+            <a href="https://www.example.com/contact">Информация</a>
+          </li>
+          <li>
+            <a href="https://www.example.com/terms">Помощь</a>
+          </li>
+          <li>
+            <a href="https://www.example.com/terms">API</a>
+          </li>
+          <li>
+            <a href="https://www.example.com/terms">Конфиденциальность</a>
+          </li>
+          <li>
+            <a href="https://www.example.com/terms">Условия</a>
+          </li>
+          <li>
+            <a href="https://www.example.com/terms">Места</a>
+          </li>
+          <li>
+            <a href="https://www.example.com/terms">Язык</a>
+          </li>
+          <li>
+            <a href="https://www.example.com/terms">Meta Verified</a>
+          </li>
+        </ul>
+        <p>© 2023 INSTAGRAM FROM ENLIK</p>
+      </footer>
     </nav>
   );
 };
