@@ -1,0 +1,131 @@
+@import "colors";
+@import "typography.scss";
+@import "buttons";
+
+.post {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__userinfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    a {
+      font-size: 1.4rem;
+      text-decoration: none;
+      color: #000;
+      font-weight: 600;
+    }
+    div,
+    p {
+      font-size: 1.4rem;
+      color: $light-paragraph;
+    }
+    .avatar {
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  &__settings {
+    background-color: transparent;
+    border: none;
+  }
+  &__media {
+    img {
+      border-radius: 0.5rem;
+      width: 100%;
+      max-height: 58rem;
+      object-fit: cover;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    div:first-child {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    button {
+      padding: 0;
+
+      &:hover {
+        img {
+          transition: transform 349ms ease-in-out;
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+
+  &__likes {
+    padding: 0;
+    align-self: baseline;
+    p {
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+  }
+
+  &__caption {
+    line-height: 1.3;
+    a {
+      display: inline-block;
+      vertical-align: top;
+      font-size: 1.4rem;
+      text-decoration: none;
+      color: #000;
+      font-weight: 600;
+      margin-right: 1rem;
+
+      &:hover {
+        color: $light-paragraph;
+      }
+    }
+
+    p {
+      display: inline;
+      vertical-align: top;
+      font-size: 1.4rem;
+      text-decoration: none;
+      color: #000;
+      font-weight: 400;
+    }
+  }
+  &__all_comments {
+    font-size: 1.4rem;
+    color: $light-paragraph;
+    text-decoration: none;
+  }
+  &__addComment {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.1rem solid $light-gray;
+    margin-bottom: 2rem;
+    textarea {
+      font-size: 1.4rem;
+      resize: none;
+      width: 100%;
+      border: none;
+      outline: none;
+    }
+    button {
+      font-size: 1.3rem;
+      width: auto;
+    }
+  }
+}

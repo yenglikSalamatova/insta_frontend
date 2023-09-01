@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "@/styles/storiesBlock.module.scss";
 import Image from "next/image";
+import Story from "./Story";
 
 const CustomPrevArrow = (props) => (
   <div className={styles.slider_prev} onClick={props.onClick}>
@@ -44,10 +45,7 @@ const StoriesBlock = ({ stories }) => {
     <div className={styles.slider}>
       <Slider {...sliderSettings} className={styles.slides}>
         {stories.map((story) => (
-          <div key={story.id} className={styles.slide}>
-            <img src={story.imageUrl} alt="Story" />
-            <p>{story.username}</p>
-          </div>
+          <Story story={story} key={story.id} />
         ))}
       </Slider>
     </div>

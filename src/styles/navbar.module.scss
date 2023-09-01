@@ -29,6 +29,10 @@
 
     &:hover {
       background-color: $white-gray;
+      img {
+        transition: transform 349ms ease-in-out;
+        transform: scale(120%);
+      }
     }
   }
 }

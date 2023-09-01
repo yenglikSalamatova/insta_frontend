@@ -8,6 +8,12 @@ html {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+textarea::placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 .container {
   max-width: 100rem;
   margin: 0 auto;
@@ -48,6 +54,12 @@ h5 {
   justify-self: center;
   width: 100%;
   grid-area: main;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
 }
 
 @import "reset";

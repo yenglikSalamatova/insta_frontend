@@ -7,6 +7,7 @@ module.exports = {
   sassOptions: {
     includePaths: [path.join(__dirname, "src", "app", "styles")],
   },
+  images: {
+    domains: ["loremflickr.com"],
+  },
 };
-
-module.exports = nextConfig;
