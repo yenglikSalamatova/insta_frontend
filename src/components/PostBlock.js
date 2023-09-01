@@ -1,12 +1,32 @@
 "use client";
 
 import React from "react";
+import { useState } from "react";
 import styles from "@/styles/postBlock.module.scss";
 import Image from "next/image";
 import Story from "./Story";
 import Link from "next/link";
 
 const PostBlock = ({ post }) => {
+  // when click to like button "Нравится" replace icon
+  const [like, setLike] = useState(false);
+  const handleLike = () => {
+    setLike(!like);
+  };
+
+  const [textarea, setTextarea] = useState("");
+
+  // when click to textarea view button "Опубликовать"
+  const handleTextarea = (e) => {
+    setTextarea(e.target.value);
+    e.target.style.height = "auto";
+    e.target.style.height = e.target.scrollHeight + "px";
+    // height of textarea have max 80px
+    if (e.target.scrollHeight > 80) {
+      e.target.style.height = "80px";
+    }
+  };
+
   return (
     <div className={styles.post}>
       <div className={styles.post__header}>
@@ -15,9 +35,9 @@ const PostBlock = ({ post }) => {
             <Link href="/">
               <Image
                 src={post.userImage}
-                width={35}
-                height={35}
-                className={styles.avatar}
+                width={38}
+                height={38}
+                className={styles.avatar__active}
                 alt="Avatar image of"
               />
             </Link>
@@ -25,8 +45,8 @@ const PostBlock = ({ post }) => {
             <Link href="/">
               <Image
                 src={post.userImage}
-                width={35}
-                height={35}
+                width={38}
+                height={38}
                 className={styles.avatar}
                 alt="Avatar image of"
               />
@@ -51,13 +71,23 @@ const PostBlock = ({ post }) => {
       </div>
       <div className={styles.post__actions}>
         <div>
-          <button>
-            <Image
-              src="/posts/heart2.svg"
-              width={27}
-              height={27}
-              alt="Like icon"
-            />
+          <button onClick={handleLike}>
+            {like ? (
+              <Image
+                src="/posts/heart_fill.svg"
+                width={27}
+                height={27}
+                alt="Like icon"
+                className={`${styles.heart} ${styles.heart__active}`}
+              />
+            ) : (
+              <Image
+                src="/posts/heart2.svg"
+                width={27}
+                height={27}
+                alt="Like icon"
+              />
+            )}
           </button>
           <button>
             <Image
@@ -98,8 +128,13 @@ const PostBlock = ({ post }) => {
         Посмотреть все комментарии ({post.commentCount})
       </Link>
       <div className={styles.post__addComment}>
-        <textarea placeholder="Добавьте комментарий..."></textarea>
-        <button className={styles.button_regular}>Опубликовать</button>
+        <textarea
+          placeholder="Добавьте комментарий..."
+          onInput={handleTextarea}
+        ></textarea>
+        {textarea === "" ? null : (
+          <button className={styles.button_regular}>Опубликовать</button>
+        )}
       </div>
     </div>
   );

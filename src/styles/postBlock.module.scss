@@ -30,8 +30,17 @@
       color: $light-paragraph;
     }
     .avatar {
+      padding: 0.2rem;
+      border: 0.2rem solid transparent;
       border-radius: 50%;
       object-fit: cover;
+
+      &__active {
+        padding: 0.2rem;
+        border: 0.2rem solid transparent;
+        border-radius: 50%;
+        background: $primary;
+      }
     }
   }
 
@@ -127,5 +136,28 @@
       font-size: 1.3rem;
       width: auto;
     }
+  }
+}
+
+.heart {
+  // add animation with scale and delete this scale after animation
+  animation: heart 0.5s ease-in-out;
+  transform: scale(1.5);
+  animation-fill-mode: forwards;
+  @keyframes heart {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  &__active {
+    filter: invert(13%) sepia(85%) saturate(5816%) hue-rotate(358deg)
+      brightness(108%) contrast(113%);
   }
 }
