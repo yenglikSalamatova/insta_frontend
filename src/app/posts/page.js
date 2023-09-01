@@ -25,7 +25,7 @@ const generateRandomDate = () => {
     Math.random() * (currentDate.getTime() - startDate.getTime());
   const randomDate = new Date(randomTime);
 
-  return randomDate.getTime();
+  return randomDate.toISOString();
 };
 
 const generatePosts = (n) => {

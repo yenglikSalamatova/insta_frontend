@@ -23,7 +23,9 @@ const PostBlock = ({ post }) => {
 
       const date = new Date();
       const currentTimestamp = date.getTime();
-      const seconds = Math.floor((currentTimestamp - post.timestamp) / 1000);
+      // post.timestamp is ISO string format (e.g. "2021-09-01T12:00:00.000Z") so we need to convert it to timestamp
+      const postTimestamp = new Date(post.timestamp).getTime();
+      const seconds = Math.floor((currentTimestamp - postTimestamp) / 1000);
       const minutes = Math.floor(seconds / 60);
       const hours = Math.floor(minutes / 60);
       const days = Math.floor(hours / 24);
