@@ -16,13 +16,16 @@ const generateData = (n) => {
 const storiesData = generateData(10);
 
 const generateRandomDate = () => {
-  const startDate = new Date(2020, 0, 1); // Начальная дата (например, с начала 2020 года)
-  const endDate = new Date(); // Текущая дата
-  const randomDate = new Date(
+  const currentDate = new Date();
+  const startDate = new Date(currentDate);
+  startDate.setDate(currentDate.getDate() - 30); // Начало интервала - 30 дней назад
+
+  const randomTime =
     startDate.getTime() +
-      Math.random() * (endDate.getTime() - startDate.getTime())
-  );
-  return randomDate.toISOString(); // Преобразуем дату в строку в формате ISO
+    Math.random() * (currentDate.getTime() - startDate.getTime());
+  const randomDate = new Date(randomTime);
+
+  return randomDate.getTime();
 };
 
 const generatePosts = (n) => {

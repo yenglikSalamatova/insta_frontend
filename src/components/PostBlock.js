@@ -2,14 +2,59 @@
 
 import React from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 import styles from "@/styles/postBlock.module.scss";
 import Image from "next/image";
 import Story from "./Story";
 import Link from "next/link";
 
 const PostBlock = ({ post }) => {
-  // when click to like button "Нравится" replace icon
   const [like, setLike] = useState(false);
+  const [bookmark, setBookmark] = useState(false);
+
+  const [timestamp, setTimestamp] = useState(post.timestamp);
+
+  useEffect(() => {
+    const calculateTimestamp = () => {
+      if (!post.timestamp) {
+        console.error("Invalid post.timestamp:", post.timestamp);
+        return;
+      }
+
+      const date = new Date();
+      const currentTimestamp = date.getTime();
+      const seconds = Math.floor((currentTimestamp - post.timestamp) / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+      const weeks = Math.floor(days / 7);
+      const months = Math.floor(days / 30);
+      const years = Math.floor(days / 365);
+
+      if (seconds < 60) {
+        setTimestamp(`${seconds} сек.`);
+      } else if (minutes < 60) {
+        setTimestamp(`${minutes} мин.`);
+      } else if (hours < 24) {
+        setTimestamp(`${hours} ч.`);
+      } else if (days < 7) {
+        setTimestamp(`${days} дн.`);
+      } else if (weeks < 4) {
+        setTimestamp(`${weeks} нед.`);
+      } else if (months < 12) {
+        setTimestamp(`${months} месяц.`);
+      } else {
+        setTimestamp(`${years} лет`);
+      }
+    };
+
+    calculateTimestamp();
+  }, [post.timestamp]);
+
+  const handleBookmark = () => {
+    setBookmark(!bookmark);
+  };
+
   const handleLike = () => {
     setLike(!like);
   };
@@ -52,10 +97,9 @@ const PostBlock = ({ post }) => {
               />
             </Link>
           )}
-
           <Link href="/">{post.username}</Link>
           <div>•</div>
-          <p>{post.timestamp}</p>
+          <p>{timestamp}</p>
         </div>
         <button className={styles.post__settings}>
           <Image
@@ -107,13 +151,22 @@ const PostBlock = ({ post }) => {
           </button>
         </div>
         <div>
-          <button>
-            <Image
-              src="/posts/bookmark.svg"
-              width={24}
-              height={24}
-              alt="Bookmark icon"
-            />
+          <button onClick={handleBookmark}>
+            {bookmark ? (
+              <Image
+                src="/posts/bookmark_fill.svg"
+                width={24}
+                height={24}
+                alt="Bookmark icon"
+              />
+            ) : (
+              <Image
+                src="/posts/bookmark.svg"
+                width={24}
+                height={24}
+                alt="Bookmark icon"
+              />
+            )}
           </button>
         </div>
       </div>
