@@ -12,47 +12,6 @@ const PostBlock = ({ post }) => {
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
 
-  const [timestamp, setTimestamp] = useState(post.timestamp);
-
-  useEffect(() => {
-    const calculateTimestamp = () => {
-      if (!post.timestamp) {
-        console.error("Invalid post.timestamp:", post.timestamp);
-        return;
-      }
-
-      const date = new Date();
-      const currentTimestamp = date.getTime();
-      // post.timestamp is ISO string format (e.g. "2021-09-01T12:00:00.000Z") so we need to convert it to timestamp
-      const postTimestamp = new Date(post.timestamp).getTime();
-      const seconds = Math.floor((currentTimestamp - postTimestamp) / 1000);
-      const minutes = Math.floor(seconds / 60);
-      const hours = Math.floor(minutes / 60);
-      const days = Math.floor(hours / 24);
-      const weeks = Math.floor(days / 7);
-      const months = Math.floor(days / 30);
-      const years = Math.floor(days / 365);
-
-      if (seconds < 60) {
-        setTimestamp(`${seconds} сек.`);
-      } else if (minutes < 60) {
-        setTimestamp(`${minutes} мин.`);
-      } else if (hours < 24) {
-        setTimestamp(`${hours} ч.`);
-      } else if (days < 7) {
-        setTimestamp(`${days} дн.`);
-      } else if (weeks < 4) {
-        setTimestamp(`${weeks} нед.`);
-      } else if (months < 12) {
-        setTimestamp(`${months} месяц.`);
-      } else {
-        setTimestamp(`${years} лет`);
-      }
-    };
-
-    calculateTimestamp();
-  }, [post.timestamp]);
-
   const handleBookmark = () => {
     setBookmark(!bookmark);
   };
@@ -101,7 +60,7 @@ const PostBlock = ({ post }) => {
           )}
           <Link href="/">{post.username}</Link>
           <div>•</div>
-          <p>{timestamp}</p>
+          <p>{post.timestamp}</p>
         </div>
         <button className={styles.post__settings}>
           <Image
