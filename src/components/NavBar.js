@@ -31,7 +31,7 @@ const NavBar = () => {
           <Image
             className={styles.logo}
             src="/logo.png"
-            width={110}
+            width={135}
             height={0}
             alt="Instagram logo"
           />

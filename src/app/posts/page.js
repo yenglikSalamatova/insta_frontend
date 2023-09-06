@@ -1,5 +1,7 @@
 import StoriesBlock from "@/components/StoriesBlock";
 import PostsBlock from "@/components/PostsBlock";
+import RightSideBar from "@/components/RightSideBar";
+import LayoutWithNav from "@/components/layouts/LayoutWithNav";
 
 const generateData = (n) => {
   const data = [];
@@ -54,10 +56,13 @@ const instagramPosts = generatePosts(10); // Генерируем 10 посто�
 
 const PostsPage = () => {
   return (
-    <main className="main">
-      <StoriesBlock stories={storiesData} />
-      <PostsBlock posts={instagramPosts} />
-    </main>
+    <LayoutWithNav>
+      <main className="main">
+        <StoriesBlock stories={storiesData} />
+        <PostsBlock posts={instagramPosts} />
+      </main>
+      <RightSideBar />
+    </LayoutWithNav>
   );
 };
 

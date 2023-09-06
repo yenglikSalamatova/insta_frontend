@@ -1,0 +1,131 @@
+@import "colors";
+@import "postBlock.module";
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__content {
+    position: relative;
+    max-width: 120rem;
+    max-height: 80rem;
+    background-color: $white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1999;
+    display: grid;
+    grid-template-columns: 70rem 50rem;
+  }
+
+  &__media {
+    background-color: $black;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__media img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+
+  &__info {
+    padding: 2rem;
+    width: 100%;
+    height: 100%;
+
+    .post {
+      width: 100%;
+
+      &__comments {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .avatar {
+          align-self: flex-start;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+
+      &__addComment {
+        border: none;
+        margin-bottom: 0;
+      }
+
+      &__footer {
+        position: absolute;
+        bottom: 0;
+        width: calc(50rem - 4rem);
+        background-color: $white;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        border-top: 0.2rem solid $white-gray;
+        border-bottom: 0.2rem solid $white-gray;
+      }
+    }
+  }
+  &__close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    cursor: pointer;
+    z-index: 2000;
+  }
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1998;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.comments {
+  &__text {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+
+    a {
+      text-decoration: none;
+      font-weight: 600;
+      color: $black;
+
+      &:hover {
+        color: $light-paragraph;
+      }
+    }
+  }
+  &__main {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.comments_container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-height: 50rem;
+  overflow: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}

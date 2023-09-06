@@ -38,8 +38,7 @@
   border-width: 0.2rem;
   border-image-slice: 1;
   border-style: solid;
-  background: linear-gradient(white, white) padding-box,
-    linear-gradient(to right, rgb(253, 193, 81), rgb(235, 80, 150)) border-box;
+  background: $primary;
   border: 0.2rem solid transparent;
 }
 

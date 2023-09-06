@@ -118,6 +118,8 @@
     font-size: 1.4rem;
     color: $light-paragraph;
     text-decoration: none;
+    width: fit-content;
+    padding: 0;
   }
   &__addComment {
     display: flex;

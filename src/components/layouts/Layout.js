@@ -4,7 +4,7 @@ export const metadata = {
   title: "Вход • Instagram",
 };
 
-export default function LoginLayout({ children }) {
+export default function Layout({ children }) {
   return (
     <div className="container">
       {children}

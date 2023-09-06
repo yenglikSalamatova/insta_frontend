@@ -12,6 +12,10 @@ html {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+body {
+  font-size: 1.4rem;
+}
+
 textarea::placeholder {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
@@ -35,6 +39,7 @@ textarea::placeholder {
 }
 
 .container-main {
+  position: relative;
   display: grid;
   grid-template-columns: 33rem 1fr;
 }
@@ -64,6 +69,11 @@ button {
   cursor: pointer;
   border: none;
   background-color: transparent;
+}
+
+textarea {
+  font-family: inherit;
+  resize: none;
 }
 
 @import "reset";

@@ -6,13 +6,12 @@ export const metadata = {
   title: "Instagram",
 };
 
-export default function LoginLayout({ children }) {
+export default function LayoutWithNav({ children }) {
   return (
     <div className="container-main">
       <NavBar />
       <div className="container">
         {children}
-        <RightSideBar />
         <Footer />
       </div>
     </div>
