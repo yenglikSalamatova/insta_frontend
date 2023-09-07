@@ -32,11 +32,15 @@
   }
 }
 
-.info__subscribtions {
+.info__subscriptions {
   display: flex;
   align-items: center;
   gap: 3rem;
   font-size: 1.6rem;
+
+  button {
+    font-size: 1.6rem;
+  }
 }
 
 .posts__type {
@@ -46,6 +50,9 @@
   border-top: 0.1rem solid $light-gray;
 
   button {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     font-size: 1.2rem;
     font-weight: 600;
     text-transform: uppercase;

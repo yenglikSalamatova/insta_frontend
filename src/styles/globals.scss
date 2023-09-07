@@ -1,5 +1,6 @@
 @import "colors";
 @import "typography.scss";
+@import "reset";
 
 * {
   box-sizing: border-box;
@@ -79,11 +80,10 @@ button {
   cursor: pointer;
   border: none;
   background-color: transparent;
+  font-family: inherit;
 }
 
 textarea {
   font-family: inherit;
   resize: none;
 }
-
-@import "reset";

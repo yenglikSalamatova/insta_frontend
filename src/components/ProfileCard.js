@@ -2,7 +2,7 @@ import styles from "@/styles/profileCard.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 
-const ProfileCard = ({ linkName }) => {
+const ProfileCard = ({ linkName, type }) => {
   return (
     <div className={styles.profile_card}>
       <div className={styles.card_image_username}>
@@ -19,9 +19,13 @@ const ProfileCard = ({ linkName }) => {
         </div>
       </div>
       <div>
-        <Link href="/" className={styles.link}>
-          {linkName}
-        </Link>
+        {type === "btn" ? (
+          <button className={styles.button_secondary}>{linkName}</button>
+        ) : (
+          <Link href="/" className={styles.link}>
+            {linkName}
+          </Link>
+        )}
       </div>
     </div>
   );

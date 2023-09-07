@@ -1,0 +1,19 @@
+@import "colors";
+.search {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.8rem 1rem;
+  background-color: $button-secondary;
+  display: flex;
+  align-items: center;
+  border-radius: 1rem;
+  gap: 1rem;
+}
+
+.search_input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 1.3rem;
+}
