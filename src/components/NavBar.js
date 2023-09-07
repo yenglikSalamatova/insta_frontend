@@ -37,7 +37,7 @@ const NavBar = () => {
           />
         </Link>
 
-        <Link href="/">
+        <Link href="/posts">
           <Image
             className="img"
             src="/posts/house_stroke.svg"
@@ -107,7 +107,7 @@ const NavBar = () => {
           />
           Создать
         </Link>
-        <Link href="/">
+        <Link href="/profile">
           <Image
             className="avatar"
             src="/posts/avatar_sample.webp"

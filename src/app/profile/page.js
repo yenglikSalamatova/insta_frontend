@@ -43,12 +43,6 @@ export default function Profile() {
           <div className={styles.posts__item}>
             <Image src="/posts/photo.avif" width={300} height={300} />
           </div>
-          <div className={styles.posts__item}>
-            <Image src="/posts/photo.avif" width={300} height={300} />
-          </div>
-          <div className={styles.posts__item}>
-            <Image src="/posts/photo.avif" width={300} height={300} />
-          </div>
         </div>
       </div>
     </LayoutNavOneColumn>
