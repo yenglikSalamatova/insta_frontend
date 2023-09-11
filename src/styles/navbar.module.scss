@@ -36,3 +36,11 @@
     }
   }
 }
+
+.active {
+  font-weight: 700;
+
+  .avatar {
+    border: 0.2rem solid $black;
+  }
+}

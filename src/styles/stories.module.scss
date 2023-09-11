@@ -1,0 +1,127 @@
+@import "colors";
+.logo {
+  position: absolute;
+  height: auto;
+  margin-bottom: 3rem;
+}
+
+.stories {
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 5rem;
+  position: relative;
+  color: $white;
+  width: 100vw;
+  height: 100vh;
+  padding: 2rem 10rem;
+  background-color: $background-stories;
+  button,
+  a {
+    img {
+      filter: invert(100%) sepia(75%) saturate(2%) hue-rotate(207deg)
+        brightness(116%) contrast(100%);
+    }
+  }
+}
+
+.story {
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 1rem;
+  width: calc(55rem / 2);
+  height: calc(96vh / 2);
+  grid-row: 2/3;
+  justify-self: center;
+
+  &.active {
+    margin: 0 auto;
+    width: 55rem;
+    height: 96vh;
+    grid-column: 2/3;
+    grid-row: 1/4;
+  }
+  &_header {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  &_lenght {
+    display: flex;
+    gap: 0.5rem;
+
+    &_item {
+      width: 100%;
+      height: 0.2rem;
+      background-color: $white;
+      border-radius: 0.5rem;
+    }
+  }
+}
+
+.header_user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.story_footer {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.footer_comment {
+  width: 100%;
+  padding: 1rem;
+  border: 0.1rem solid $white;
+  border-radius: 2rem;
+
+  input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: $white;
+    font-size: 1.4rem;
+
+    &::placeholder {
+      color: $white;
+    }
+  }
+}
+
+.slider_prev > img,
+.slider_next > img {
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.slider_prev,
+.slider_next {
+  z-index: 100;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+.slider_prev {
+  padding: 0 1.6rem;
+  left: -5.5rem;
+}
+.slider_next {
+  padding: 0 1.6rem;
+  right: -5.5rem;
+}

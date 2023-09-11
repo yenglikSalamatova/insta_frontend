@@ -5,10 +5,12 @@ import styles from "@/styles/navbar.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import CreatePostModal from "./CreatePostModal";
+import { usePathname } from "next/navigation";
 
 const NavBar = () => {
   const [createPost, setCreatePost] = useState(false);
-
+  const pathname = usePathname();
+  console.log(pathname);
   const handleCreatePost = () => {
     setCreatePost(!createPost);
     if (!createPost) {
@@ -27,7 +29,7 @@ const NavBar = () => {
     <>
       {createPost ? <CreatePostModal onCreatePost={handleCreatePost} /> : null}
       <nav className={styles.navbar}>
-        <Link href="/posts">
+        <Link href="/">
           <Image
             className={styles.logo}
             src="/logo.png"
@@ -37,16 +39,30 @@ const NavBar = () => {
           />
         </Link>
 
-        <Link href="/posts">
-          <Image
-            className="img"
-            src="/posts/house_stroke.svg"
-            width={24}
-            height={0}
-            alt="House Stroke Icon"
-          />
-          Главная
-        </Link>
+        {pathname === "/" ? (
+          <Link href="/" className={styles.active}>
+            <Image
+              className="img"
+              src="/posts/house_fill.svg"
+              width={24}
+              height={0}
+              alt="House Stroke Icon"
+            />
+            Главная
+          </Link>
+        ) : (
+          <Link href="/">
+            <Image
+              className="img"
+              src="/posts/house_stroke.svg"
+              width={24}
+              height={0}
+              alt="House Stroke Icon"
+            />
+            Главная
+          </Link>
+        )}
+
         <Link href="/">
           <Image
             className="img"
@@ -107,16 +123,29 @@ const NavBar = () => {
           />
           Создать
         </Link>
-        <Link href="/profile">
-          <Image
-            className="avatar"
-            src="/posts/avatar_sample.webp"
-            width={24}
-            height={0}
-            alt="Your Avatar"
-          />
-          Профиль
-        </Link>
+        {pathname.startsWith("profile") ? (
+          <Link href="/profile/1" className={styles.active}>
+            <Image
+              className={`${styles.avatar} avatar`}
+              src="/posts/avatar_sample.webp"
+              width={24}
+              height={0}
+              alt="Your Avatar"
+            />
+            Профиль
+          </Link>
+        ) : (
+          <Link href="/profile/1">
+            <Image
+              className={`${styles.avatar} avatar`}
+              src="/posts/avatar_sample.webp"
+              width={24}
+              height={0}
+              alt="Your Avatar"
+            />
+            Профиль
+          </Link>
+        )}
       </nav>
     </>
   );
