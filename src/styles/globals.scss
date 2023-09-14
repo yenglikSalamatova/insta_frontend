@@ -87,3 +87,9 @@ textarea {
   font-family: inherit;
   resize: none;
 }
+
+.error_info {
+  padding: 1rem;
+  color: $color-red;
+  font-weight: 600;
+}

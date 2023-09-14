@@ -3,24 +3,55 @@ import Image from "next/image";
 import styles from "@/styles/register.module.scss";
 import { DaySelector, MonthSelector, YearSelector } from "./DateSelectors";
 import { useState } from "react";
+import axios from "axios";
+import { END_POINT } from "@/utils/endPoint";
 
-const Step2 = ({ onNext, onPrev }) => {
+const Step2 = ({ onNext, onPrev, onInputChange, formData }) => {
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
+  const [error, setError] = useState("");
 
   const isFormValid = day && month && year;
 
   const handleDayChange = (event) => {
     setDay(event.target.value);
+    updateBirthdayDate(event.target.value, month, year);
   };
 
   const handleMonthChange = (event) => {
     setMonth(event.target.value);
+    updateBirthdayDate(day, event.target.value, year);
   };
 
   const handleYearChange = (event) => {
     setYear(event.target.value);
+    updateBirthdayDate(day, month, event.target.value);
+  };
+
+  const updateBirthdayDate = (day, month, year) => {
+    if (day && month && year) {
+      const birthday_date = `${year}/${month}/${day}`;
+      onInputChange({
+        target: { name: "birthday_date", value: birthday_date },
+      });
+    }
+  };
+
+  const handleRegistration = async () => {
+    try {
+      const response = await axios.post(
+        `${END_POINT}/api/auth/register`,
+        formData
+      );
+      if (response.status === 200) {
+        onNext();
+      }
+    } catch (error) {
+      if (error.response.data.error) setError(error.response.data.error);
+      else setError(error.message);
+      console.log(error);
+    }
   };
 
   return (
@@ -41,12 +72,11 @@ const Step2 = ({ onNext, onPrev }) => {
       </div>
 
       <div className={styles.form__birth}>
-        {" "}
         <DaySelector value={day} onChange={handleDayChange} />
         <MonthSelector value={month} onChange={handleMonthChange} />
         <YearSelector value={year} onChange={handleYearChange} />
       </div>
-
+      {error && <p className="error_info">{error}</p>}
       <p className={styles.form__info}>Требуется ввести дату вашего рождения</p>
       <p className={styles.form__info}>
         Укажите собственный день рождения, даже если вы создаете этот аккаунт
@@ -54,7 +84,8 @@ const Step2 = ({ onNext, onPrev }) => {
       </p>
       <button
         className={styles.button_blue}
-        onClick={onNext}
+        onClick={handleRegistration}
+        type="button"
         disabled={!isFormValid}
       >
         Далее

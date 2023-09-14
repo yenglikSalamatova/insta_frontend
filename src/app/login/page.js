@@ -6,9 +6,14 @@ import Image from "next/image";
 import styles from "@/styles/register.module.scss";
 import Link from "next/link";
 import Layout from "@/components/layouts/Layout";
+import { useSelector, useDispatch } from "react-redux";
+import { loginAsync } from "@/app/store/slice/authSlice";
 
 const LoginPage = () => {
   const router = useRouter();
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const error = useSelector((state) => state.auth.error);
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +29,9 @@ const LoginPage = () => {
   };
 
   const handleButtonClick = (e) => {
-    router.replace("/posts");
+    e.preventDefault();
+    dispatch(loginAsync(email, password));
+    if (isAuth) router.replace("/");
   };
 
   return (
@@ -55,6 +62,7 @@ const LoginPage = () => {
             value={password}
             onChange={handlePasswordChange}
           />
+          {error && <p className="error_info">{error}</p>}
           <button
             type="button"
             className={styles.button_blue}

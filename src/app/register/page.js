@@ -11,6 +11,20 @@ import Layout from "@/components/layouts/Layout";
 
 export default function RegisterPage() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState({
+    email: "",
+    full_name: "",
+    username: "",
+    password: "",
+    birthday_date: "",
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const nextStep = () => {
     setCurrentStep(currentStep + 1);
@@ -24,9 +38,24 @@ export default function RegisterPage() {
     <Layout>
       <main className={styles.main_center}>
         <form className={styles.form}>
-          {currentStep === 1 && <Step1 onNext={nextStep} />}
-          {currentStep === 2 && <Step2 onNext={nextStep} onPrev={prevStep} />}
-          {currentStep === 3 && <Step3 onNext={nextStep} onPrev={prevStep} />}
+          {currentStep === 1 && (
+            <Step1
+              onNext={nextStep}
+              onInputChange={handleInputChange}
+              formData={formData}
+            />
+          )}
+          {currentStep === 2 && (
+            <Step2
+              onNext={nextStep}
+              onPrev={prevStep}
+              onInputChange={handleInputChange}
+              formData={formData}
+            />
+          )}
+          {currentStep === 3 && (
+            <Step3 onPrev={prevStep} email={formData.email} />
+          )}
         </form>
         <div className={styles.form}>
           <p className={styles.text}>
