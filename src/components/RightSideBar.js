@@ -1,23 +1,31 @@
+"use client";
 import styles from "@/styles/rightsidebar.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import ProfileCard from "@/components/ProfileCard";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "@/app/store/slice/authSlice";
 
 const RightSideBar = () => {
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <nav className={styles.nav}>
-      <ProfileCard linkName="Переключиться" />
+      <ProfileCard linkName="Выйти" type="logout" onLogout={handleLogout} />
       <div className={styles.recomended}>
         <p className={styles.text}>Рекомендации для вас</p>
-        <Link href="/" className={styles.link}>
-          Все
-        </Link>
       </div>
-      <ProfileCard linkName="Переключиться" />
-      <ProfileCard linkName="Переключиться" />
-      <ProfileCard linkName="Переключиться" />
-      <ProfileCard linkName="Переключиться" />
-      <ProfileCard linkName="Переключиться" />
+      <ProfileCard linkName="Подписаться" />
+      <ProfileCard linkName="Подписаться" />
+      <ProfileCard linkName="Подписаться" />
+      <ProfileCard linkName="Подписаться" />
+      <ProfileCard linkName="Подписаться" />
       <footer className={styles.footer}>
         <ul className={styles.footer__ul}>
           <li>

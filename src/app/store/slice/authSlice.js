@@ -15,11 +15,13 @@ const authSlice = createSlice({
       state.isAuth = true;
       state.token = action.payload.token;
       state.error = null;
+      state.currentUser = action.payload.user;
     },
     logout(state) {
       state.isAuth = false;
       state.currentUser = null;
       state.error = null;
+      state.token = null;
     },
     setError(state, action) {
       state.error = action.payload;
@@ -37,7 +39,9 @@ export const loginAsync = (email, password) => async (dispatch) => {
     });
     if (res.status === 200) {
       const token = res.data.token;
-      dispatch(login(token));
+      const user = res.data.user;
+      dispatch(login(token, user));
+      // localStorage.setItem("isAuth", "true");
     }
   } catch (error) {
     console.log(error);
@@ -46,5 +50,12 @@ export const loginAsync = (email, password) => async (dispatch) => {
     else dispatch(setError(error.message));
   }
 };
+
+// export const initializeApp = () => (dispatch) => {
+//   const isAuth = localStorage.getItem("isAuth");
+//   if (isAuth) {
+//     dispatch(login());
+//   }
+// };
 
 export default authSlice.reducer;

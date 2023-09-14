@@ -37,6 +37,7 @@ const LoginPage = () => {
   return (
     <Layout>
       <main className={styles.main_center}>
+        {/* {isAuth ? "true" : "false"} */}
         <form className={styles.form}>
           <div className={styles.form__header}>
             <Image

@@ -1,5 +1,5 @@
 import "@/styles/globals.scss";
-import ReduxProvider from "./store/ReduxProvider";
+import ReduxProvider from "@/app/store/ReduxProvider";
 
 export const metadata = {
   title: "Instagram",
