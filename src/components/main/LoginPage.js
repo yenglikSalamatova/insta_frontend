@@ -31,7 +31,7 @@ const LoginPage = () => {
   const handleButtonClick = (e) => {
     e.preventDefault();
     dispatch(loginAsync(email, password));
-    if (isAuth) router.replace("/");
+    router.push("/");
   };
 
   return (

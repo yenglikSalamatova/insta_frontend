@@ -1,6 +1,5 @@
 import Footer from "@/components/Footer";
 import NavBar from "@/components/NavBar";
-import RightSideBar from "@/components/RightSideBar";
 
 export const metadata = {
   title: "Instagram",

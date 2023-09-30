@@ -9,6 +9,7 @@ import { logout } from "@/app/store/slice/authSlice";
 const RightSideBar = () => {
   const isAuth = useSelector((state) => state.auth.isAuth);
   const currentUser = useSelector((state) => state.auth.currentUser);
+  console.log(currentUser, isAuth);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -17,7 +18,12 @@ const RightSideBar = () => {
 
   return (
     <nav className={styles.nav}>
-      <ProfileCard linkName="Выйти" type="logout" onLogout={handleLogout} />
+      <ProfileCard
+        linkName="Выйти"
+        type="logout"
+        onLogout={handleLogout}
+        currentUser={currentUser}
+      />
       <div className={styles.recomended}>
         <p className={styles.text}>Рекомендации для вас</p>
       </div>

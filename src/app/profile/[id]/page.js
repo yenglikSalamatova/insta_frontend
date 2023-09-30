@@ -4,9 +4,13 @@ import styles from "@/styles/profie.module.scss";
 import Image from "next/image";
 import { useState } from "react";
 import SubscribeModal from "@/components/SubscibeModal";
+import { useParams } from "next/navigation";
 
 export default function Profile() {
   const [modal, setModal] = useState(false);
+
+  const { id } = useParams();
+  console.log(id);
 
   function handleModal() {
     setModal(!modal);

@@ -1,9 +1,15 @@
 "use client";
-
+import useAuth from "@/app/store/slice/useAuth";
 import LoginPage from "@/components/main/LoginPage";
+import { useSelector } from "react-redux";
 import PostsPage from "@/components/main/PostsPage";
-import { useSelector, useDispatch } from "react-redux";
+
 export default function Home() {
+  // FIX: Возможно придется доработать, появляется логин пока грузится currentUser
+
+  useAuth();
   const isAuth = useSelector((state) => state.auth.isAuth);
-  return <div>{isAuth ? <PostsPage /> : <LoginPage />}</div>;
+  console.log(isAuth);
+  if (!isAuth) return <LoginPage />;
+  return <PostsPage />;
 }

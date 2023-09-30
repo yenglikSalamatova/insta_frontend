@@ -1,16 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
 import styles from "@/styles/navbar.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import CreatePostModal from "./CreatePostModal";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const [createPost, setCreatePost] = useState(false);
+
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  console.log(currentUser);
+
   const pathname = usePathname();
-  console.log(pathname);
+
   const handleCreatePost = () => {
     setCreatePost(!createPost);
     if (!createPost) {
@@ -25,9 +30,13 @@ const NavBar = () => {
     }
   };
 
+  if (!currentUser) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
-      {createPost ? <CreatePostModal onCreatePost={handleCreatePost} /> : null}
+      {createPost && <CreatePostModal onCreatePost={handleCreatePost} />}
       <nav className={styles.navbar}>
         <Link href="/">
           <Image
@@ -39,29 +48,18 @@ const NavBar = () => {
           />
         </Link>
 
-        {pathname === "/" ? (
-          <Link href="/" className={styles.active}>
-            <Image
-              className="img"
-              src="/posts/house_fill.svg"
-              width={24}
-              height={0}
-              alt="House Stroke Icon"
-            />
-            Главная
-          </Link>
-        ) : (
-          <Link href="/">
-            <Image
-              className="img"
-              src="/posts/house_stroke.svg"
-              width={24}
-              height={0}
-              alt="House Stroke Icon"
-            />
-            Главная
-          </Link>
-        )}
+        <Link href="/" className={pathname === "/" ? styles.active : ""}>
+          <Image
+            className="img"
+            src={`/posts/${
+              pathname === "/" ? "house_fill" : "house_stroke"
+            }.svg`}
+            width={24}
+            height={0}
+            alt="House Stroke Icon"
+          />
+          Главная
+        </Link>
 
         <Link href="/">
           <Image
@@ -123,29 +121,22 @@ const NavBar = () => {
           />
           Создать
         </Link>
-        {pathname.startsWith("profile") ? (
-          <Link href="/profile/1" className={styles.active}>
-            <Image
-              className={`${styles.avatar} avatar`}
-              src="/posts/avatar_sample.webp"
-              width={24}
-              height={0}
-              alt="Your Avatar"
-            />
-            Профиль
-          </Link>
-        ) : (
-          <Link href="/profile/1">
-            <Image
-              className={`${styles.avatar} avatar`}
-              src="/posts/avatar_sample.webp"
-              width={24}
-              height={0}
-              alt="Your Avatar"
-            />
-            Профиль
-          </Link>
-        )}
+
+        <Link
+          href={`/profile/${currentUser.id}`}
+          className={
+            pathname === `/profile/${currentUser.id}` ? styles.active : ""
+          }
+        >
+          <Image
+            className={`${styles.avatar} avatar`}
+            src={currentUser.profilePicture}
+            width={24}
+            height={0}
+            alt="Your Avatar"
+          />
+          Профиль
+        </Link>
       </nav>
     </>
   );

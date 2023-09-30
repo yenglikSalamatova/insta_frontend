@@ -53,13 +53,6 @@ const generatePosts = (n) => {
 // Генерируем 10 постов
 
 const PostsPage = () => {
-  // const router = useRouter();
-  // const isAuth = useSelector((state) => state.auth.isAuth);
-
-  // useEffect(() => {
-  //   if (!isAuth) router.replace("/login");
-  // }, [isAuth, router]);
-
   const storiesData = generateData(10);
   const instagramPosts = generatePosts(10);
 
