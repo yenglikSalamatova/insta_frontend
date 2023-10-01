@@ -8,20 +8,29 @@ const postsSlice = createSlice({
   name: "posts",
   initialState: {
     myPosts: [],
+    posts: [],
   },
   reducers: {
     setMyPosts(state, action) {
       state.myPosts = action.payload;
     },
+    setPosts(state, action) {
+      state.posts = action.payload;
+    },
   },
 });
 
-export const { setMyPosts } = postsSlice.actions;
+export const { setMyPosts, setPosts } = postsSlice.actions;
 
 export const getFollowedPosts = () => async (dispatch) => {
   try {
-    const res = await axios.get(`${END_POINT}/api/posts`);
-    if (res.status === 200) {
+    const token = localStorage.getItem("token");
+    const res = await axios.get(`${END_POINT}/api/posts`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.status == 201) {
+      console.log(res);
+      dispatch(setPosts(res.data));
     }
   } catch (error) {
     console.log(error);

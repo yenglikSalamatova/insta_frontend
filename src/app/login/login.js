@@ -37,9 +37,9 @@ const LoginPage = () => {
     setPassword(event.target.value);
   };
 
-  const handleButtonClick = (e) => {
+  const handleButtonClick = async (e) => {
     e.preventDefault();
-    dispatch(loginAsync(email, password));
+    await dispatch(loginAsync(email, password));
     router.push("/posts");
   };
 

@@ -8,6 +8,6 @@ module.exports = {
     includePaths: [path.join(__dirname, "src", "app", "styles")],
   },
   images: {
-    domains: ["loremflickr.com"],
+    domains: ["loremflickr.com", "167.71.58.8"],
   },
 };

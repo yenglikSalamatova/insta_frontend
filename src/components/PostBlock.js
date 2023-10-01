@@ -8,6 +8,7 @@ import Image from "next/image";
 import Story from "./Story";
 import Link from "next/link";
 import PostModal from "./PostModal";
+import { END_POINT } from "@/utils/endPoint";
 
 const PostBlock = ({ post }) => {
   const [like, setLike] = useState(false);
@@ -37,6 +38,8 @@ const PostBlock = ({ post }) => {
     setPostModal(!postModal);
   };
 
+  console.log(post);
+
   return (
     <>
       {postModal && (
@@ -57,7 +60,7 @@ const PostBlock = ({ post }) => {
             {post.story === true ? (
               <Link href="/">
                 <Image
-                  src={post.userImage}
+                  src={`${END_POINT}${post.user.profilePicture}`}
                   width={38}
                   height={38}
                   className={styles.avatar__active}
@@ -67,7 +70,7 @@ const PostBlock = ({ post }) => {
             ) : (
               <Link href="/">
                 <Image
-                  src={post.userImage}
+                  src={`${END_POINT}${post.user.profilePicture}`}
                   width={38}
                   height={38}
                   className={styles.avatar}
@@ -75,9 +78,9 @@ const PostBlock = ({ post }) => {
                 />
               </Link>
             )}
-            <Link href="/">{post.username}</Link>
+            <Link href="/">{post.user.username}</Link>
             <div>•</div>
-            <p>{post.timestamp}</p>
+            <p>{post.media[0].updatedAt}</p>
           </div>
           <button className={styles.post__settings}>
             <Image
@@ -89,7 +92,7 @@ const PostBlock = ({ post }) => {
           </button>
         </div>
         <div className={styles.post__media}>
-          <img src={post.media} alt="photo" />
+          <img src={`${END_POINT}${post.media[0].url}`} alt="photo" />
         </div>
         <div className={styles.post__actions}>
           <div>
@@ -149,16 +152,22 @@ const PostBlock = ({ post }) => {
           </div>
         </div>
         <button className={styles.post__likes}>
-          <p>{post.likes} отметок &quot;Нравится&quot;</p>
+          <p>{post.likesCount} отметок &quot;Нравится&quot;</p>
         </button>
         <div className={styles.post__caption}>
-          <Link href="/">{post.username}</Link>
+          <Link href="/">{post.user.username}</Link>
           <p>{post.caption}</p>
         </div>
 
-        <button className={styles.post__all_comments} onClick={handlePostModal}>
-          Посмотреть все комментарии ({post.commentCount})
-        </button>
+        {post.commentsCount > 0 && (
+          <button
+            className={styles.post__all_comments}
+            onClick={handlePostModal}
+          >
+            Посмотреть все комментарии ({post.commentsCount})
+          </button>
+        )}
+
         <div className={styles.post__addComment}>
           <textarea
             placeholder="Добавьте комментарий..."

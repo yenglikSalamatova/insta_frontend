@@ -8,11 +8,8 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-const NavBar = () => {
+const NavBar = ({ currentUser }) => {
   const [createPost, setCreatePost] = useState(false);
-
-  const currentUser = useSelector((state) => state.auth.currentUser);
-  console.log(currentUser);
 
   const pathname = usePathname();
 
@@ -29,10 +26,6 @@ const NavBar = () => {
       document.body.style.width = "100%";
     }
   };
-
-  if (!currentUser) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <>

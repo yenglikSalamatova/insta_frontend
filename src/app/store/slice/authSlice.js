@@ -22,6 +22,9 @@ const authSlice = createSlice({
       state.currentUser = action.payload.user;
       state.tokenExp = action.payload.tokenExp;
       state.error = null;
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${action.payload.token}`;
     },
     logout(state) {
       localStorage.removeItem("token");
@@ -49,7 +52,6 @@ export const loginAsync = (email, password) => async (dispatch) => {
       const { token } = res.data;
       dispatch(login({ token }));
       localStorage.setItem("token", token);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
   } catch (error) {
     console.log(error);
