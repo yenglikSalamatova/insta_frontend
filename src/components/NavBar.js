@@ -123,9 +123,9 @@ const NavBar = () => {
         </Link>
 
         <Link
-          href={`/profile/${currentUser.id}`}
+          href={`/profile/${currentUser.username}`}
           className={
-            pathname === `/profile/${currentUser.id}` ? styles.active : ""
+            pathname === `/profile/${currentUser.username}` ? styles.active : ""
           }
         >
           <Image
