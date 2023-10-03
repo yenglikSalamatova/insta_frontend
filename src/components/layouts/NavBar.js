@@ -3,15 +3,18 @@
 import styles from "@/styles/navbar.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import CreatePostModal from "./CreatePostModal";
+import CreatePostModal from "../modals/CreatePostModal";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { END_POINT } from "@/utils/endPoint";
 
-const NavBar = ({ currentUser }) => {
+const NavBar = () => {
   const [createPost, setCreatePost] = useState(false);
+  const currentUser = useSelector((state) => state.auth.currentUser);
 
   const pathname = usePathname();
+  console.log(currentUser);
 
   const handleCreatePost = () => {
     setCreatePost(!createPost);
@@ -27,9 +30,13 @@ const NavBar = ({ currentUser }) => {
     }
   };
 
+  if (!currentUser) {
+    return null;
+  }
+
   return (
     <>
-      {createPost && <CreatePostModal onCreatePost={handleCreatePost} />}
+      {createPost && <CreatePostModal onCreatePostModal={handleCreatePost} />}
       <nav className={styles.navbar}>
         <Link href="/">
           <Image
@@ -41,11 +48,11 @@ const NavBar = ({ currentUser }) => {
           />
         </Link>
 
-        <Link href="/" className={pathname === "/" ? styles.active : ""}>
+        <Link href="/posts" className={pathname === "/" ? styles.active : ""}>
           <Image
             className="img"
             src={`/posts/${
-              pathname === "/" ? "house_fill" : "house_stroke"
+              pathname === "/posts" ? "house_fill" : "house_stroke"
             }.svg`}
             width={24}
             height={0}
@@ -123,7 +130,7 @@ const NavBar = ({ currentUser }) => {
         >
           <Image
             className={`${styles.avatar} avatar`}
-            src={currentUser.profilePicture}
+            src={`${END_POINT}${currentUser.profilePicture}`}
             width={24}
             height={0}
             alt="Your Avatar"

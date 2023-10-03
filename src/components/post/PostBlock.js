@@ -5,16 +5,20 @@ import { useState } from "react";
 import { useEffect } from "react";
 import styles from "@/styles/postBlock.module.scss";
 import Image from "next/image";
-import Story from "./Story";
+import Story from "../stories/Story";
 import Link from "next/link";
-import PostModal from "./PostModal";
+import PostModal from "../modals/PostModal";
 import { END_POINT } from "@/utils/endPoint";
+import { useRouter } from "next/navigation";
+import { timestampConvert } from "@/utils/timestampConvert";
 
 const PostBlock = ({ post }) => {
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
   const [textarea, setTextarea] = useState("");
   const [postModal, setPostModal] = useState(false);
+
+  const router = useRouter();
 
   const handleBookmark = () => {
     setBookmark(!bookmark);
@@ -34,7 +38,7 @@ const PostBlock = ({ post }) => {
     }
   };
 
-  const handlePostModal = () => {
+  const togglePostModal = () => {
     setPostModal(!postModal);
   };
 
@@ -43,16 +47,7 @@ const PostBlock = ({ post }) => {
   return (
     <>
       {postModal && (
-        <PostModal
-          post={post}
-          handlePostModal={handlePostModal}
-          handleLike={handleLike}
-          handleBookmark={handleBookmark}
-          handleTextarea={handleTextarea}
-          like={like}
-          bookmark={bookmark}
-          textarea={textarea}
-        />
+        <PostModal postId={post.id} togglePostModal={togglePostModal} />
       )}
       <div className={styles.post}>
         <div className={styles.post__header}>
@@ -78,9 +73,11 @@ const PostBlock = ({ post }) => {
                 />
               </Link>
             )}
-            <Link href="/">{post.user.username}</Link>
+            <Link href={`/profile/${post.user.username}`}>
+              {post.user.username}
+            </Link>
             <div>•</div>
-            <p>{post.media[0].updatedAt}</p>
+            <p>{timestampConvert(post.updatedAt)}</p>
           </div>
           <button className={styles.post__settings}>
             <Image
@@ -114,7 +111,7 @@ const PostBlock = ({ post }) => {
                 />
               )}
             </button>
-            <button>
+            <button onClick={togglePostModal}>
               <Image
                 src="/posts/comments.svg"
                 width={27}
@@ -154,15 +151,17 @@ const PostBlock = ({ post }) => {
         <button className={styles.post__likes}>
           <p>{post.likesCount} отметок &quot;Нравится&quot;</p>
         </button>
-        <div className={styles.post__caption}>
-          <Link href="/">{post.user.username}</Link>
-          <p>{post.caption}</p>
-        </div>
+        {post.caption.length > 0 && (
+          <div className={styles.post__caption}>
+            <Link href="/">{post.user.username}</Link>
+            <p>{post.caption}</p>
+          </div>
+        )}
 
         {post.commentsCount > 0 && (
           <button
             className={styles.post__all_comments}
-            onClick={handlePostModal}
+            onClick={togglePostModal}
           >
             Посмотреть все комментарии ({post.commentsCount})
           </button>
@@ -171,7 +170,7 @@ const PostBlock = ({ post }) => {
         <div className={styles.post__addComment}>
           <textarea
             placeholder="Добавьте комментарий..."
-            onInput={handleTextarea}
+            onInput={togglePostModal}
             value={textarea}
           ></textarea>
           {textarea === "" ? null : (

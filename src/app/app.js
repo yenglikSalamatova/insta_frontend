@@ -19,13 +19,9 @@ export default function App({ children }) {
         if (token) {
           const decodedToken = jwt_decode(token);
           if (decodedToken && decodedToken.exp * 1000 > Date.now()) {
+            console.log(decodedToken);
             const user = {
               ...decodedToken.user,
-              // FIX: поставить дефолтный профайл фото в бэке
-              profilePicture:
-                decodedToken.profilePicture == null
-                  ? "/default_avatar.webp"
-                  : decodedToken.profilePicture,
             };
             dispatch(login({ token, user, tokenExp: decodedToken.exp }));
           }

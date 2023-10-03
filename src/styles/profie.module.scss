@@ -58,7 +58,20 @@
     text-transform: uppercase;
     letter-spacing: 0.1rem;
     padding: 2rem 0;
+    color: $light-paragraph;
+
+    img {
+      filter: invert(60%) sepia(3%) saturate(14%) hue-rotate(315deg)
+        brightness(88%) contrast(87%);
+    }
+  }
+
+  button.active {
+    color: $black;
     border-top: 0.1rem solid $black;
+    img {
+      filter: none;
+    }
   }
 }
 
@@ -69,8 +82,50 @@
   gap: 0.3rem;
 }
 
+.posts__item {
+  position: relative;
+  cursor: pointer;
+}
+
 .posts__item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.posts__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  transition: all 0.2s;
+}
+
+.posts__overlay:hover {
+  opacity: 1;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  filter: invert(100%) sepia(25%) saturate(1666%) hue-rotate(295deg)
+    brightness(109%) contrast(104%);
+}
+
+.icon img {
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon p {
+  font-size: 2rem;
+  font-weight: 600;
 }

@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import styles from "@/styles/register.module.scss";
 
@@ -8,6 +8,8 @@ import Step1 from "@/components/auth/Step1";
 import Step2 from "@/components/auth/Step2";
 import Step3 from "@/components/auth/Step3";
 import Layout from "@/components/layouts/Layout";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -18,6 +20,15 @@ export default function RegisterPage() {
     password: "",
     birthday_date: "",
   });
+
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuth) {
+      router.push("/posts");
+    }
+  }, [isAuth]);
 
   const handleInputChange = (e) => {
     setFormData({

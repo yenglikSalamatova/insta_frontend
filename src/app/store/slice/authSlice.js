@@ -25,6 +25,7 @@ const authSlice = createSlice({
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${action.payload.token}`;
+      localStorage.setItem("token", action.payload.token);
     },
     logout(state) {
       localStorage.removeItem("token");
@@ -50,8 +51,16 @@ export const loginAsync = (email, password) => async (dispatch) => {
     });
     if (res.status === 200) {
       const { token } = res.data;
-      dispatch(login({ token }));
-      localStorage.setItem("token", token);
+      if (token) {
+        const decodedToken = jwt_decode(token);
+        if (decodedToken && decodedToken.exp * 1000 > Date.now()) {
+          const user = {
+            ...decodedToken.user,
+            // FIX: поставить дефолтный профайл фото в бэке
+          };
+          dispatch(login({ token, user, tokenExp: decodedToken.exp }));
+        }
+      }
     }
   } catch (error) {
     console.log(error);

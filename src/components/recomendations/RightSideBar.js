@@ -2,36 +2,51 @@
 import styles from "@/styles/rightsidebar.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import ProfileCard from "@/components/ProfileCard";
+import ProfileCard from "@/components/recomendations/ProfileCard";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "@/app/store/slice/authSlice";
+import { useRouter } from "next/navigation";
+import { getRecommendations } from "@/app/store/slice/subscriptionSlice";
+import { useEffect } from "react";
 
 const RightSideBar = () => {
   const isAuth = useSelector((state) => state.auth.isAuth);
   const currentUser = useSelector((state) => state.auth.currentUser);
+  const recomendations = useSelector(
+    (state) => state.subscription.recomendations
+  );
   console.log(currentUser, isAuth);
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+    dispatch(getRecommendations());
+  }, [dispatch]);
 
   const handleLogout = () => {
     dispatch(logout());
+    router.push("/login");
   };
 
   return (
     <nav className={styles.nav}>
       <ProfileCard
-        linkName="Выйти"
         type="logout"
         onLogout={handleLogout}
-        currentUser={currentUser}
+        profile={currentUser}
       />
       <div className={styles.recomended}>
         <p className={styles.text}>Рекомендации для вас</p>
       </div>
-      <ProfileCard linkName="Подписаться" />
-      <ProfileCard linkName="Подписаться" />
-      <ProfileCard linkName="Подписаться" />
-      <ProfileCard linkName="Подписаться" />
-      <ProfileCard linkName="Подписаться" />
+
+      {recomendations.map((recomendation) => (
+        <ProfileCard
+          type="following"
+          profile={recomendation}
+          key={recomendation.id}
+        />
+      ))}
+
       <footer className={styles.footer}>
         <ul className={styles.footer__ul}>
           <li>

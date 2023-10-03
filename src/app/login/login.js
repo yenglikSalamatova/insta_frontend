@@ -9,16 +9,15 @@ import Layout from "@/components/layouts/Layout";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { loginAsync } from "@/app/store/slice/authSlice";
-import { Metadata } from "next";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const router = useRouter();
   const isAuth = useSelector((state) => state.auth.isAuth);
   const error = useSelector((state) => state.auth.error);
   const dispatch = useDispatch();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const isFormValid = email && password;
 
@@ -39,8 +38,7 @@ const LoginPage = () => {
 
   const handleButtonClick = async (e) => {
     e.preventDefault();
-    await dispatch(loginAsync(email, password));
-    router.push("/posts");
+    dispatch(loginAsync(email, password));
   };
 
   return (
