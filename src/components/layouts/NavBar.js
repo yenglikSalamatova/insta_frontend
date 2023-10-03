@@ -36,7 +36,7 @@ const NavBar = () => {
 
   return (
     <>
-      {createPost && <CreatePostModal onCreatePostModal={handleCreatePost} />}
+      {createPost && <CreatePostModal onToggle={handleCreatePost} />}
       <nav className={styles.navbar}>
         <Link href="/">
           <Image

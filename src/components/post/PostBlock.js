@@ -11,14 +11,20 @@ import PostModal from "../modals/PostModal";
 import { END_POINT } from "@/utils/endPoint";
 import { useRouter } from "next/navigation";
 import { timestampConvert } from "@/utils/timestampConvert";
+import SettingsPostModal from "@/components/modals/SettingsPostModal";
+import { useDispatch, useSelector } from "react-redux";
+import { createComment } from "@/app/store/slice/postsSlice";
 
 const PostBlock = ({ post }) => {
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
   const [textarea, setTextarea] = useState("");
   const [postModal, setPostModal] = useState(false);
+  const [settings, setSettings] = useState(false);
 
   const router = useRouter();
+
+  const dispatch = useDispatch();
 
   const handleBookmark = () => {
     setBookmark(!bookmark);
@@ -42,14 +48,25 @@ const PostBlock = ({ post }) => {
     setPostModal(!postModal);
   };
 
-  console.log(post);
+  const addComment = () => {
+    dispatch(createComment({ postId: post.id, text: textarea }));
+    setTextarea("");
+  };
 
   return (
     <>
       {postModal && (
         <PostModal postId={post.id} togglePostModal={togglePostModal} />
       )}
+
       <div className={styles.post}>
+        {settings && (
+          <SettingsPostModal
+            post={post}
+            closeModal={() => setSettings(false)}
+          />
+        )}
+
         <div className={styles.post__header}>
           <div className={styles.post__userinfo}>
             {post.story === true ? (
@@ -77,9 +94,12 @@ const PostBlock = ({ post }) => {
               {post.user.username}
             </Link>
             <div>•</div>
-            <p>{timestampConvert(post.updatedAt)}</p>
+            <p>{timestampConvert(post.createdAt)}</p>
           </div>
-          <button className={styles.post__settings}>
+          <button
+            className={styles.post__settings}
+            onClick={() => setSettings(true)}
+          >
             <Image
               src="/posts/dots_icon.svg"
               width={20}
@@ -170,11 +190,14 @@ const PostBlock = ({ post }) => {
         <div className={styles.post__addComment}>
           <textarea
             placeholder="Добавьте комментарий..."
-            onInput={togglePostModal}
+            onChange={(e) => setTextarea(e.target.value)}
+            onInput={handleTextarea}
             value={textarea}
           ></textarea>
           {textarea === "" ? null : (
-            <button className={styles.button_regular}>Опубликовать</button>
+            <button className={styles.button_regular} onClick={addComment}>
+              Опубликовать
+            </button>
           )}
         </div>
       </div>

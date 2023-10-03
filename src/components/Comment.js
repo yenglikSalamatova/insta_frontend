@@ -7,10 +7,15 @@ import { useState } from "react";
 
 export default function Comment({ comment }) {
   const [like, setLike] = useState(false);
+  const [settings, setSettings] = useState(false);
   console.log("comment:" + comment);
 
   const handleLike = () => {
     setLike(!like);
+  };
+
+  const openCommentSettings = () => {
+    setSettings(true);
   };
 
   return (
@@ -31,6 +36,14 @@ export default function Comment({ comment }) {
         </div>
         <div className={styles.comments__action}>
           <span>{timestampConvert(comment.updatedAt)}</span>
+          <button onClick={openCommentSettings}>
+            <Image
+              src="/posts/dots_icon.svg"
+              width={18}
+              height={18}
+              alt="Icon dots settings"
+            />
+          </button>
         </div>
       </div>
       <button onClick={handleLike}>

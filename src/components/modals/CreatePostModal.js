@@ -8,7 +8,7 @@ import { createPost } from "@/app/store/slice/postsSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 
-const CreatePostModal = ({ onCreatePostModal }) => {
+const CreatePostModal = ({ onToggle }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [textarea, setTextarea] = useState("");
 
@@ -40,8 +40,8 @@ const CreatePostModal = ({ onCreatePostModal }) => {
 
   return (
     <div className={styles.modal}>
-      <div className={styles.modal__overlay} onClick={onCreatePostModal}></div>
-      <button className={styles.modal__close} onClick={onCreatePostModal}>
+      <div className={styles.modal__overlay} onClick={onToggle}></div>
+      <button className={styles.modal__close} onClick={onToggle}>
         <Image src="/posts/close.svg" width={30} height={30} alt="Close" />
       </button>
       {!selectedFile && (

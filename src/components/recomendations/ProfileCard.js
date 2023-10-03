@@ -34,7 +34,10 @@ const ProfileCard = ({ type, onLogout, profile }) => {
   } else if (type == "following") {
     return (
       <div className={styles.profile_card}>
-        <div className={styles.card_image_username}>
+        <Link
+          href={`/profile/${profile.username}`}
+          className={styles.card_image_username}
+        >
           <Image
             className="avatar"
             src={`${END_POINT}/${profile.profilePicture}`}
@@ -46,7 +49,7 @@ const ProfileCard = ({ type, onLogout, profile }) => {
             <h5>{profile.username}</h5>
             <p>{profile.full_name}</p>
           </div>
-        </div>
+        </Link>
         <div>
           <Link href="/" className={styles.link}>
             Подписаться
@@ -57,7 +60,10 @@ const ProfileCard = ({ type, onLogout, profile }) => {
   } else if (type == "followers") {
     return (
       <div className={styles.profile_card}>
-        <div className={styles.card_image_username}>
+        <Link
+          href={`/profile/${profile.username}`}
+          className={styles.card_image_username}
+        >
           <Image
             className="avatar"
             src={`${END_POINT}/${profile.profilePicture}`}
@@ -69,7 +75,7 @@ const ProfileCard = ({ type, onLogout, profile }) => {
             <h5>{profile.username}</h5>
             <p>{profile.full_name}</p>
           </div>
-        </div>
+        </Link>
         <div>
           <Link href="/" className={styles.link}>
             Отписаться

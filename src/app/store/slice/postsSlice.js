@@ -21,6 +21,14 @@ const postsSlice = createSlice({
     setPost(state, action) {
       state.post = action.payload;
     },
+    deletePost(state, action) {
+      state.posts = state.posts.filter((post) => {
+        return post.id != action.payload;
+      });
+    },
+    addPost(state, action) {
+      state.posts.push(action.payload);
+    },
   },
 });
 
@@ -75,7 +83,41 @@ export const createPost = (post, router) => async (dispatch) => {
     const res = await axios.post(`${END_POINT}/api/posts`, post, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    router.push("/posts");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.delete(`${END_POINT}/api/posts/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    dispatch(deletePost(id));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const editPost = (id, post) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.patch(`${END_POINT}/api/posts/${id}`, post, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createComment = (data) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.post(`${END_POINT}/api/comments`, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    dispatch(getFollowedPosts());
   } catch (error) {
     console.log(error);
   }

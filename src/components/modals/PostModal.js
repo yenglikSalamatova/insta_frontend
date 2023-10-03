@@ -10,6 +10,7 @@ import Link from "next/link";
 import { END_POINT } from "@/utils/endPoint";
 import { timestampConvert } from "@/utils/timestampConvert";
 import Comment from "@/components/Comment";
+import { createComment } from "@/app/store/slice/postsSlice";
 
 export default function PostModal({ postId, togglePostModal }) {
   const [like, setLike] = useState(false);
@@ -25,11 +26,8 @@ export default function PostModal({ postId, togglePostModal }) {
     dispatch(getPost(postId));
   }, [dispatch, postId]);
 
-  const addComment = (e) => {
-    console.log(textarea);
-    console.log(comments);
-    e.preventDefault();
-    setComments([...comments, { text: textarea }]);
+  const addComment = () => {
+    dispatch(createComment({ postId: post.id, text: textarea }));
     setTextarea("");
   };
 

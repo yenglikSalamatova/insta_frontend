@@ -1,5 +1,6 @@
 @import "colors";
 @import "postBlock.module";
+@import "buttons";
 .modal {
   position: fixed;
   top: 0;
@@ -120,7 +121,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-height: 50rem;
+  max-height: 58rem;
   overflow: auto;
   scrollbar-width: none;
 
@@ -128,4 +129,33 @@
     width: 0;
     height: 0;
   }
+}
+
+.comments__action {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.comments__action span {
+  font-size: 1.3rem;
+  color: $light-paragraph;
+}
+
+.comments__action button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.comments__action button img {
+  filter: invert(76%) sepia(0%) saturate(232%) hue-rotate(165deg)
+    brightness(94%) contrast(90%);
+}
+
+.post__comments:hover .comments__action button {
+  opacity: 1;
 }
