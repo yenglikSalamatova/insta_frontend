@@ -4,22 +4,30 @@ import Link from "next/link";
 import { END_POINT } from "@/utils/endPoint";
 import { timestampConvert } from "@/utils/timestampConvert";
 import { useState } from "react";
+import SettingsCommentsModal from "@/components/modals/SettingsCommentsModal";
 
 export default function Comment({ comment }) {
   const [like, setLike] = useState(false);
   const [settings, setSettings] = useState(false);
-  console.log("comment:" + comment);
 
   const handleLike = () => {
     setLike(!like);
   };
 
+  // FIX: ДОДЕЛАТЬ УДАЛЕНИЕ И РЕДАКТИРОВАНИЕ КОММЕНТАРИЯ
   const openCommentSettings = () => {
     setSettings(true);
   };
 
   return (
     <div className={styles.post__comments} key={comment.id}>
+      {settings && (
+        <SettingsCommentsModal
+          closeModal={() => setSettings(false)}
+          comment={comment}
+        />
+      )}
+
       <Image
         src={`${END_POINT}${comment.user.profilePicture}`}
         width={30}

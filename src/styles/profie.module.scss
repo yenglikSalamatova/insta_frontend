@@ -1,5 +1,6 @@
 @import "buttons";
 @import "colors";
+@import "typography";
 
 .profile_container {
   display: flex;
@@ -128,4 +129,75 @@
 .icon p {
   font-size: 2rem;
   font-weight: 600;
+}
+
+.edit {
+  padding: 2rem;
+  height: 70vh;
+}
+
+.edit form {
+  width: 80%;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  label {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: $black;
+  }
+
+  fieldset {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  input {
+    width: 80%;
+    box-sizing: border-box;
+    border-radius: 0.4rem;
+    padding: 1rem;
+    border: 0.1rem solid $light-gray;
+    font-size: $regular-14-text;
+    background-color: $white-gray;
+    outline: none;
+  }
+
+  .avatar {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    img {
+      width: 15rem;
+      height: 15rem;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  .upload {
+    cursor: pointer;
+    position: relative;
+
+    input {
+      position: relative;
+      opacity: 0;
+      width: 15rem;
+      z-index: 100;
+    }
+  }
+  .upload button {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 15rem;
+  }
 }

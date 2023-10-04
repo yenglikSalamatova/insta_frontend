@@ -71,7 +71,7 @@ export default function RegisterPage() {
         <div className={styles.form}>
           <p className={styles.text}>
             Есть аккаунт?{" "}
-            <Link href="/" className={styles.link}>
+            <Link href="/login" className={styles.link}>
               Вход
             </Link>
           </p>

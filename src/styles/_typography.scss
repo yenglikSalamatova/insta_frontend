@@ -1,6 +1,8 @@
 $regular-16-text: 1.6rem;
 $regular-12-text: 1.2rem;
 $regular-14-text: 1.4rem;
+$regular-18-text: 1.8rem;
+$regular-22-text: 2.2rem;
 
 .text {
   line-height: 1.3;
@@ -11,4 +13,10 @@ $regular-14-text: 1.4rem;
   line-height: 1.3;
   font-size: $regular-14-text;
   font-weight: 600;
+}
+
+.h3 {
+  line-height: 1.3;
+  font-size: $regular-22-text;
+  font-weight: 500;
 }

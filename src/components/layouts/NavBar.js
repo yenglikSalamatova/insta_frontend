@@ -131,8 +131,8 @@ const NavBar = () => {
           <Image
             className={`${styles.avatar} avatar`}
             src={`${END_POINT}${currentUser.profilePicture}`}
-            width={24}
-            height={0}
+            width={28}
+            height={28}
             alt="Your Avatar"
           />
           Профиль

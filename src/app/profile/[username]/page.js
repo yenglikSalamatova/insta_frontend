@@ -7,8 +7,12 @@ import SubscribeModal from "@/components/modals/SubscibeModal";
 import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostsByUsername } from "@/app/store/slice/postsSlice";
+import { getUserByUsername } from "@/app/store/slice/postsSlice";
 import PostProfile from "@/components/profile/ProfilePost";
 import { END_POINT } from "@/utils/endPoint";
+import Link from "next/link";
+import LayoutWithoutAuth from "@/components/layouts/LayoutWithoutAuth";
+import Spinner from "@/components/Spinner";
 
 export default function Profile() {
   const [modal, setModal] = useState("");
@@ -17,15 +21,17 @@ export default function Profile() {
   const { username } = useParams();
 
   const profilePosts = useSelector((state) => state.posts.profilePosts);
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  const profileUser = useSelector((state) => state.posts.profile);
   const savedPosts = [];
 
-  console.log(profilePosts);
+  console.log("Profile", profileUser);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPostsByUsername(username));
-    // NOTE: Dynamic title like: Enri @username | Instagram
+    dispatch(getUserByUsername(username));
     document.title = `@${username} | Instagram`;
     return function () {
       document.title = "Instagram";
@@ -44,17 +50,17 @@ export default function Profile() {
     setPublicationsType(type);
   }
 
-  if (profilePosts.length < 1) {
-    return null;
+  if (!profileUser.id || !username) {
+    return <Spinner />;
   }
 
-  return (
-    <LayoutNavOneColumn>
+  const html = (
+    <>
       {modal && <SubscribeModal closeModal={closeModal} modal={modal} />}
       <div className={styles.profile_container}>
         <div className={styles.profile__avatar}>
           <Image
-            src={`${END_POINT}/${profilePosts[0].user.profilePicture}`}
+            src={`${END_POINT}/${profileUser.profilePicture}`}
             width={150}
             height={150}
             alt="avatar "
@@ -63,30 +69,26 @@ export default function Profile() {
         <div className={styles.profile__info}>
           <div className={styles.info__header}>
             <span>{username}</span>
-            <button className={styles.button_secondary}>
-              Редактировать профиль
-            </button>
-            <button>
-              <Image
-                src="/posts/settings.svg"
-                width={24}
-                height={24}
-                alt="post"
-              />
-            </button>
+
+            {currentUser && currentUser.id === profileUser.id && (
+              <Link href="/profile/edit" className={styles.button_secondary}>
+                Редактировать профиль
+              </Link>
+            )}
           </div>
           <div className={styles.info__subscriptions}>
             <span>
               <b>{profilePosts.length} </b>публикации
             </span>
             <button onClick={() => openModal("followers")}>
-              <b>{profilePosts[0].user.followersCount} </b>подписчиков
+              <b>{profileUser.followersCount} </b>подписчиков
             </button>
             <button onClick={() => openModal("following")}>
-              <b>{profilePosts[0].user.followingCount} </b>подписок
+              <b>{profileUser.followingCount} </b>подписок
             </button>
           </div>
-          <p className={styles.info__name}>{profilePosts[0].user.full_name}</p>
+          <p className={styles.info__name}>{profileUser.full_name}</p>
+          <p className={styles.info__bio}>{profileUser.bio}</p>
         </div>
       </div>
 
@@ -99,19 +101,21 @@ export default function Profile() {
             <Image src="/posts/grid.svg" width={12} height={12} alt="post" />
             Публикации
           </button>
-          <button
-            onClick={() => handleChangePublicationsType("saved")}
-            className={publicationsType == "saved" ? styles.active : ""}
-          >
-            {" "}
-            <Image
-              src="/posts/bookmark.svg"
-              width={12}
-              height={12}
-              alt="post"
-            />
-            Сохраненное
-          </button>
+          {currentUser && currentUser.id === profileUser.id && (
+            <button
+              onClick={() => handleChangePublicationsType("saved")}
+              className={publicationsType == "saved" ? styles.active : ""}
+            >
+              {" "}
+              <Image
+                src="/posts/bookmark.svg"
+                width={12}
+                height={12}
+                alt="post"
+              />
+              Сохраненное
+            </button>
+          )}
         </div>
         <div className={styles.posts__container}>
           {publicationsType == "posts" &&
@@ -122,6 +126,13 @@ export default function Profile() {
             savedPosts.map((post) => <PostProfile key={post.id} post={post} />)}
         </div>
       </div>
-    </LayoutNavOneColumn>
+    </>
+  );
+
+  return (
+    <>
+      {currentUser && <LayoutNavOneColumn>{html}</LayoutNavOneColumn>}
+      {!currentUser && <LayoutWithoutAuth>{html}</LayoutWithoutAuth>}
+    </>
   );
 }

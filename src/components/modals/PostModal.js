@@ -9,7 +9,7 @@ import styles from "@/styles/postModal.module.scss";
 import Link from "next/link";
 import { END_POINT } from "@/utils/endPoint";
 import { timestampConvert } from "@/utils/timestampConvert";
-import Comment from "@/components/Comment";
+import Comments from "@/components/comments/Comments";
 import { createComment } from "@/app/store/slice/postsSlice";
 
 export default function PostModal({ postId, togglePostModal }) {
@@ -49,7 +49,7 @@ export default function PostModal({ postId, togglePostModal }) {
     setBookmark(!bookmark);
   };
 
-  console.log(post);
+  console.log("PostModal rerender");
 
   if (!post.id || post.id !== postId) {
     return (
@@ -113,11 +113,8 @@ export default function PostModal({ postId, togglePostModal }) {
                 </Link>
                 <p>{post.caption}</p>
               </div>
-              <div className={styles.comments_container}>
-                {post.comments.map((comment) => {
-                  return <Comment comment={comment} key={comment.id} />;
-                })}
-              </div>
+
+              <Comments comments={post.comments} />
 
               <div className={styles.post__footer}>
                 <div className={styles.post__actions}>

@@ -4,8 +4,6 @@ import { END_POINT } from "@/utils/endPoint";
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
 
-// FIX: localStorage
-
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -19,8 +17,8 @@ const authSlice = createSlice({
     login(state, action) {
       state.isAuth = true;
       state.token = action.payload.token;
-      state.currentUser = action.payload.user;
       state.tokenExp = action.payload.tokenExp;
+      state.currentUser = action.payload.user;
       state.error = null;
       axios.defaults.headers.common[
         "Authorization"
@@ -38,10 +36,13 @@ const authSlice = createSlice({
     setError(state, action) {
       state.error = action.payload;
     },
+    setNewCurrentUser(state, action) {
+      state.currentUser = action.payload;
+    },
   },
 });
 
-export const { login, logout, setError } = authSlice.actions;
+export const { login, logout, setError, setNewCurrentUser } = authSlice.actions;
 
 export const loginAsync = (email, password) => async (dispatch) => {
   try {
@@ -56,7 +57,6 @@ export const loginAsync = (email, password) => async (dispatch) => {
         if (decodedToken && decodedToken.exp * 1000 > Date.now()) {
           const user = {
             ...decodedToken.user,
-            // FIX: поставить дефолтный профайл фото в бэке
           };
           dispatch(login({ token, user, tokenExp: decodedToken.exp }));
         }
@@ -67,6 +67,35 @@ export const loginAsync = (email, password) => async (dispatch) => {
     if (error.response?.data.error)
       dispatch(setError(error.response.data.error));
     else dispatch(setError(error.message));
+  }
+};
+
+export const editUser = (data) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.patch(`${END_POINT}/api/users`, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(res);
+    if (res.status === 200) {
+      dispatch(setNewCurrentUser(res.data));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserByUsername = (username) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.get(`${END_POINT}/api/users/${username}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.status === 200) {
+      dispatch(setNewCurrentUser(res.data));
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 

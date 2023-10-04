@@ -47,9 +47,9 @@ export default function SettingsPostModal({ closeModal, post }) {
                     </>
                   )}
 
-                  <li>Добавить в избранное</li>
+                  <li>Добавить в сохраненные</li>
                   <li>Перейти к публикации</li>
-                  <li>Отмена</li>
+                  <li onClick={closeModal}>Отмена</li>
                 </ul>
               </div>
             )}

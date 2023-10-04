@@ -19,6 +19,12 @@ const PostsPage = () => {
   const router = useRouter();
 
   useEffect(() => {
+    if (!isAuth) {
+      router.push("/login");
+    }
+  }, [isAuth]);
+
+  useEffect(() => {
     dispatch(getFollowedPosts());
   }, [dispatch]);
 

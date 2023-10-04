@@ -7,6 +7,7 @@ import { execOnce } from "next/dist/shared/lib/utils";
 const postsSlice = createSlice({
   name: "posts",
   initialState: {
+    profile: {},
     profilePosts: [],
     posts: [],
     post: {},
@@ -29,10 +30,14 @@ const postsSlice = createSlice({
     addPost(state, action) {
       state.posts.push(action.payload);
     },
+    setProfile(state, action) {
+      state.profile = action.payload;
+    },
   },
 });
 
-export const { setProfilePosts, setPosts, setPost } = postsSlice.actions;
+export const { setProfilePosts, setPosts, setPost, setProfile } =
+  postsSlice.actions;
 
 export const getFollowedPosts = () => async (dispatch) => {
   try {
@@ -118,6 +123,33 @@ export const createComment = (data) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(getFollowedPosts());
+    dispatch(getPost(data.postId));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteComment = (id, postId) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.delete(`${END_POINT}/api/comments/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    dispatch(getPost(postId));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserByUsername = (username) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.get(`${END_POINT}/api/users/${username}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.status === 200) {
+      dispatch(setProfile(res.data));
+    }
   } catch (error) {
     console.log(error);
   }
