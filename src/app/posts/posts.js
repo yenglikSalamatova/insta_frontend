@@ -6,14 +6,17 @@ import RightSideBar from "@/components/recomendations/RightSideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getFollowedPosts } from "@/app/store/slice/postsSlice";
+import { getFollowedStories } from "@/app/store/slice/storiesSlice";
 import Footer from "@/components/layouts/Footer";
 import NavBar from "@/components/layouts/NavBar";
 import { useRouter } from "next/navigation";
+import Spinner from "@/components/Spinner";
 
 const PostsPage = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const isAuth = useSelector((state) => state.auth.isAuth);
   const posts = useSelector((state) => state.posts.posts);
+  const stories = useSelector((state) => state.stories.followedStories);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -22,14 +25,15 @@ const PostsPage = () => {
     if (!isAuth) {
       router.push("/login");
     }
-  }, [isAuth]);
+  }, [isAuth, router]);
 
   useEffect(() => {
     dispatch(getFollowedPosts());
+    dispatch(getFollowedStories());
   }, [dispatch]);
 
   if (!currentUser) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (
@@ -37,7 +41,7 @@ const PostsPage = () => {
       <NavBar />
       <div className="container">
         <main className="main">
-          <StoriesBlock stories={[]} />
+          <StoriesBlock stories={stories} />
           <PostsBlock posts={posts} />
         </main>
         <RightSideBar />

@@ -44,3 +44,9 @@
     border: 0.2rem solid $black;
   }
 }
+
+@media (max-width: 1500px) {
+  .navbar {
+    width: 27rem;
+  }
+}

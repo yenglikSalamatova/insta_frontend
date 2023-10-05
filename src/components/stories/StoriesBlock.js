@@ -1,12 +1,10 @@
 "use client";
 
 import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import styles from "@/styles/storiesBlock.module.scss";
 import Image from "next/image";
 import Story from "./Story";
+import { useSelector } from "react-redux";
 
 const CustomPrevArrow = (props) => (
   <div className={styles.slider_prev} onClick={props.onClick}>
@@ -31,23 +29,22 @@ const CustomNextArrow = (props) => (
 );
 
 const StoriesBlock = ({ stories }) => {
-  const sliderSettings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 8,
-    slidesToScroll: 4,
-    prevArrow: <CustomPrevArrow />,
-    nextArrow: <CustomNextArrow />,
-  };
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  console.log("StoriesBlock", stories);
+
+  const slidesToShow = stories.length > 8 ? 8 : stories.length;
 
   return (
     <div className={styles.slider}>
-      <Slider {...sliderSettings} className={styles.slides}>
+      <div className={styles.slides}>
         {stories.map((story) => (
-          <Story story={story} key={story.id} />
+          <Story
+            story={story}
+            key={story.id}
+            active={story.userId == currentUser?.id}
+          />
         ))}
-      </Slider>
+      </div>
     </div>
   );
 };

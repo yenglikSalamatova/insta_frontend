@@ -5,9 +5,9 @@
 }
 
 .slides {
+  width: 100%;
   display: flex;
   gap: 1rem;
-
   .slide {
     height: 100%;
     cursor: pointer;
@@ -16,20 +16,24 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    flex: 1;
     gap: 0.5rem;
 
     p {
       font-size: 1.2rem;
     }
   }
+
+  .slick-list {
+    width: 100%;
+  }
 }
 
 .slide {
-  cursor: pointer;
+  position: relative;
 }
 
 .slide img {
+  cursor: pointer;
   width: 65px;
   height: 65px;
   border-radius: 50%;
@@ -66,4 +70,19 @@
 .slider_next {
   padding: 0 2.6rem;
   right: 0;
+}
+
+.addstories {
+  cursor: pointer;
+  position: absolute;
+  bottom: 4rem;
+  right: 2rem;
+}
+
+.addstories img {
+  position: absolute;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border: 0.1rem solid #fff;
 }

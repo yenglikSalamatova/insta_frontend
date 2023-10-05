@@ -68,7 +68,12 @@ export default function PostModal({ postId, togglePostModal }) {
       {post.id == postId && (
         <div className={styles.modal__content}>
           <div className={styles.modal__media}>
-            <img src={`${END_POINT}${post.media[0].url}`} alt="Post media" />
+            <Image
+              src={`${END_POINT}${post.media[0].url}`}
+              alt="Post media"
+              width={500}
+              height={500}
+            />
           </div>
           <div className={styles.modal__info}>
             <div className={styles.post}>

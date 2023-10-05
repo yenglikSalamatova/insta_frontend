@@ -3,7 +3,9 @@
 @import "buttons";
 
 .modal {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -95,7 +97,6 @@
 
 .modal__preview_wrapper {
   background-color: $black;
-
   width: 100%;
   height: 100%;
   border-bottom-left-radius: 0.8rem;

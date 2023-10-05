@@ -109,7 +109,12 @@ const PostBlock = ({ post }) => {
           </button>
         </div>
         <div className={styles.post__media}>
-          <img src={`${END_POINT}${post.media[0].url}`} alt="photo" />
+          <Image
+            src={`${END_POINT}${post.media[0].url}`}
+            alt="photo"
+            width={500}
+            height={500}
+          />
         </div>
         <div className={styles.post__actions}>
           <div>

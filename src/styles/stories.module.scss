@@ -58,9 +58,25 @@
     &_item {
       width: 100%;
       height: 0.2rem;
-      background-color: $white;
+      background-color: #ffffff53;
       border-radius: 0.5rem;
+
+      .animated {
+        width: 0;
+        height: 100%;
+        background-color: $white;
+        animation: grow 10s linear infinite;
+      }
     }
+  }
+}
+
+@keyframes grow {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
   }
 }
 

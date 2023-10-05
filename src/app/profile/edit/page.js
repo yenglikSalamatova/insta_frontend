@@ -7,6 +7,7 @@ import styles from "@/styles/profie.module.scss";
 import Image from "next/image";
 import { END_POINT } from "@/utils/endPoint";
 import { editUser } from "@/app/store/slice/authSlice";
+import { useRouter } from "next/navigation";
 
 export default function EditProfile() {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -15,6 +16,8 @@ export default function EditProfile() {
   const [photo, setPhoto] = useState("");
   const [bio, setBio] = useState("");
   const [newPhoto, setNewPhoto] = useState("");
+
+  const router = useRouter();
 
   useEffect(() => {
     if (currentUser) {
@@ -35,7 +38,7 @@ export default function EditProfile() {
     formData.append("bio", bio);
     formData.append("avatar", newPhoto || photo);
 
-    dispatch(editUser(formData));
+    dispatch(editUser(formData, router));
     // location.reload();
   };
 

@@ -70,15 +70,17 @@ export const loginAsync = (email, password) => async (dispatch) => {
   }
 };
 
-export const editUser = (data) => async (dispatch) => {
+export const editUser = (data, router) => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
+    // FIX: Не меняется username
     const res = await axios.patch(`${END_POINT}/api/users`, data, {
       headers: { Authorization: `Bearer ${token}` },
     });
     console.log(res);
     if (res.status === 200) {
       dispatch(setNewCurrentUser(res.data));
+      // router.push(`/profile/${res.data.username}`);
     }
   } catch (error) {
     console.log(error);
