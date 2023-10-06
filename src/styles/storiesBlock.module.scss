@@ -1,6 +1,7 @@
 @import "colors";
 
 .slider {
+  position: relative;
   margin-bottom: 5rem;
 }
 
@@ -8,6 +9,8 @@
   width: 100%;
   display: flex;
   gap: 1rem;
+  overflow-y: hidden;
+  overflow-x: hidden;
   .slide {
     height: 100%;
     cursor: pointer;

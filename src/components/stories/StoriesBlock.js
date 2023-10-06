@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useState } from "react";
 import styles from "@/styles/storiesBlock.module.scss";
 import Image from "next/image";
 import Story from "./Story";
@@ -29,14 +29,38 @@ const CustomNextArrow = (props) => (
 );
 
 const StoriesBlock = ({ stories }) => {
+  const [atLeft, setAtLeft] = useState(false);
+  const ref = useRef();
   const currentUser = useSelector((state) => state.auth.currentUser);
   console.log("StoriesBlock", stories);
 
-  const slidesToShow = stories.length > 8 ? 8 : stories.length;
+  const scrollLeft = () => {
+    ref.current.scroll({
+      left: ref.current.scrollLeft - 250,
+      behavior: "smooth",
+    });
+    setTimeout(() => {
+      if (ref.current.scrollLeft == 0) {
+        setAtLeft(false);
+      }
+    }, 500);
+  };
+
+  const scrollRight = () => {
+    ref.current.scroll({
+      left: ref.current.scrollLeft + 250,
+      behavior: "smooth",
+    });
+    setAtLeft(true);
+  };
 
   return (
     <div className={styles.slider}>
-      <div className={styles.slides}>
+      {atLeft && <CustomPrevArrow onClick={scrollLeft} />}
+
+      <CustomNextArrow onClick={scrollRight} />
+
+      <div ref={ref} className={styles.slides}>
         {stories.map((story) => (
           <Story
             story={story}
