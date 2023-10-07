@@ -5,13 +5,21 @@ import { END_POINT } from "@/utils/endPoint";
 import { timestampConvert } from "@/utils/timestampConvert";
 import { useState } from "react";
 import SettingsCommentsModal from "@/components/modals/SettingsCommentsModal";
+import { useDispatch, useSelector } from "react-redux";
+import { likeEntity, unlikeEntity } from "@/app/store/slice/likesSlice";
 
 export default function Comment({ comment }) {
-  const [like, setLike] = useState(false);
   const [settings, setSettings] = useState(false);
 
+  const likes = useSelector((state) => state.likes.likes);
+  const dispatch = useDispatch();
+
   const handleLike = () => {
-    setLike(!like);
+    if (likes.some((like) => like.commentId == comment.id)) {
+      dispatch(unlikeEntity({ entityId: comment.id, entityType: "comment" }));
+    } else {
+      dispatch(likeEntity({ entityId: comment.id, entityType: "comment" }));
+    }
   };
 
   // FIX: ДОДЕЛАТЬ УДАЛЕНИЕ И РЕДАКТИРОВАНИЕ КОММЕНТАРИЯ
@@ -43,7 +51,7 @@ export default function Comment({ comment }) {
           <p className={styles.comments__text}>{comment.text}</p>
         </div>
         <div className={styles.comments__action}>
-          <span>{timestampConvert(comment.updatedAt)}</span>
+          <span>{timestampConvert(comment.createdAt)}</span>
           <button onClick={openCommentSettings}>
             <Image
               src="/posts/dots_icon.svg"
@@ -55,7 +63,7 @@ export default function Comment({ comment }) {
         </div>
       </div>
       <button onClick={handleLike}>
-        {like ? (
+        {likes.some((like) => like.commentId == comment.id) ? (
           <Image
             src="/posts/heart_fill.svg"
             width={18}

@@ -61,13 +61,19 @@ const StoriesBlock = ({ stories }) => {
       <CustomNextArrow onClick={scrollRight} />
 
       <div ref={ref} className={styles.slides}>
-        {stories.map((story) => (
+        {currentUser && (
           <Story
-            story={story}
-            key={story.id}
-            active={story.userId == currentUser?.id}
+            story={{ user: currentUser }}
+            key={currentUser.id}
+            active={true}
           />
-        ))}
+        )}
+        {stories.map(
+          (story) =>
+            story.userId !== currentUser?.id && (
+              <Story story={story} key={story.id} active={false} />
+            )
+        )}
       </div>
     </div>
   );

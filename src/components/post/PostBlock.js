@@ -14,15 +14,17 @@ import { timestampConvert } from "@/utils/timestampConvert";
 import SettingsPostModal from "@/components/modals/SettingsPostModal";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment } from "@/app/store/slice/postsSlice";
+import { likeEntity, unlikeEntity } from "@/app/store/slice/likesSlice";
 
-const PostBlock = ({ post }) => {
-  const [like, setLike] = useState(false);
+const PostBlock = ({ post, isLiked }) => {
   const [bookmark, setBookmark] = useState(false);
   const [textarea, setTextarea] = useState("");
   const [postModal, setPostModal] = useState(false);
   const [settings, setSettings] = useState(false);
 
   const router = useRouter();
+
+  const likes = useSelector((state) => state.likes.likes);
 
   const dispatch = useDispatch();
 
@@ -31,7 +33,11 @@ const PostBlock = ({ post }) => {
   };
 
   const handleLike = () => {
-    setLike(!like);
+    if (isLiked) {
+      dispatch(unlikeEntity({ entityId: post.id, entityType: "post" }));
+    } else {
+      dispatch(likeEntity({ entityId: post.id, entityType: "post" }));
+    }
   };
 
   const handleTextarea = (e) => {
@@ -119,7 +125,7 @@ const PostBlock = ({ post }) => {
         <div className={styles.post__actions}>
           <div>
             <button onClick={handleLike}>
-              {like ? (
+              {isLiked ? (
                 <Image
                   src="/posts/heart_fill.svg"
                   width={27}

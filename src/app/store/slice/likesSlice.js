@@ -1,0 +1,66 @@
+import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { END_POINT } from "@/utils/endPoint";
+import { useDispatch } from "react-redux";
+
+const likesSlice = createSlice({
+  name: "likes",
+  initialState: {
+    likes: [],
+  },
+  reducers: {
+    setLikes: (state, action) => {
+      state.likes = action.payload;
+    },
+  },
+});
+
+export const { setLikes } = likesSlice.actions;
+
+export const getLikes = () => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await axios.get(`${END_POINT}/api/likes`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(res);
+    if (res.status === 200) dispatch(setLikes(res.data));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const likeEntity = (data) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.post(`${END_POINT}/api/likes/`, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.status === 201) {
+      await dispatch(getLikes());
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const unlikeEntity = (data) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.delete(`${END_POINT}/api/likes/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify(data), // Преобразование объекта `data` в строку JSON
+    });
+    if (res.status === 200) {
+      await dispatch(getLikes());
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export default likesSlice.reducer;

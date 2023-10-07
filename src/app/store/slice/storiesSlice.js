@@ -56,8 +56,21 @@ export const createStory = (data, router) => async (dispatch) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     console.log(res);
-    if (res.status === 201) {
-      router.push("/posts");
+    await dispatch(getFollowedStories());
+    router.push("/posts");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteStory = (id) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.delete(`${END_POINT}/api/stories/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.status === 204) {
+      dispatch(getFollowedStories());
     }
   } catch (error) {
     console.log(error);

@@ -5,12 +5,13 @@ import { useState, useEffect } from "react";
 import styles from "@/styles/createPostModal.module.scss";
 import Image from "next/image";
 import { createStory } from "@/app/store/slice/storiesSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
 const CreateStorysModal = ({ onToggle }) => {
   const [selectedFile, setSelectedFile] = useState(null);
 
+  const stories = useSelector((state) => state.stories.followedStories);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -25,7 +26,7 @@ const CreateStorysModal = ({ onToggle }) => {
     formData.append("content", selectedFile);
     formData.append("title", "");
     try {
-      dispatch(createStory(formData, router));
+      await dispatch(createStory(formData, router));
     } catch (error) {
       console.error(error);
     }

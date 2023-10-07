@@ -7,7 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getStoriesById,
   getFollowedStories,
+  deleteStory,
 } from "@/app/store/slice/storiesSlice";
+import { likeEntity, unlikeEntity } from "@/app/store/slice/likesSlice";
 import { useParams } from "next/navigation";
 import { END_POINT } from "@/utils/endPoint";
 import { useRouter } from "next/navigation";
@@ -181,6 +183,8 @@ export default function StoryPage() {
 
   const imagesArray = useSelector((state) => state.stories.storiesById);
   const stories = useSelector((state) => state.stories.followedStories);
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  const likes = useSelector((state) => state.likes.likes);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -190,6 +194,8 @@ export default function StoryPage() {
     dispatch(getStoriesById(id));
     dispatch(getFollowedStories());
   }, [dispatch, id]);
+
+  // console.log("like", likes);
 
   useEffect(() => {
     const storyCount = imagesArray.length;
@@ -264,6 +270,21 @@ export default function StoryPage() {
     }
   }
 
+  function deleteById(storyId) {
+    dispatch(deleteStory(storyId));
+  }
+
+  const handleLike = async (storyId) => {
+    if (likes.some((like) => like.storyId == storyId)) {
+      console.log("unlike");
+      await dispatch(unlikeEntity({ entityId: storyId, entityType: "story" }));
+      // setLike(false);
+    } else {
+      await dispatch(likeEntity({ entityId: storyId, entityType: "story" }));
+      // setLike(true);
+    }
+  };
+
   return (
     <div className={styles.stories}>
       <Link href="/posts">
@@ -335,14 +356,11 @@ export default function StoryPage() {
                     alt="Like"
                   />
                 </button> */}
-                <button>
-                  <Image
-                    src="/posts/dots_icon.svg"
-                    width={24}
-                    height={24}
-                    alt="Like"
-                  />
-                </button>
+                {currentUser?.id == item.user.id && (
+                  <button onClick={() => deleteById(item.id)}>
+                    <Image src="/trash.svg" width={24} height={24} alt="Like" />
+                  </button>
+                )}
               </div>
             </div>
 
@@ -350,13 +368,24 @@ export default function StoryPage() {
               <div className={styles.footer_comment}>
                 <input type="text" placeholder="Ответьте" />
               </div>
-              <button>
-                <Image
-                  src="/posts/heart2.svg"
-                  width={24}
-                  height={24}
-                  alt="Like"
-                />
+
+              <button onClick={() => handleLike(item.id)}>
+                {likes.some((like) => like.storyId == item.id) ? (
+                  <Image
+                    src="/posts/heart_fill.svg"
+                    width={24}
+                    height={24}
+                    alt="Like"
+                    className={`${styles.heart} ${styles.heart__active}`}
+                  />
+                ) : (
+                  <Image
+                    src="/posts/heart2.svg"
+                    width={24}
+                    height={24}
+                    alt="Like"
+                  />
+                )}
               </button>
               <button>
                 <Image

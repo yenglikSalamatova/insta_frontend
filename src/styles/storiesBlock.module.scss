@@ -49,6 +49,20 @@
   border: 0.2rem solid transparent;
 }
 
+.currentUser img {
+  cursor: pointer;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  object-fit: cover;
+  padding: 0.2rem;
+  border-width: 0.2rem;
+  border-image-slice: 1;
+  border-style: solid;
+  background: transparent;
+  border: 0.2rem solid transparent;
+}
+
 .slider_prev > img,
 .slider_next > img {
   cursor: pointer;

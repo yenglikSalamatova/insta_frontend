@@ -11,9 +11,9 @@ import { END_POINT } from "@/utils/endPoint";
 import { timestampConvert } from "@/utils/timestampConvert";
 import Comments from "@/components/comments/Comments";
 import { createComment } from "@/app/store/slice/postsSlice";
+import { likeEntity, unlikeEntity } from "@/app/store/slice/likesSlice";
 
 export default function PostModal({ postId, togglePostModal }) {
-  const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
 
   const [textarea, setTextarea] = useState("");
@@ -21,6 +21,7 @@ export default function PostModal({ postId, togglePostModal }) {
 
   const dispatch = useDispatch();
   const post = useSelector((state) => state.posts.post);
+  const likes = useSelector((state) => state.likes.likes);
 
   useEffect(() => {
     dispatch(getPost(postId));
@@ -42,7 +43,11 @@ export default function PostModal({ postId, togglePostModal }) {
   };
 
   const handleLike = () => {
-    setLike(!like);
+    if (likes.some((like) => like.postId == post.id)) {
+      dispatch(unlikeEntity({ entityId: post.id, entityType: "post" }));
+    } else {
+      dispatch(likeEntity({ entityId: post.id, entityType: "post" }));
+    }
   };
 
   const handleBookmark = () => {
@@ -125,7 +130,7 @@ export default function PostModal({ postId, togglePostModal }) {
                 <div className={styles.post__actions}>
                   <div>
                     <button onClick={handleLike}>
-                      {like ? (
+                      {likes.some((like) => like.postId == post.id) ? (
                         <Image
                           src="/posts/heart_fill.svg"
                           width={27}
