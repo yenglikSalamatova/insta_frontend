@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { END_POINT } from "@/utils/endPoint";
 import { useDispatch } from "react-redux";
+import { getFollowedPosts } from "@/app/store/slice/postsSlice";
 
 const likesSlice = createSlice({
   name: "likes",
@@ -39,6 +40,7 @@ export const likeEntity = (data) => async (dispatch) => {
     });
     if (res.status === 201) {
       await dispatch(getLikes());
+      await dispatch(getFollowedPosts());
     }
   } catch (error) {
     console.log(error);
@@ -57,6 +59,7 @@ export const unlikeEntity = (data) => async (dispatch) => {
     });
     if (res.status === 200) {
       await dispatch(getLikes());
+      await dispatch(getFollowedPosts());
     }
   } catch (error) {
     console.log(error);

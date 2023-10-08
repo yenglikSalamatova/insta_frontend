@@ -6,7 +6,12 @@ import ProfileCard from "@/components/recomendations/ProfileCard";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "@/app/store/slice/authSlice";
 import { useRouter } from "next/navigation";
-import { getRecommendations } from "@/app/store/slice/subscriptionSlice";
+import {
+  followUser,
+  unfollowUser,
+  getRecommendations,
+  getFollowing,
+} from "@/app/store/slice/subscriptionSlice";
 import { useEffect } from "react";
 
 const RightSideBar = () => {
@@ -15,17 +20,27 @@ const RightSideBar = () => {
   const recomendations = useSelector(
     (state) => state.subscription.recomendations
   );
+  const followings = useSelector((state) => state.subscription.following);
   console.log(currentUser, isAuth);
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
     dispatch(getRecommendations());
-  }, [dispatch]);
+    dispatch(getFollowing(currentUser?.username));
+  }, [dispatch, currentUser]);
 
   const handleLogout = () => {
     dispatch(logout());
     router.push("/login");
+  };
+
+  const handleFollow = (id) => {
+    dispatch(followUser(id, currentUser));
+  };
+
+  const handleUnfollow = (id) => {
+    dispatch(unfollowUser(id, currentUser));
   };
 
   return (
@@ -41,9 +56,19 @@ const RightSideBar = () => {
 
       {recomendations.map((recomendation) => (
         <ProfileCard
-          type="following"
+          type={
+            followings.some((flw) => flw.followingId == recomendation.id)
+              ? "followers"
+              : "following"
+          }
+          onLogout={handleLogout}
           profile={recomendation}
           key={recomendation.id}
+          onClick={
+            followings.some((flw) => flw.followingId == recomendation.id)
+              ? () => handleUnfollow(recomendation.id)
+              : () => handleFollow(recomendation.id)
+          }
         />
       ))}
 

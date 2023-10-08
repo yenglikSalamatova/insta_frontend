@@ -10,6 +10,8 @@ const subscriptionSlice = createSlice({
     followers: [],
     following: [],
     recomendations: [],
+    profileFollowers: [],
+    profileFollowing: [],
   },
   reducers: {
     setFollowers: (state, action) => {
@@ -21,11 +23,22 @@ const subscriptionSlice = createSlice({
     setRecomendations: (state, action) => {
       state.recomendations = action.payload;
     },
+    setProfileFollowers: (state, action) => {
+      state.profileFollowers = action.payload;
+    },
+    setProfileFollowing: (state, action) => {
+      state.profileFollowing = action.payload;
+    },
   },
 });
 
-export const { setFollowers, setFollowing, setRecomendations } =
-  subscriptionSlice.actions;
+export const {
+  setFollowers,
+  setFollowing,
+  setRecomendations,
+  setProfileFollowers,
+  setProfileFollowing,
+} = subscriptionSlice.actions;
 
 export const getFollowers = (username) => async (dispatch) => {
   try {
@@ -39,6 +52,24 @@ export const getFollowers = (username) => async (dispatch) => {
     console.log(res);
     if (res.status === 200) {
       dispatch(setFollowers(res.data.followers));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getProfileFollowers = (username) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.get(
+      `${END_POINT}/api/subscriptions/${username}/followers`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log(res);
+    if (res.status === 200) {
+      dispatch(setProfileFollowers(res.data.followers));
     }
   } catch (error) {
     console.log(error);
@@ -62,6 +93,23 @@ export const getFollowing = (username) => async (dispatch) => {
   }
 };
 
+export const getProfileFollowing = (username) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.get(
+      `${END_POINT}/api/subscriptions/${username}/followings`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    if (res.status === 200) {
+      dispatch(setProfileFollowing(res.data.following));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getRecommendations = () => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
@@ -70,6 +118,40 @@ export const getRecommendations = () => async (dispatch) => {
     });
     if (res.status === 200) {
       dispatch(setRecomendations(res.data.users));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const followUser = (id, currentUser) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.post(
+      `${END_POINT}/api/subscriptions/${id}`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    if (res.status === 201) {
+      dispatch(getFollowers(currentUser.username));
+      dispatch(getFollowing(currentUser.username));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const unfollowUser = (id, currentUser) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.delete(`${END_POINT}/api/subscriptions/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.status === 201) {
+      dispatch(getFollowers(currentUser.username));
+      dispatch(getFollowing(currentUser.username));
     }
   } catch (error) {
     console.log(error);

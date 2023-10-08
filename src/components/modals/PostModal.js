@@ -12,6 +12,7 @@ import { timestampConvert } from "@/utils/timestampConvert";
 import Comments from "@/components/comments/Comments";
 import { createComment } from "@/app/store/slice/postsSlice";
 import { likeEntity, unlikeEntity } from "@/app/store/slice/likesSlice";
+import { useRouter } from "next/navigation";
 
 export default function PostModal({ postId, togglePostModal }) {
   const [bookmark, setBookmark] = useState(false);
@@ -20,8 +21,10 @@ export default function PostModal({ postId, togglePostModal }) {
   const [comments, setComments] = useState([]);
 
   const dispatch = useDispatch();
+  const router = useRouter();
   const post = useSelector((state) => state.posts.post);
   const likes = useSelector((state) => state.likes.likes);
+  const currentUser = useSelector((state) => state.auth.currentUser);
 
   useEffect(() => {
     dispatch(getPost(postId));
@@ -55,6 +58,10 @@ export default function PostModal({ postId, togglePostModal }) {
   };
 
   console.log("PostModal rerender");
+
+  if (!currentUser) {
+    router.push("/login");
+  }
 
   if (!post.id || post.id !== postId) {
     return (

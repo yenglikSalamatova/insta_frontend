@@ -13,6 +13,11 @@ import { END_POINT } from "@/utils/endPoint";
 import Link from "next/link";
 import LayoutWithoutAuth from "@/components/layouts/LayoutWithoutAuth";
 import Spinner from "@/components/Spinner";
+import {
+  getFollowing,
+  followUser,
+  unfollowUser,
+} from "@/app/store/slice/subscriptionSlice";
 
 export default function Profile() {
   const [modal, setModal] = useState("");
@@ -29,14 +34,18 @@ export default function Profile() {
 
   const dispatch = useDispatch();
 
+  const following = useSelector((state) => state.subscription.following);
+  console.log("Profile", "followings", following);
+
   useEffect(() => {
     dispatch(getPostsByUsername(username));
     dispatch(getUserByUsername(username));
+    dispatch(getFollowing(currentUser?.username));
     document.title = `@${username} | Instagram`;
     return function () {
       document.title = "Instagram";
     };
-  }, [dispatch, username]);
+  }, [dispatch, username, currentUser]);
 
   function openModal(type) {
     setModal(type);
@@ -48,6 +57,14 @@ export default function Profile() {
 
   function handleChangePublicationsType(type) {
     setPublicationsType(type);
+  }
+
+  async function handleFollow() {
+    await dispatch(followUser(profileUser.id, currentUser));
+  }
+
+  async function handleUnfollow() {
+    await dispatch(unfollowUser(profileUser.id, currentUser));
   }
 
   if (!profileUser.id || !username) {
@@ -75,15 +92,32 @@ export default function Profile() {
                 Редактировать профиль
               </Link>
             )}
+            {currentUser &&
+              currentUser.id !== profileUser.id &&
+              following.some((flw) => flw.followingId == profileUser.id) && (
+                <button
+                  className={styles.button_secondary}
+                  onClick={handleUnfollow}
+                >
+                  Отписаться
+                </button>
+              )}
+            {currentUser &&
+              currentUser.id !== profileUser.id &&
+              !following.some((flw) => flw.followingId == profileUser.id) && (
+                <button className={styles.button_blue} onClick={handleFollow}>
+                  Подписаться
+                </button>
+              )}
           </div>
           <div className={styles.info__subscriptions}>
             <span>
               <b>{profilePosts.length} </b>публикации
             </span>
-            <button onClick={() => openModal("followers")}>
+            <button onClick={() => openModal("profileFollowers")}>
               <b>{profileUser.followersCount} </b>подписчиков
             </button>
-            <button onClick={() => openModal("following")}>
+            <button onClick={() => openModal("profileFollowing")}>
               <b>{profileUser.followingCount} </b>подписок
             </button>
           </div>
