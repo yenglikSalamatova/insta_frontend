@@ -34,12 +34,12 @@ export default function SubscribeModal({ closeModal, modal }) {
   console.log("Subs", subscriptions);
   console.log("Follow", following);
 
-  function handleFollow(id) {
-    dispatch(followUser(id, currentUser));
+  function handleFollow(user) {
+    dispatch(followUser(user, currentUser, true));
   }
 
-  function handleUnfollow(id) {
-    dispatch(unfollowUser(id, currentUser));
+  function handleUnfollow(user) {
+    dispatch(unfollowUser(user, currentUser, true));
   }
 
   function handleSearch(e) {
@@ -81,7 +81,13 @@ export default function SubscribeModal({ closeModal, modal }) {
                     ? "followers"
                     : "following"
                 }
-                onClick={() => handleFollow(subscription.follower.id)}
+                onClick={
+                  following.some(
+                    (flw) => flw.followingId == subscription.follower.id
+                  )
+                    ? () => handleUnfollow(subscription.follower)
+                    : () => handleFollow(subscription.follower)
+                }
                 currentUser={
                   subscription.follower.id == currentUser.id
                     ? currentUser
@@ -105,8 +111,8 @@ export default function SubscribeModal({ closeModal, modal }) {
                   following.some(
                     (flw) => flw.followingId == subscription.following.id
                   )
-                    ? () => handleUnfollow(subscription.following.id)
-                    : () => handleFollow(subscription.following.id)
+                    ? () => handleUnfollow(subscription.following)
+                    : () => handleFollow(subscription.following)
                 }
                 currentUser={
                   subscription.following.id == currentUser.id

@@ -13,12 +13,14 @@ import Comments from "@/components/comments/Comments";
 import { createComment } from "@/app/store/slice/postsSlice";
 import { likeEntity, unlikeEntity } from "@/app/store/slice/likesSlice";
 import { useRouter } from "next/navigation";
+import SettingsPostModal from "./SettingsPostModal";
 
 export default function PostModal({ postId, togglePostModal }) {
   const [bookmark, setBookmark] = useState(false);
 
   const [textarea, setTextarea] = useState("");
-  const [comments, setComments] = useState([]);
+
+  const [isSettings, setIsSettings] = useState(false);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -59,10 +61,6 @@ export default function PostModal({ postId, togglePostModal }) {
 
   console.log("PostModal rerender");
 
-  if (!currentUser) {
-    router.push("/login");
-  }
-
   if (!post.id || post.id !== postId) {
     return (
       <div className={styles.modal}>
@@ -74,6 +72,12 @@ export default function PostModal({ postId, togglePostModal }) {
   return (
     <div className={styles.modal}>
       <div className={styles.overlay} onClick={togglePostModal}></div>
+      {isSettings && (
+        <SettingsPostModal
+          closeModal={() => setIsSettings(false)}
+          post={post}
+        />
+      )}
       <button className={styles.modal__close} onClick={togglePostModal}>
         <Image src="/posts/close.svg" width={30} height={30} alt="Close" />
       </button>
@@ -114,7 +118,10 @@ export default function PostModal({ postId, togglePostModal }) {
                   )}
                   <Link href="/">{post.user.username}</Link>
                 </div>
-                <button className={styles.post__settings}>
+                <button
+                  className={styles.post__settings}
+                  onClick={() => setIsSettings(!isSettings)}
+                >
                   <Image
                     src="/posts/dots_icon.svg"
                     width={20}

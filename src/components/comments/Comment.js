@@ -6,13 +6,22 @@ import { timestampConvert } from "@/utils/timestampConvert";
 import { useState } from "react";
 import SettingsCommentsModal from "@/components/modals/SettingsCommentsModal";
 import { useDispatch, useSelector } from "react-redux";
-import { likeEntity, unlikeEntity } from "@/app/store/slice/likesSlice";
+import {
+  likeEntity,
+  unlikeEntity,
+  getLikes,
+} from "@/app/store/slice/likesSlice";
+import { useEffect } from "react";
 
 export default function Comment({ comment }) {
   const [settings, setSettings] = useState(false);
 
   const likes = useSelector((state) => state.likes.likes);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getLikes());
+  }, []);
 
   const handleLike = () => {
     if (likes.some((like) => like.commentId == comment.id)) {

@@ -11,9 +11,8 @@ export default function SettingsPostModal({ closeModal, post }) {
 
   const handleDelete = () => {
     console.log("delete");
-    dispatch(deletePost(post.id));
+    dispatch(deletePost(post.id, post.user.username));
     closeModal();
-    location.reload();
   };
 
   const toggleEdit = () => {
@@ -36,7 +35,6 @@ export default function SettingsPostModal({ closeModal, post }) {
             {currentUser && (
               <div className={styles.modal__body}>
                 <ul>
-                  <li className={styles.text_red}>Отменить подписку</li>
                   {currentUser.id == post.user.id && (
                     <>
                       {" "}
@@ -48,7 +46,6 @@ export default function SettingsPostModal({ closeModal, post }) {
                   )}
 
                   <li>Добавить в сохраненные</li>
-                  <li>Перейти к публикации</li>
                   <li onClick={closeModal}>Отмена</li>
                 </ul>
               </div>

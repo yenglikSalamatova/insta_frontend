@@ -35,12 +35,12 @@ const RightSideBar = () => {
     router.push("/login");
   };
 
-  const handleFollow = (id) => {
-    dispatch(followUser(id, currentUser));
+  const handleFollow = (user) => {
+    dispatch(followUser(user, currentUser));
   };
 
-  const handleUnfollow = (id) => {
-    dispatch(unfollowUser(id, currentUser));
+  const handleUnfollow = (user) => {
+    dispatch(unfollowUser(user, currentUser));
   };
 
   return (
@@ -54,23 +54,24 @@ const RightSideBar = () => {
         <p className={styles.text}>Рекомендации для вас</p>
       </div>
 
-      {recomendations.map((recomendation) => (
-        <ProfileCard
-          type={
-            followings.some((flw) => flw.followingId == recomendation.id)
-              ? "followers"
-              : "following"
-          }
-          onLogout={handleLogout}
-          profile={recomendation}
-          key={recomendation.id}
-          onClick={
-            followings.some((flw) => flw.followingId == recomendation.id)
-              ? () => handleUnfollow(recomendation.id)
-              : () => handleFollow(recomendation.id)
-          }
-        />
-      ))}
+      {recomendations &&
+        recomendations.map((recomendation) => (
+          <ProfileCard
+            type={
+              followings.some((flw) => flw.followingId == recomendation.id)
+                ? "followers"
+                : "following"
+            }
+            onLogout={handleLogout}
+            profile={recomendation}
+            key={recomendation.id}
+            onClick={
+              followings.some((flw) => flw.followingId == recomendation.id)
+                ? () => handleUnfollow(recomendation)
+                : () => handleFollow(recomendation)
+            }
+          />
+        ))}
 
       <footer className={styles.footer}>
         <ul className={styles.footer__ul}>

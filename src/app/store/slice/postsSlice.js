@@ -93,17 +93,24 @@ export const createPost = (post, router) => async (dispatch) => {
   }
 };
 
-export const deletePost = (id) => async (dispatch) => {
-  try {
-    const token = localStorage.getItem("token");
-    const res = await axios.delete(`${END_POINT}/api/posts/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    dispatch(deletePost(id));
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const deletePost =
+  (id, username = "") =>
+  async (dispatch) => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.delete(`${END_POINT}/api/posts/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(res);
+      dispatch(deletePost(id));
+      dispatch(getFollowedPosts());
+      if (username) {
+        dispatch(getPostsByUsername(username));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 export const editPost = (id, post) => async (dispatch) => {
   try {
@@ -149,6 +156,20 @@ export const getUserByUsername = (username) => async (dispatch) => {
     });
     if (res.status === 200) {
       dispatch(setProfile(res.data));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getInterestingPosts = () => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.get(`${END_POINT}/api/posts/interesting`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.status === 200) {
+      dispatch(setPosts(res.data));
     }
   } catch (error) {
     console.log(error);

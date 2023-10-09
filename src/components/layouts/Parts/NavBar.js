@@ -5,16 +5,18 @@ import Image from "next/image";
 import Link from "next/link";
 import CreatePostModal from "../../modals/CreatePostModal";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { END_POINT } from "@/utils/endPoint";
 import {
   modalScrollBlocking,
   modalScrollUnblocking,
 } from "@/utils/modalScrollBlocking";
+import SearchBar from "./SearchBar";
 
 const NavBar = () => {
   const [createPost, setCreatePost] = useState(false);
+  const [searchBar, setSearchBar] = useState(false);
   const currentUser = useSelector((state) => state.auth.currentUser);
 
   const pathname = usePathname();
@@ -35,15 +37,30 @@ const NavBar = () => {
   return (
     <>
       {createPost && <CreatePostModal onToggle={handleCreatePost} />}
-      <nav className={styles.navbar}>
+      {searchBar && <SearchBar onClose={() => setSearchBar(false)} />}
+      <nav
+        className={
+          styles.navbar + " " + `${searchBar ? styles.mini_navbar : ""}`
+        }
+      >
         <Link href="/">
-          <Image
-            className={styles.logo}
-            src="/logo.png"
-            width={135}
-            height={0}
-            alt="Instagram logo"
-          />
+          {searchBar ? (
+            <Image
+              className={styles.logo}
+              src="/logo_camera.svg"
+              width={24}
+              height={24}
+              alt="Instagram logo"
+            />
+          ) : (
+            <Image
+              className={styles.logo}
+              src="/logo.png"
+              width={110}
+              height={0}
+              alt="Instagram logo"
+            />
+          )}
         </Link>
 
         <Link href="/" className={pathname === "/" ? styles.active : ""}>
@@ -56,10 +73,10 @@ const NavBar = () => {
             height={0}
             alt="House Stroke Icon"
           />
-          Главная
+          {!searchBar && "Главная"}
         </Link>
 
-        <Link href="/">
+        <Link href="#" onClick={() => setSearchBar(!searchBar)}>
           <Image
             className="img"
             src="/posts/glass_stroke.svg"
@@ -67,9 +84,9 @@ const NavBar = () => {
             height={0}
             alt="Glass Stroke Icon"
           />
-          Поисковый запрос
+          {!searchBar && "Поисковый запрос"}
         </Link>
-        <Link href="/">
+        <Link href="/interesting-posts">
           <Image
             className="img"
             src="/posts/compass_stroke.svg"
@@ -77,9 +94,9 @@ const NavBar = () => {
             height={0}
             alt="Compass Stroke Icon"
           />
-          Интересное
+          {!searchBar && "Интересное"}
         </Link>
-        <Link href="/">
+        {/* <Link href="/">
           <Image
             className="img"
             src="/posts/heart_stroke.svg"
@@ -88,7 +105,7 @@ const NavBar = () => {
             alt="Heart Stroke Icon"
           />
           Уведомления
-        </Link>
+        </Link> */}
         <Link href="#" onClick={handleCreatePost}>
           <Image
             className="img"
@@ -97,7 +114,7 @@ const NavBar = () => {
             height={0}
             alt="Create Post Icon"
           />
-          Создать
+          {!searchBar && "Создать"}
         </Link>
 
         <Link
@@ -113,7 +130,7 @@ const NavBar = () => {
             height={28}
             alt="Your Avatar"
           />
-          Профиль
+          {!searchBar && "Профиль"}
         </Link>
       </nav>
     </>

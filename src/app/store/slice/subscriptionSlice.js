@@ -125,43 +125,57 @@ export const getRecommendations = () => async (dispatch) => {
   }
 };
 
-export const followUser = (profileUser, currentUser) => async (dispatch) => {
-  try {
-    const token = localStorage.getItem("token");
-    const res = await axios.post(
-      `${END_POINT}/api/subscriptions/${profileUser.id}`,
-      {},
-      {
-        headers: { Authorization: `Bearer ${token}` },
+export const followUser =
+  (profileUser, currentUser, noChange = false) =>
+  async (dispatch) => {
+    console.log(profileUser, currentUser);
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.post(
+        `${END_POINT}/api/subscriptions/${profileUser.id}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      if (res.status === 201 && !noChange) {
+        dispatch(getFollowers(currentUser.username));
+        dispatch(getFollowing(currentUser.username));
+        dispatch(getUserByUsername(profileUser.username));
+      } else if (res.status === 201 && noChange) {
+        dispatch(getFollowers(currentUser.username));
+        dispatch(getFollowing(currentUser.username));
+        dispatch(getProfileFollowers(currentUser.username));
       }
-    );
-    if (res.status === 201) {
-      dispatch(getFollowers(currentUser.username));
-      dispatch(getFollowing(currentUser.username));
-      dispatch(getUserByUsername(profileUser.username));
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
-  }
-};
+  };
 
-export const unfollowUser = (profileUser, currentUser) => async (dispatch) => {
-  try {
-    const token = localStorage.getItem("token");
-    const res = await axios.delete(
-      `${END_POINT}/api/subscriptions/${profileUser.id}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
+export const unfollowUser =
+  (profileUser, currentUser, noChange = false) =>
+  async (dispatch) => {
+    console.log(profileUser, currentUser);
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.delete(
+        `${END_POINT}/api/subscriptions/${profileUser.id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      if (res.status === 201 && !noChange) {
+        dispatch(getFollowers(currentUser.username));
+        dispatch(getFollowing(currentUser.username));
+        dispatch(getUserByUsername(profileUser.username));
+      } else if (res.status === 201 && noChange) {
+        dispatch(getFollowers(currentUser.username));
+        dispatch(getFollowing(currentUser.username));
+        dispatch(getProfileFollowers(currentUser.username));
       }
-    );
-    if (res.status === 201) {
-      dispatch(getFollowers(currentUser.username));
-      dispatch(getFollowing(currentUser.username));
-      dispatch(getUserByUsername(profileUser.username));
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
-  }
-};
+  };
 
 export default subscriptionSlice.reducer;
