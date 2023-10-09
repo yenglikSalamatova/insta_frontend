@@ -10,14 +10,12 @@ const authSlice = createSlice({
     isAuth: false,
     token: null,
     currentUser: null,
-    tokenExp: null,
     error: null,
   },
   reducers: {
     login(state, action) {
       state.isAuth = true;
       state.token = action.payload.token;
-      state.tokenExp = action.payload.tokenExp;
       state.currentUser = action.payload.user;
       state.error = null;
       axios.defaults.headers.common[
@@ -58,7 +56,7 @@ export const loginAsync = (email, password) => async (dispatch) => {
           const user = {
             ...decodedToken.user,
           };
-          dispatch(login({ token, user, tokenExp: decodedToken.exp }));
+          dispatch(login({ token, user }));
         }
       }
     }
@@ -73,7 +71,9 @@ export const loginAsync = (email, password) => async (dispatch) => {
 export const editUser = (data, router) => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
-    // FIX: Не меняется username
+
+    // FIX: Не меняется username NOTE: username > 4 символов
+
     const res = await axios.patch(`${END_POINT}/api/users`, data, {
       headers: { Authorization: `Bearer ${token}` },
     });

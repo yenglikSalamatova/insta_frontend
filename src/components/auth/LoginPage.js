@@ -21,13 +21,6 @@ const LoginPage = () => {
 
   const isFormValid = email && password;
 
-  useEffect(() => {
-    console.log(isAuth);
-    if (isAuth) {
-      router.push("/posts");
-    }
-  }, [isAuth]);
-
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };

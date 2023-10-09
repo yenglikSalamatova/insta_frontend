@@ -8,8 +8,8 @@ import { useEffect } from "react";
 import { getFollowedPosts } from "@/app/store/slice/postsSlice";
 import { getFollowedStories } from "@/app/store/slice/storiesSlice";
 import { getLikes } from "@/app/store/slice/likesSlice";
-import Footer from "@/components/layouts/Footer";
-import NavBar from "@/components/layouts/NavBar";
+import Footer from "@/components/layouts/Parts/Footer";
+import NavBar from "@/components/layouts/Parts/NavBar";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/Spinner";
 

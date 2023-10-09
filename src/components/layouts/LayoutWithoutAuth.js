@@ -1,7 +1,7 @@
-import Footer from "@/components/layouts/Footer";
-import NavBar from "@/components/layouts/NavBar";
+import Footer from "@/components/layouts/Parts/Footer";
+import NavBar from "@/components/layouts/Parts/NavBar";
 import RightSideBar from "@/components/recomendations/RightSideBar";
-import Header from "@/components/layouts/Header";
+import Header from "@/components/layouts/Parts/Header";
 import styles from "@/styles/header.module.scss";
 
 export const metadata = {

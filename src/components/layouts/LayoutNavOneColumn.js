@@ -1,5 +1,5 @@
-import Footer from "@/components/layouts/Footer";
-import NavBar from "@/components/layouts/NavBar";
+import Footer from "@/components/layouts/Parts/Footer";
+import NavBar from "@/components/layouts/Parts/NavBar";
 import RightSideBar from "@/components/recomendations/RightSideBar";
 
 export const metadata = {

@@ -1,9 +1,16 @@
-"use client";
+import PostsPage from "@/components/post/PostsPage";
+import WithAuth from "@/components/layouts/WithAuth";
 
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+export const metadata = {
+  title: "Посты | Instagram",
+};
 
-export default function Home() {
-  return <div>Home</div>;
-}
+const Home = () => {
+  return (
+    <WithAuth>
+      <PostsPage />
+    </WithAuth>
+  );
+};
+
+export default Home;

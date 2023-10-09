@@ -1,4 +1,4 @@
-import Footer from "@/components/layouts/Footer";
+import Footer from "@/components/layouts/Parts/Footer";
 
 export const metadata = {
   title: "Вход • Instagram",

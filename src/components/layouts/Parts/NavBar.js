@@ -3,30 +3,28 @@
 import styles from "@/styles/navbar.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import CreatePostModal from "../modals/CreatePostModal";
+import CreatePostModal from "../../modals/CreatePostModal";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { END_POINT } from "@/utils/endPoint";
+import {
+  modalScrollBlocking,
+  modalScrollUnblocking,
+} from "@/utils/modalScrollBlocking";
 
 const NavBar = () => {
   const [createPost, setCreatePost] = useState(false);
   const currentUser = useSelector((state) => state.auth.currentUser);
 
   const pathname = usePathname();
-  console.log(currentUser);
 
   const handleCreatePost = () => {
     setCreatePost(!createPost);
     if (!createPost) {
-      document.body.style.overflowY = "scroll";
-      document.body.style.overflowX = "hidden";
-      document.body.style.position = "fixed";
-      document.body.style.width = "100%";
+      modalScrollBlocking();
     } else {
-      document.body.style.overflow = "auto";
-      document.body.style.position = "static";
-      document.body.style.width = "100%";
+      modalScrollUnblocking();
     }
   };
 
@@ -48,11 +46,11 @@ const NavBar = () => {
           />
         </Link>
 
-        <Link href="/posts" className={pathname === "/" ? styles.active : ""}>
+        <Link href="/" className={pathname === "/" ? styles.active : ""}>
           <Image
             className="img"
             src={`/posts/${
-              pathname === "/posts" ? "house_fill" : "house_stroke"
+              pathname === "/" ? "house_fill" : "house_stroke"
             }.svg`}
             width={24}
             height={0}
@@ -80,26 +78,6 @@ const NavBar = () => {
             alt="Compass Stroke Icon"
           />
           Интересное
-        </Link>
-        <Link href="/">
-          <Image
-            className="img"
-            src="/posts/messenger_logo_stroke.svg"
-            width={24}
-            height={0}
-            alt="Messenger Stroke Icon"
-          />
-          Сообщения
-        </Link>
-        <Link href="/">
-          <Image
-            className="img"
-            src="/posts/monitor_play_stroke.svg"
-            width={24}
-            height={0}
-            alt="Reels Stroke Icon"
-          />
-          Reels
         </Link>
         <Link href="/">
           <Image

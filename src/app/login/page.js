@@ -1,4 +1,5 @@
-import LoginPage from "@/app/login/login.js";
+import LoginPage from "@/components/auth/LoginPage";
+import WithoutAuth from "@/components/layouts/WithoutAuth";
 
 // NOTE: Метадата только для серверной части сайта
 
@@ -7,7 +8,11 @@ export const metadata = {
 };
 
 const Login = () => {
-  return <LoginPage />;
+  return (
+    <WithoutAuth>
+      <LoginPage />
+    </WithoutAuth>
+  );
 };
 
 export default Login;
