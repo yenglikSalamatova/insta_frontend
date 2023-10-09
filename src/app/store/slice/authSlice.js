@@ -11,6 +11,7 @@ const authSlice = createSlice({
     token: null,
     currentUser: null,
     error: null,
+    success: false,
   },
   reducers: {
     login(state, action) {
@@ -37,10 +38,14 @@ const authSlice = createSlice({
     setNewCurrentUser(state, action) {
       state.currentUser = action.payload;
     },
+    setSuccess(state, action) {
+      state.success = action.payload;
+    },
   },
 });
 
-export const { login, logout, setError, setNewCurrentUser } = authSlice.actions;
+export const { login, logout, setError, setNewCurrentUser, setSuccess } =
+  authSlice.actions;
 
 export const loginAsync = (email, password) => async (dispatch) => {
   try {
@@ -68,7 +73,7 @@ export const loginAsync = (email, password) => async (dispatch) => {
   }
 };
 
-export const editUser = (data, router) => async (dispatch) => {
+export const editUser = (data) => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
 
@@ -77,12 +82,13 @@ export const editUser = (data, router) => async (dispatch) => {
     const res = await axios.patch(`${END_POINT}/api/users`, data, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(res);
+
     if (res.status === 200) {
-      dispatch(setNewCurrentUser(res.data));
-      // router.push(`/profile/${res.data.username}`);
+      await dispatch(setNewCurrentUser(res.data));
+      dispatch(setSuccess(true));
     }
   } catch (error) {
+    dispatch(setError(error.message));
     console.log(error);
   }
 };

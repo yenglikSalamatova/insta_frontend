@@ -10,30 +10,20 @@ import { getFollowedStories } from "@/app/store/slice/storiesSlice";
 import { getLikes } from "@/app/store/slice/likesSlice";
 import Footer from "@/components/layouts/Parts/Footer";
 import NavBar from "@/components/layouts/Parts/NavBar";
-import { useRouter } from "next/navigation";
 import Spinner from "@/components/Spinner";
 
 const PostsPage = () => {
-  const currentUser = useSelector((state) => state.auth.currentUser);
-  const isAuth = useSelector((state) => state.auth.isAuth);
   const posts = useSelector((state) => state.posts.posts);
   const stories = useSelector((state) => state.stories.followedStories);
   const likes = useSelector((state) => state.likes.likes);
 
   const dispatch = useDispatch();
-  const router = useRouter();
 
   useEffect(() => {
     dispatch(getFollowedPosts());
     dispatch(getFollowedStories());
     dispatch(getLikes());
   }, [dispatch]);
-
-  // console.log("Likes", likes);
-
-  if (!currentUser) {
-    return <Spinner />;
-  }
 
   const postLikes = likes.filter((like) => like.postId !== null);
 

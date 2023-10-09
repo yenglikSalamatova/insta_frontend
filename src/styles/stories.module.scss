@@ -1,17 +1,17 @@
 @import "colors";
 .logo {
+  top: 2rem;
+  left: 2rem;
   position: absolute;
   height: auto;
-  margin-bottom: 3rem;
 }
 
 .stories {
   overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 5rem;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   color: $white;
   width: 100vw;
   height: 100vh;
@@ -34,24 +34,21 @@
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 1rem;
-  width: calc(55rem / 2);
-  height: calc(96vh / 2);
   grid-row: 2/3;
   justify-self: center;
+  margin: 0 auto;
+  width: 55rem;
+  height: 88rem;
 
-  &.active {
-    margin: 0 auto;
-    width: 55rem;
-    height: 96vh;
-    grid-column: 2/3;
-    grid-row: 1/4;
-  }
   &_header {
     margin-top: 1rem;
     display: flex;
     justify-content: space-between;
   }
   &_lenght {
+    margin-bottom: -2rem;
+    width: 50rem;
+    z-index: 1000;
     display: flex;
     gap: 0.5rem;
 
@@ -63,9 +60,15 @@
 
       .animated {
         width: 0;
-        height: 100%;
+        height: 0.2rem;
         background-color: $white;
-        animation: grow 10s linear infinite;
+        animation: grow 10s linear forwards;
+      }
+
+      .animation_end {
+        width: 100%;
+        height: 0.2rem;
+        background-color: $white;
       }
     }
   }

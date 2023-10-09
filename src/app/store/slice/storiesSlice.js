@@ -49,29 +49,29 @@ export const getStoriesById = (id) => async (dispatch) => {
   }
 };
 
-export const createStory = (data, router) => async (dispatch) => {
+export const createStory = (data, onToggle) => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
     const res = await axios.post(`${END_POINT}/api/stories`, data, {
       headers: { Authorization: `Bearer ${token}` },
     });
     console.log(res);
-    await dispatch(getFollowedStories());
-    router.push("/posts");
+    dispatch(getFollowedStories());
+    onToggle();
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deleteStory = (id) => async (dispatch) => {
+export const deleteStory = (story) => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
-    const res = await axios.delete(`${END_POINT}/api/stories/${id}`, {
+    const res = await axios.delete(`${END_POINT}/api/stories/${story.id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    if (res.status === 204) {
-      dispatch(getFollowedStories());
-    }
+
+    dispatch(getFollowedStories());
+    dispatch(getStoriesById(story.userId));
   } catch (error) {
     console.log(error);
   }

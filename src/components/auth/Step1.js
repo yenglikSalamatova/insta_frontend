@@ -7,10 +7,10 @@ const Step1 = ({ onNext, onInputChange, formData }) => {
 
   const handleFormValidation = () => {
     if (
-      formData.email.length > 0 &&
-      formData.full_name.length > 0 &&
-      formData.username.length > 0 &&
-      formData.password.length > 0
+      formData.email.length > 4 &&
+      formData.full_name.length > 4 &&
+      formData.username.length > 4 &&
+      formData.password.length > 4
     ) {
       setIsFormValid(true);
     } else {
@@ -80,7 +80,7 @@ const Step1 = ({ onNext, onInputChange, formData }) => {
         <a className={styles.form__link}>Политику конфиденциальности</a> и{" "}
         <a className={styles.form__link}>Политику в отношении файлов cookie</a>.
       </span>
-      {/* <h1>{isFormValid ? "true" : "false"}</h1> */}
+
       <button
         className={styles.button_blue}
         onClick={onNext}

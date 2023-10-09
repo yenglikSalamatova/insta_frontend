@@ -40,11 +40,9 @@ export default function ProfileByUsernamePage() {
   useEffect(() => {
     dispatch(getPostsByUsername(username));
     dispatch(getUserByUsername(username));
-    dispatch(getFollowing(currentUser?.username));
+    if (currentUser) dispatch(getFollowing(currentUser?.username));
+
     document.title = `@${username} | Instagram`;
-    return function () {
-      document.title = "Instagram";
-    };
   }, [dispatch, username, currentUser]);
 
   function openModal(type) {
@@ -60,11 +58,11 @@ export default function ProfileByUsernamePage() {
   }
 
   async function handleFollow() {
-    await dispatch(followUser(profileUser.id, currentUser));
+    dispatch(followUser(profileUser, currentUser));
   }
 
   async function handleUnfollow() {
-    await dispatch(unfollowUser(profileUser.id, currentUser));
+    dispatch(unfollowUser(profileUser, currentUser));
   }
 
   if (!profileUser.id || !username) {

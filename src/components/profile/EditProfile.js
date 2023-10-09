@@ -1,34 +1,25 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import LayoutNavOneColumn from "@/components/layouts/LayoutNavOneColumn";
 import styles from "@/styles/profie.module.scss";
 import Image from "next/image";
 import { END_POINT } from "@/utils/endPoint";
 import { editUser } from "@/app/store/slice/authSlice";
-import { useRouter } from "next/navigation";
 
 export default function EditProfile() {
   const currentUser = useSelector((state) => state.auth.currentUser);
-  const [full_name, setFull_name] = useState("");
-  const [username, setUsername] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [bio, setBio] = useState("");
+  const [full_name, setFull_name] = useState(currentUser.full_name);
+  const [username, setUsername] = useState(currentUser.username);
+  const [photo, setPhoto] = useState(currentUser.profilePicture);
+  const [bio, setBio] = useState(currentUser.bio);
   const [newPhoto, setNewPhoto] = useState("");
 
-  const router = useRouter();
-
-  useEffect(() => {
-    if (currentUser) {
-      setFull_name(currentUser.full_name || "");
-      setUsername(currentUser.username || "");
-      setPhoto(currentUser.profilePicture || "");
-      setBio(currentUser.bio || "");
-    }
-  }, [currentUser]);
-
   const dispatch = useDispatch();
+
+  const error = useSelector((state) => state.auth.error);
+  const success = useSelector((state) => state.auth.success);
 
   const handleEdit = () => {
     console.log("edit");
@@ -38,8 +29,7 @@ export default function EditProfile() {
     formData.append("bio", bio);
     formData.append("avatar", newPhoto || photo);
 
-    dispatch(editUser(formData, router));
-    // location.reload();
+    dispatch(editUser(formData));
   };
 
   return (
@@ -107,6 +97,8 @@ export default function EditProfile() {
               onChange={(e) => setBio(e.target.value)}
             />
           </fieldset>
+          {error && <p className="alert-box error_info">{error}</p>}
+          {success && <p className="alert-box success_info">Сохранено</p>}
           <button
             type="button"
             className={styles.button_blue}

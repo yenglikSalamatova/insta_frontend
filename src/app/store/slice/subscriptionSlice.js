@@ -3,6 +3,7 @@ import axios from "axios";
 import { END_POINT } from "@/utils/endPoint";
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
+import { getUserByUsername } from "./postsSlice";
 
 const subscriptionSlice = createSlice({
   name: "subscription",
@@ -124,11 +125,11 @@ export const getRecommendations = () => async (dispatch) => {
   }
 };
 
-export const followUser = (id, currentUser) => async (dispatch) => {
+export const followUser = (profileUser, currentUser) => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
     const res = await axios.post(
-      `${END_POINT}/api/subscriptions/${id}`,
+      `${END_POINT}/api/subscriptions/${profileUser.id}`,
       {},
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -137,21 +138,26 @@ export const followUser = (id, currentUser) => async (dispatch) => {
     if (res.status === 201) {
       dispatch(getFollowers(currentUser.username));
       dispatch(getFollowing(currentUser.username));
+      dispatch(getUserByUsername(profileUser.username));
     }
   } catch (error) {
     console.log(error);
   }
 };
 
-export const unfollowUser = (id, currentUser) => async (dispatch) => {
+export const unfollowUser = (profileUser, currentUser) => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
-    const res = await axios.delete(`${END_POINT}/api/subscriptions/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await axios.delete(
+      `${END_POINT}/api/subscriptions/${profileUser.id}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     if (res.status === 201) {
       dispatch(getFollowers(currentUser.username));
       dispatch(getFollowing(currentUser.username));
+      dispatch(getUserByUsername(profileUser.username));
     }
   } catch (error) {
     console.log(error);

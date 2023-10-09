@@ -54,6 +54,10 @@ const StoriesBlock = ({ stories }) => {
     setAtLeft(true);
   };
 
+  const isCurrentUserHaveStory = stories.some(
+    (story) => story.userId === currentUser.id
+  );
+
   return (
     <div className={styles.slider}>
       {atLeft && <CustomPrevArrow onClick={scrollLeft} />}
@@ -61,17 +65,17 @@ const StoriesBlock = ({ stories }) => {
       <CustomNextArrow onClick={scrollRight} />
 
       <div ref={ref} className={styles.slides}>
-        {currentUser && (
-          <Story
-            story={{ user: currentUser }}
-            key={currentUser.id}
-            active={true}
-          />
-        )}
+        <Story
+          currentUser={true}
+          story={{ user: currentUser }}
+          key={currentUser.id}
+          active={isCurrentUserHaveStory}
+        />
+
         {stories.map(
           (story) =>
-            story.userId !== currentUser?.id && (
-              <Story story={story} key={story.id} active={false} />
+            story.userId !== currentUser.id && (
+              <Story story={story} key={story.id} active={true} />
             )
         )}
       </div>

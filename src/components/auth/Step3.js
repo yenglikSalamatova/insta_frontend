@@ -54,7 +54,7 @@ const Step3 = ({ onPrev, email }) => {
         value={verificationCode}
         onChange={handleVerificationCodeChange}
       />
-      {error && <p className="error_info">{error}</p>}
+      {error && <p className="alert-box error_info">{error}</p>}
       <button
         type="button"
         className={styles.button_blue}

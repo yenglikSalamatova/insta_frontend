@@ -26,7 +26,7 @@ const CreateStorysModal = ({ onToggle }) => {
     formData.append("content", selectedFile);
     formData.append("title", "");
     try {
-      await dispatch(createStory(formData, router));
+      dispatch(createStory(formData, onToggle));
     } catch (error) {
       console.error(error);
     }

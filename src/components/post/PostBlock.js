@@ -2,10 +2,10 @@
 
 import React from "react";
 import { useState } from "react";
-import { useEffect } from "react";
+
 import styles from "@/styles/postBlock.module.scss";
 import Image from "next/image";
-import Story from "../stories/Story";
+import Story from "@/components/stories/Story";
 import Link from "next/link";
 import PostModal from "../modals/PostModal";
 import { END_POINT } from "@/utils/endPoint";
@@ -25,6 +25,7 @@ const PostBlock = ({ post, isLiked }) => {
   const router = useRouter();
 
   const likes = useSelector((state) => state.likes.likes);
+  const stories = useSelector((state) => state.stories.followedStories);
 
   const dispatch = useDispatch();
 
@@ -59,6 +60,8 @@ const PostBlock = ({ post, isLiked }) => {
     setTextarea("");
   };
 
+  console.log("Post", stories, post);
+
   return (
     <>
       {postModal && (
@@ -75,27 +78,12 @@ const PostBlock = ({ post, isLiked }) => {
 
         <div className={styles.post__header}>
           <div className={styles.post__userinfo}>
-            {post.story === true ? (
-              <Link href="/">
-                <Image
-                  src={`${END_POINT}${post.user.profilePicture}`}
-                  width={38}
-                  height={38}
-                  className={styles.avatar__active}
-                  alt="Avatar image of"
-                />
-              </Link>
-            ) : (
-              <Link href="/">
-                <Image
-                  src={`${END_POINT}${post.user.profilePicture}`}
-                  width={38}
-                  height={38}
-                  className={styles.avatar}
-                  alt="Avatar image of"
-                />
-              </Link>
-            )}
+            <Story
+              story={post}
+              post={true}
+              active={stories.some((s) => s.userId === post.userId)}
+            />
+
             <Link href={`/profile/${post.user.username}`}>
               {post.user.username}
             </Link>

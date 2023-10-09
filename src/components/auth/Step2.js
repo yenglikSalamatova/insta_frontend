@@ -76,7 +76,7 @@ const Step2 = ({ onNext, onPrev, onInputChange, formData }) => {
         <MonthSelector value={month} onChange={handleMonthChange} />
         <YearSelector value={year} onChange={handleYearChange} />
       </div>
-      {error && <p className="error_info">{error}</p>}
+      {error && <p className=" alert-box error_info">{error}</p>}
       <p className={styles.form__info}>Требуется ввести дату вашего рождения</p>
       <p className={styles.form__info}>
         Укажите собственный день рождения, даже если вы создаете этот аккаунт
