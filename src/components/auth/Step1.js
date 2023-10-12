@@ -10,7 +10,7 @@ const Step1 = ({ onNext, onInputChange, formData }) => {
       formData.email.length > 4 &&
       formData.full_name.length > 4 &&
       formData.username.length > 4 &&
-      formData.password.length > 4
+      formData.password.length > 0
     ) {
       setIsFormValid(true);
     } else {

@@ -13,6 +13,8 @@ export default function StoryElById({
   onPrev,
   onDelete,
   onLike,
+  autoPlay,
+  setAutoPlay,
 }) {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const likes = useSelector((state) => state.likes.likes);
@@ -22,7 +24,9 @@ export default function StoryElById({
       key={item.id}
       className={`${styles.story}`}
       style={{
-        backgroundImage: `url("${`${END_POINT}/${item.content}`}")`,
+        backgroundImage: item.content
+          ? `url("${END_POINT}/${item.content}")`
+          : "none",
       }}
     >
       <div className={styles.slider_prev} onClick={onPrev}>
@@ -56,9 +60,27 @@ export default function StoryElById({
           <div className={styles.user_name}>{item.user.username}</div>
         </div>
         <div className={styles.header_actions}>
-          <button onClick={() => onDelete(item)}>
-            <Image src="/trash.svg" width={24} height={24} alt="Like" />
-          </button>
+          {!autoPlay && (
+            <button onClick={() => setAutoPlay(true)}>
+              <Image src="/posts/play.svg" width={24} height={24} alt="Play" />
+            </button>
+          )}
+          {autoPlay && (
+            <button onClick={() => setAutoPlay(false)}>
+              <Image
+                src="/posts/pause.svg"
+                width={24}
+                height={24}
+                alt="Pause"
+              />
+            </button>
+          )}
+
+          {currentUser && currentUser.id == item.user.id && (
+            <button onClick={() => onDelete(item)}>
+              <Image src="/trash.svg" width={19} height={19} alt="Like" />
+            </button>
+          )}
         </div>
       </div>
 
