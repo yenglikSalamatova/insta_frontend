@@ -123,7 +123,7 @@ const NavBar = () => {
             pathname === `/profile/${currentUser.username}` ? styles.active : ""
           }
         >
-          <Image
+          <img
             className={`${styles.avatar} avatar`}
             src={`${END_POINT}${currentUser.profilePicture}`}
             width={28}
