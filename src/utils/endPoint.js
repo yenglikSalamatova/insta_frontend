@@ -1,1 +1,1 @@
-export const END_POINT = "https://167.71.58.8:3000";
+export const END_POINT = "api.inst.enlik.site";
