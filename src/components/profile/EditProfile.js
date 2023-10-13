@@ -59,14 +59,14 @@ export default function EditProfile() {
             <label>Фото профиля</label>
             <div className={styles.avatar}>
               {newPhoto ? (
-                <Image
+                <img
                   src={URL.createObjectURL(newPhoto)}
                   width={150}
                   height={150}
                   alt="avatar"
                 />
               ) : (
-                <Image
+                <img
                   src={`${END_POINT}/${photo}`}
                   width={150}
                   height={150}

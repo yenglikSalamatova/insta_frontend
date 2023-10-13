@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 const CustomPrevArrow = (props) => (
   <div className={styles.slider_prev} onClick={props.onClick}>
-    <Image
+    <img
       src="/posts/left_arrow.svg"
       alt="Left arrow stories"
       width={27}
@@ -19,7 +19,7 @@ const CustomPrevArrow = (props) => (
 
 const CustomNextArrow = (props) => (
   <div className={styles.slider_next} onClick={props.onClick}>
-    <Image
+    <img
       src="/posts/right_arrow.svg"
       alt="Right arrow stories"
       width={27}

@@ -57,7 +57,7 @@ const Step2 = ({ onNext, onPrev, onInputChange, formData }) => {
   return (
     <>
       <div className={styles.form__header}>
-        <Image
+        <img
           src="/auth/cake.png"
           width={100}
           height={0}

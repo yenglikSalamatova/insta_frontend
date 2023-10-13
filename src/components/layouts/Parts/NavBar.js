@@ -97,7 +97,7 @@ const NavBar = () => {
           {!searchBar && "Интересное"}
         </Link>
         {/* <Link href="/">
-          <Image
+          <img
             className="img"
             src="/posts/heart_stroke.svg"
             width={24}

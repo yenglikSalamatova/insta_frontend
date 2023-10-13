@@ -49,7 +49,7 @@ export default function StoryElById({
       <div className={styles.story_header}>
         <div className={styles.header_user}>
           <div className={styles.user_avatar}>
-            <Image
+            <img
               src={`${END_POINT}/${item.user.profilePicture}`}
               width={32}
               height={32}

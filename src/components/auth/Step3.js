@@ -33,7 +33,7 @@ const Step3 = ({ onPrev, email }) => {
   return (
     <>
       <div className={styles.form__header}>
-        <Image
+        <img
           src="/auth/email.png"
           width={100}
           height={0}

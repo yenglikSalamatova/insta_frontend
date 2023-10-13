@@ -84,7 +84,7 @@ export default function PostModal({ postId, togglePostModal }) {
       {post.id == postId && (
         <div className={styles.modal__content}>
           <div className={styles.modal__media}>
-            <Image
+            <img
               src={`${END_POINT}${post.media[0].url}`}
               alt="Post media"
               width={500}
@@ -97,7 +97,7 @@ export default function PostModal({ postId, togglePostModal }) {
                 <div className={styles.post__userinfo}>
                   {post.story === true ? (
                     <Link href="/">
-                      <Image
+                      <img
                         src={`${END_POINT}${post.user.profilePicture}`}
                         width={38}
                         height={38}
@@ -107,7 +107,7 @@ export default function PostModal({ postId, togglePostModal }) {
                     </Link>
                   ) : (
                     <Link href="/">
-                      <Image
+                      <img
                         src={`${END_POINT}${post.user.profilePicture}`}
                         width={38}
                         height={38}
@@ -122,7 +122,7 @@ export default function PostModal({ postId, togglePostModal }) {
                   className={styles.post__settings}
                   onClick={() => setIsSettings(!isSettings)}
                 >
-                  <Image
+                  <img
                     src="/posts/dots_icon.svg"
                     width={20}
                     height={20}
@@ -145,7 +145,7 @@ export default function PostModal({ postId, togglePostModal }) {
                   <div>
                     <button onClick={handleLike}>
                       {likes.some((like) => like.postId == post.id) ? (
-                        <Image
+                        <img
                           src="/posts/heart_fill.svg"
                           width={27}
                           height={27}
@@ -153,7 +153,7 @@ export default function PostModal({ postId, togglePostModal }) {
                           className={`${styles.heart} ${styles.heart__active}`}
                         />
                       ) : (
-                        <Image
+                        <img
                           src="/posts/heart2.svg"
                           width={27}
                           height={27}
@@ -162,7 +162,7 @@ export default function PostModal({ postId, togglePostModal }) {
                       )}
                     </button>
                     <button>
-                      <Image
+                      <img
                         src="/posts/comments.svg"
                         width={27}
                         height={27}
@@ -170,7 +170,7 @@ export default function PostModal({ postId, togglePostModal }) {
                       />
                     </button>
                     <button>
-                      <Image
+                      <img
                         src="/posts/paper_plane.svg"
                         width={27}
                         height={27}
@@ -181,14 +181,14 @@ export default function PostModal({ postId, togglePostModal }) {
                   <div>
                     <button onClick={handleBookmark}>
                       {bookmark ? (
-                        <Image
+                        <img
                           src="/posts/bookmark_fill.svg"
                           width={24}
                           height={24}
                           alt="Bookmark icon"
                         />
                       ) : (
-                        <Image
+                        <img
                           src="/posts/bookmark.svg"
                           width={24}
                           height={24}

@@ -94,7 +94,7 @@ const PostBlock = ({ post, isLiked }) => {
             className={styles.post__settings}
             onClick={() => setSettings(true)}
           >
-            <Image
+            <img
               src="/posts/dots_icon.svg"
               width={20}
               height={20}
@@ -103,7 +103,7 @@ const PostBlock = ({ post, isLiked }) => {
           </button>
         </div>
         <div className={styles.post__media}>
-          <Image
+          <img
             src={`${END_POINT}${post.media[0].url}`}
             alt="photo"
             width={500}
@@ -114,7 +114,7 @@ const PostBlock = ({ post, isLiked }) => {
           <div>
             <button onClick={handleLike}>
               {isLiked ? (
-                <Image
+                <img
                   src="/posts/heart_fill.svg"
                   width={27}
                   height={27}
@@ -122,7 +122,7 @@ const PostBlock = ({ post, isLiked }) => {
                   className={`${styles.heart} ${styles.heart__active}`}
                 />
               ) : (
-                <Image
+                <img
                   src="/posts/heart2.svg"
                   width={27}
                   height={27}
@@ -131,7 +131,7 @@ const PostBlock = ({ post, isLiked }) => {
               )}
             </button>
             <button onClick={togglePostModal}>
-              <Image
+              <img
                 src="/posts/comments.svg"
                 width={27}
                 height={27}
@@ -139,7 +139,7 @@ const PostBlock = ({ post, isLiked }) => {
               />
             </button>
             <button>
-              <Image
+              <img
                 src="/posts/paper_plane.svg"
                 width={27}
                 height={27}
@@ -150,14 +150,14 @@ const PostBlock = ({ post, isLiked }) => {
           <div>
             <button onClick={handleBookmark}>
               {bookmark ? (
-                <Image
+                <img
                   src="/posts/bookmark_fill.svg"
                   width={24}
                   height={24}
                   alt="Bookmark icon"
                 />
               ) : (
-                <Image
+                <img
                   src="/posts/bookmark.svg"
                   width={24}
                   height={24}

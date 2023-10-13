@@ -49,7 +49,7 @@ export default function SearchBar({ onClose }) {
             key={item.id}
             className={styles.search_card}
           >
-            <Image
+            <img
               src={`${END_POINT}/${item.profilePicture}`}
               width={18}
               height={18}

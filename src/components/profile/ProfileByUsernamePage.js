@@ -74,7 +74,7 @@ export default function ProfileByUsernamePage() {
       {modal && <SubscribeModal closeModal={closeModal} modal={modal} />}
       <div className={styles.profile_container}>
         <div className={styles.profile__avatar}>
-          <Image
+          <img
             src={`${END_POINT}/${profileUser.profilePicture}`}
             width={150}
             height={150}
@@ -139,7 +139,7 @@ export default function ProfileByUsernamePage() {
               className={publicationsType == "saved" ? styles.active : ""}
             >
               {" "}
-              <Image
+              <img
                 src="/posts/bookmark.svg"
                 width={12}
                 height={12}

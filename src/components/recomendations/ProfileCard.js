@@ -12,7 +12,7 @@ const ProfileCard = ({ type, onLogout, profile, onClick, currentUser = 0 }) => {
           href={`/profile/${profile.username}`}
           className={styles.card_image_username}
         >
-          <Image
+          <img
             className="avatar"
             src={`${END_POINT}/${profile.profilePicture}`}
             width={44}
@@ -38,7 +38,7 @@ const ProfileCard = ({ type, onLogout, profile, onClick, currentUser = 0 }) => {
           href={`/profile/${profile.username}`}
           className={styles.card_image_username}
         >
-          <Image
+          <img
             className="avatar"
             src={`${END_POINT}/${profile.profilePicture}`}
             width={44}
@@ -64,7 +64,7 @@ const ProfileCard = ({ type, onLogout, profile, onClick, currentUser = 0 }) => {
           href={`/profile/${profile.username}`}
           className={styles.card_image_username}
         >
-          <Image
+          <img
             className="avatar"
             src={`${END_POINT}/${profile.profilePicture}`}
             width={44}
@@ -90,7 +90,7 @@ const ProfileCard = ({ type, onLogout, profile, onClick, currentUser = 0 }) => {
           href={`/profile/${profile.username}`}
           className={styles.card_image_username}
         >
-          <Image
+          <img
             className="avatar"
             src={`${END_POINT}/${profile.profilePicture}`}
             width={44}

@@ -45,7 +45,7 @@ export default function Comment({ comment }) {
         />
       )}
 
-      <Image
+      <img
         src={`${END_POINT}${comment.user.profilePicture}`}
         width={30}
         height={30}
@@ -62,7 +62,7 @@ export default function Comment({ comment }) {
         <div className={styles.comments__action}>
           <span>{timestampConvert(comment.createdAt)}</span>
           <button onClick={openCommentSettings}>
-            <Image
+            <img
               src="/posts/dots_icon.svg"
               width={18}
               height={18}
@@ -73,7 +73,7 @@ export default function Comment({ comment }) {
       </div>
       <button onClick={handleLike}>
         {likes.some((like) => like.commentId == comment.id) ? (
-          <Image
+          <img
             src="/posts/heart_fill.svg"
             width={18}
             height={18}
@@ -81,7 +81,7 @@ export default function Comment({ comment }) {
             className={`${styles.heart} ${styles.heart__active}`}
           />
         ) : (
-          <Image
+          <img
             src="/posts/heart_stroke.svg"
             width={18}
             height={18}

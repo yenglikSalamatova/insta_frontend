@@ -33,7 +33,7 @@ const Story = ({ story, active, currentUser = false, post = false }) => {
           </div>
         )}
 
-        <Image
+        <img
           src={`${END_POINT}/${story.user.profilePicture}`}
           alt="Story"
           width={50}

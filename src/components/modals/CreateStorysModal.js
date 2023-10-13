@@ -48,7 +48,7 @@ const CreateStorysModal = ({ onToggle }) => {
             <h3>Создание истории</h3>
           </div>
           <div className={styles.modal__body + " flex-center"}>
-            <Image
+            <img
               src="/posts/camera.svg"
               width={55}
               height={55}
@@ -79,7 +79,7 @@ const CreateStorysModal = ({ onToggle }) => {
           <div className={styles.modal__body}>
             <div className={styles.modal__caption}>
               <div className={styles.modal__preview_wrapper + " flex-center "}>
-                <Image
+                <img
                   src={URL.createObjectURL(selectedFile)}
                   alt="Предпросмотр"
                   className={styles.modal__preview + " full-wh"}

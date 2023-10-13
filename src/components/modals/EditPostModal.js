@@ -58,7 +58,7 @@ const CreatePostModal = ({ onToggle, post, closeAll }) => {
               ></textarea>
 
               <div className={styles.modal__preview_wrapper + " flex-center"}>
-                <Image
+                <img
                   src={selectedFile}
                   alt="Предпросмотр"
                   className={styles.modal__preview}

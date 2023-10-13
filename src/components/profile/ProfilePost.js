@@ -36,7 +36,7 @@ export default function ProfilePost({ post }) {
             <p>{post.commentsCount}</p>
           </div>
         </div>
-        <Image
+        <img
           src={`${END_POINT}/${post.media[0].url}`}
           width={300}
           height={300}
