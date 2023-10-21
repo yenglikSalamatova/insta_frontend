@@ -6,6 +6,15 @@
   height: auto;
 }
 
+.close {
+  top: 2rem;
+  right: 2rem;
+  position: absolute;
+  height: auto;
+  filter: invert(100%) sepia(75%) saturate(2%) hue-rotate(207deg)
+    brightness(116%) contrast(100%);
+}
+
 .stories {
   overflow: hidden;
   display: flex;
@@ -33,12 +42,14 @@
   flex-direction: column;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   border-radius: 1rem;
   grid-row: 2/3;
   justify-self: center;
   margin: 0 auto;
-  width: 55rem;
-  height: 88rem;
+  width: calc(var(--index) * 19);
+  height: calc(var(--index) * 30);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
 
   &_header {
     margin-top: 1rem;
@@ -47,7 +58,7 @@
   }
   &_length {
     margin-bottom: -2rem;
-    width: 50rem;
+    width: calc(var(--index) * 19);
     z-index: 1000;
     display: flex;
     gap: 0.5rem;

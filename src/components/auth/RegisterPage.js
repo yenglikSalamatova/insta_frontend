@@ -36,7 +36,7 @@ export default function RegisterPage() {
 
   return (
     <Layout>
-      <main className={styles.main_center}>
+      <main className={styles.register_main_center}>
         <form className={styles.form}>
           {currentStep === 1 && (
             <Step1

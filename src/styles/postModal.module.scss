@@ -6,25 +6,30 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  bottom: 0;
+  right: 0;
   z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 2rem;
 
   &__content {
     position: relative;
-    width: 120rem;
-    height: 80rem;
+    width: calc(var(--index) * 50);
+    height: fit-content;
     background-color: $white;
     border-radius: 5px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     z-index: 1999;
     display: grid;
-    grid-template-columns: 70rem 50rem;
+    grid-template-columns: 2fr 1.5fr;
   }
 
   &__media {
+    width: 100%;
+    height: calc(var(--index) * 30);
+    aspect-ratio: 1 / 1;
     background-color: $black;
     display: flex;
     align-items: center;
@@ -33,11 +38,13 @@
 
   &__media img {
     width: 100%;
-    height: 80rem;
+    height: 100%;
     object-fit: contain;
+    aspect-ratio: 1 / 1;
   }
 
   &__info {
+    position: relative;
     padding: 2rem;
     width: 100%;
     height: 100%;
@@ -49,6 +56,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 1rem;
 
         .avatar {
           align-self: flex-start;
@@ -64,8 +72,9 @@
 
       &__footer {
         position: absolute;
+        left: 2rem;
+        right: 2rem;
         bottom: 0;
-        width: calc(50rem - 4rem);
         background-color: $white;
         display: flex;
         flex-direction: column;
@@ -158,4 +167,18 @@
 
 .post__comments:hover .comments__action button {
   opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .modal__content {
+    grid-template-columns: 1fr;
+
+    .post__footer {
+      position: static;
+    }
+
+    .post__comments {
+      display: none;
+    }
+  }
 }

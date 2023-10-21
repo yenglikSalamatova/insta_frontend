@@ -22,6 +22,7 @@ import {
 export default function ProfileByUsernamePage() {
   const [modal, setModal] = useState("");
   const [publicationsType, setPublicationsType] = useState("posts");
+  const [viewportIs820, setViewportIs820] = useState(window.innerWidth <= 820);
 
   const { username } = useParams();
 
@@ -44,6 +45,22 @@ export default function ProfileByUsernamePage() {
 
     document.title = `@${username} | Instagram`;
   }, [dispatch, username, currentUser]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 820) {
+        setViewportIs820(true);
+      } else {
+        setViewportIs820(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   function openModal(type) {
     setModal(type);
@@ -108,21 +125,38 @@ export default function ProfileByUsernamePage() {
                 </button>
               )}
           </div>
-          <div className={styles.info__subscriptions}>
-            <span>
-              <b>{profilePosts.length} </b>публикации
-            </span>
-            <button onClick={() => openModal("profileFollowers")}>
-              <b>{profileUser.followersCount} </b>подписчиков
-            </button>
-            <button onClick={() => openModal("profileFollowing")}>
-              <b>{profileUser.followingCount} </b>подписок
-            </button>
-          </div>
+          {!viewportIs820 && (
+            <div className={styles.info__subscriptions}>
+              <span>
+                <b>{profilePosts.length} </b>публикации
+              </span>
+              <button onClick={() => openModal("profileFollowers")}>
+                <b>{profileUser.followersCount} </b>подписчиков
+              </button>
+              <button onClick={() => openModal("profileFollowing")}>
+                <b>{profileUser.followingCount} </b>подписок
+              </button>
+            </div>
+          )}
+
           <p className={styles.info__name}>{profileUser.full_name}</p>
           <p className={styles.info__bio}>{profileUser.bio}</p>
         </div>
       </div>
+
+      {viewportIs820 && (
+        <div className={styles.info__mini}>
+          <span>
+            <b>{profilePosts.length} </b>публикации
+          </span>
+          <button onClick={() => openModal("profileFollowers")}>
+            <b>{profileUser.followersCount} </b>подписчиков
+          </button>
+          <button onClick={() => openModal("profileFollowing")}>
+            <b>{profileUser.followingCount} </b>подписок
+          </button>
+        </div>
+      )}
 
       <div className={styles.profile__posts}>
         <div className={styles.posts__type}>
@@ -161,10 +195,5 @@ export default function ProfileByUsernamePage() {
     </>
   );
 
-  return (
-    <>
-      {currentUser && <LayoutNavOneColumn>{html}</LayoutNavOneColumn>}
-      {!currentUser && <LayoutWithoutAuth>{html}</LayoutWithoutAuth>}
-    </>
-  );
+  return <>{html}</>;
 }

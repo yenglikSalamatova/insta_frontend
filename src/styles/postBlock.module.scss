@@ -3,11 +3,10 @@
 @import "buttons";
 
 .post {
-  width: 70%;
+  width: 45rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-
   gap: 1rem;
   &__header {
     display: flex;
@@ -52,7 +51,8 @@
     img {
       border-radius: 0.5rem;
       width: 100%;
-      max-height: 58rem;
+      height: auto;
+      aspect-ratio: 1 / 1;
       object-fit: cover;
     }
   }

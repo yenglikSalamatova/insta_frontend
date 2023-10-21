@@ -66,7 +66,7 @@ const CreateStorysModal = ({ onToggle }) => {
       )}
 
       {selectedFile && (
-        <div className={styles.modal__block}>
+        <div className={styles.modal__block_auto}>
           <div className={styles.modal__header + " flex-between-center"}>
             <button className={styles.button_regular} onClick={handlePrev}>
               Назад
@@ -78,11 +78,15 @@ const CreateStorysModal = ({ onToggle }) => {
           </div>
           <div className={styles.modal__body}>
             <div className={styles.modal__caption}>
-              <div className={styles.modal__preview_wrapper + " flex-center "}>
+              <div
+                className={
+                  styles.modal__preview_wrapper_stories + " flex-center "
+                }
+              >
                 <img
                   src={URL.createObjectURL(selectedFile)}
                   alt="Предпросмотр"
-                  className={styles.modal__preview + " full-wh"}
+                  className={styles.modal__preview}
                   width={300}
                   height={300}
                 />

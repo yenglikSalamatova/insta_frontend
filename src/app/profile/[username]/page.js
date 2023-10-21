@@ -1,18 +1,25 @@
-import ProfileByUsernamePage from "@/components/profile/ProfileByUsernamePage";
-import WithAuth from "@/components/layouts/WithAuth";
-import WithoutAuth from "@/components/layouts/WithoutAuth";
-import LayoutWithoutAuth from "@/components/layouts/LayoutWithoutAuth";
+"use client";
 
-export const metadata = {
-  title: "Профиль | Instagram",
-};
+import ProfileByUsernamePage from "@/components/profile/ProfileByUsernamePage";
+import ForAllUsers from "@/components/layouts/Parts/ForAllUsers";
+import LayoutWithoutAuth from "@/components/layouts/LayoutWithoutAuth";
+import LayoutWithNav from "@/components/layouts/LayoutNavOneColumn";
+import { useSelector } from "react-redux";
 
 export default function Profile() {
+  const isAuth = useSelector((state) => state.auth.isAuth);
   return (
-    <WithoutAuth>
-      <LayoutWithoutAuth>
-        <ProfileByUsernamePage />
-      </LayoutWithoutAuth>
-    </WithoutAuth>
+    <ForAllUsers>
+      {!isAuth && (
+        <LayoutWithoutAuth>
+          <ProfileByUsernamePage />
+        </LayoutWithoutAuth>
+      )}
+      {isAuth && (
+        <LayoutWithNav>
+          <ProfileByUsernamePage />
+        </LayoutWithNav>
+      )}
+    </ForAllUsers>
   );
 }

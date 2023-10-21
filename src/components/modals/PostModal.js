@@ -30,7 +30,7 @@ export default function PostModal({ postId, togglePostModal }) {
 
   useEffect(() => {
     dispatch(getPost(postId));
-  }, [dispatch, postId]);
+  }, [dispatch, postId, likes]);
 
   const addComment = () => {
     dispatch(createComment({ postId: post.id, text: textarea }));

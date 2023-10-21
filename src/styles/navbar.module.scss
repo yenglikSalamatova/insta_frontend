@@ -18,10 +18,20 @@
   transition: all 0.3s ease;
 
   .logo {
-    height: auto;
     margin-bottom: 3rem;
     margin-left: 1.5rem;
-    transition: all 0.3s ease-out;
+  }
+
+  .logo_big {
+    width: 110px;
+    height: auto;
+    transition: width 0.3s ease;
+  }
+
+  .logo_small {
+    width: 24px;
+    height: 24px;
+    transition: width 0.3s ease;
   }
 
   a:not(:first-child) {
@@ -56,5 +66,60 @@
 @media (max-width: 1500px) {
   .navbar {
     width: 27rem;
+  }
+}
+
+.extramini_navbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  border-top: 0.1rem solid $light-gray;
+  display: flex;
+  flex-direction: row;
+  background-color: #fff;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+  transition: all 0.3s ease;
+  .logo {
+    margin: 5px 0 0 0 !important;
+  }
+
+  a {
+    padding: 0;
+
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.search_withlogo {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  z-index: 1000;
+  padding: 1rem;
+  border-bottom: 0.1rem solid $light-gray;
+  img {
+    height: auto;
+  }
+  input {
+    box-sizing: border-box;
+    width: 50%;
+    border-radius: 0.4rem;
+    padding: 1rem;
+    border: none;
+    font-size: $regular-14-text;
+    background-color: #ededed;
+    outline: none;
   }
 }

@@ -17,7 +17,7 @@ import StoryElById from "./StoryElById";
 import Spinner from "../Spinner";
 
 export default function StoriesPageById() {
-  const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
+  const [currentStoryId, setCurrentStoryId] = useState(null);
   const [autoPlay, setAutoPlay] = useState(true);
 
   const { id } = useParams();
@@ -25,22 +25,26 @@ export default function StoriesPageById() {
   const router = useRouter();
 
   const storiesById = useSelector((state) => state.stories.storiesById);
-  const likes = useSelector((state) => state.likes.likes);
   const followedStories = useSelector((state) => state.stories.followedStories);
+  const likes = useSelector((state) => state.likes.likes);
 
   useEffect(() => {
     dispatch(getStoriesById(id));
     dispatch(getFollowedStories());
-  }, [dispatch, id]);
+  }, [id]);
+
+  useEffect(() => {
+    if (storiesById.length > 0) {
+      setCurrentStoryId(storiesById[0].id);
+    }
+  }, [storiesById]);
 
   const deleteById = (story) => {
-    console.log(story);
     dispatch(deleteStory(story));
   };
 
   const handleLike = (storyId) => {
     if (likes.some((like) => like.storyId === storyId)) {
-      console.log("unlike");
       dispatch(unlikeEntity({ entityId: storyId, entityType: "story" }));
     } else {
       dispatch(likeEntity({ entityId: storyId, entityType: "story" }));
@@ -49,38 +53,30 @@ export default function StoriesPageById() {
 
   console.log("FollowedStories", followedStories);
   console.log("Id", id);
-
-  const getNextUserId = () => {
-    const currentIndex = followedStories.findIndex(
-      (story) => story.userId === id * 1
-    );
-    console.log("currentIndex", currentIndex);
-    if (currentIndex === -1 || currentIndex === followedStories.length - 1) {
-      return null;
-    }
-    return followedStories[currentIndex + 1].userId;
-  };
-
-  const getPrevUserId = () => {
-    const currentIndex = followedStories.findIndex(
-      (story) => story.userId === id * 1
-    );
-    if (currentIndex === -1 || currentIndex === 0) {
-      return null;
-    }
-    return followedStories[currentIndex - 1].userId;
-  };
+  console.log("stories", storiesById);
 
   const goToNextStory = () => {
-    if (currentStoryIndex + 1 >= storiesById.length) {
-      const nextUserId = getNextUserId();
+    if (currentStoryId === storiesById[storiesById.length - 1].id) {
+      let nextUserId = null;
+      if (followedStories.length > 0) {
+        const currentIndex = followedStories.findIndex((story) => {
+          return story.userId === storiesById[storiesById.length - 1].userId;
+        });
+        console.log(currentIndex);
+        if (currentIndex !== -1 && currentIndex < followedStories.length - 1) {
+          nextUserId = followedStories[currentIndex + 1].userId;
+        }
+      }
       if (nextUserId) {
         router.push(`/stories/${nextUserId}`);
       } else {
         router.push("/");
       }
     } else {
-      setCurrentStoryIndex((prev) => prev + 1);
+      setCurrentStoryId((prev) => {
+        const index = storiesById.findIndex((story) => story.id === prev);
+        return storiesById[index + 1].id;
+      });
     }
   };
 
@@ -94,23 +90,42 @@ export default function StoriesPageById() {
     return () => {
       clearInterval(timer);
     };
-  }, [currentStoryIndex, autoPlay]);
+  }, [currentStoryId, autoPlay]);
 
   const goToPrevStory = () => {
-    if (currentStoryIndex <= 0) {
-      const prevUserId = getPrevUserId();
+    if (currentStoryId === storiesById[0].id) {
+      let prevUserId = null;
+      if (followedStories.length > 0) {
+        const currentIndex = followedStories.findIndex(
+          (story) => story.userId === storiesById[storiesById.length - 1].userId
+        );
+        console.log(currentIndex);
+        if (currentIndex !== -1 && currentIndex > 0) {
+          prevUserId = followedStories[currentIndex - 1].userId;
+        }
+      }
       if (prevUserId) {
         router.push(`/stories/${prevUserId}`);
       } else {
         router.push("/");
       }
     } else {
-      setCurrentStoryIndex((prev) => prev - 1);
+      setCurrentStoryId((prev) => {
+        const index = storiesById.findIndex((story) => story.id === prev);
+        return storiesById[index - 1].id;
+      });
     }
   };
 
-  if (storiesById.length > 0) {
-    const currentStory = storiesById[currentStoryIndex];
+  if (
+    storiesById.length > 0 &&
+    currentStoryId &&
+    storiesById.some((story) => story.id === currentStoryId)
+  ) {
+    const currentStory = storiesById.find(
+      (story) => story.id === currentStoryId
+    );
+    console.log("CurrentStory", currentStory);
     return (
       <div className={styles.stories}>
         <Link href="/">
@@ -122,13 +137,16 @@ export default function StoriesPageById() {
             alt="Instagram logo"
           />
         </Link>
+        <button className={styles.close} onClick={() => router.push("/")}>
+          <Image src="/posts/close.svg" width={27} height={27} alt="Close" />
+        </button>
         <div className={styles.story_length}>
           {storiesById.map((item, index) => (
             <div key={item.id} className={styles.story_length_item}>
-              {currentStoryIndex === index && autoPlay && (
+              {currentStoryId === item.id && autoPlay && (
                 <div className={styles.animated}></div>
               )}
-              {currentStoryIndex > index && (
+              {currentStoryId > item.id && (
                 <div className={styles.animation_end}></div>
               )}
             </div>
