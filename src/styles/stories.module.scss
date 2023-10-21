@@ -22,9 +22,8 @@
   align-items: center;
   justify-content: center;
   color: $white;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  padding: 2rem 10rem;
   background-color: $background-stories;
   button,
   a {
@@ -181,5 +180,16 @@
   &__active {
     filter: invert(13%) sepia(85%) saturate(5816%) hue-rotate(358deg)
       brightness(108%) contrast(113%);
+  }
+}
+
+@media (max-width: 1000px) {
+  .story {
+    width: calc(var(--index) * 25);
+    height: calc(var(--index) * 45);
+
+    &_length {
+      width: calc(var(--index) * 25);
+    }
   }
 }

@@ -1,1 +1,1 @@
-export const END_POINT = "http://213.171.8.15:3000";
+export const END_POINT = "https://api.inst.enlik.site";

@@ -163,3 +163,9 @@
       brightness(108%) contrast(113%);
   }
 }
+
+@media (max-width: 425px) {
+  .post {
+    width: 100%;
+  }
+}

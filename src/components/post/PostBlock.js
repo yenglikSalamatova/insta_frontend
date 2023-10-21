@@ -62,6 +62,10 @@ const PostBlock = ({ post, isLiked }) => {
 
   console.log("Post", stories, post);
 
+  if (!post || !post.media[0]?.url) {
+    return null;
+  }
+
   return (
     <>
       {postModal && (
