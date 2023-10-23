@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { END_POINT } from "@/utils/endPoint";
 import PostModal from "@/components/modals/PostModal";
 
-export default function ProfilePost({ post }) {
+export default function ProfilePost({ post, saved = false }) {
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
@@ -36,6 +36,7 @@ export default function ProfilePost({ post }) {
             <p>{post.commentsCount}</p>
           </div>
         </div>
+
         <img
           src={`${END_POINT}/${post.media[0].url}`}
           width={300}

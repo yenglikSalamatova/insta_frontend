@@ -11,7 +11,12 @@ import { END_POINT } from "@/utils/endPoint";
 import { timestampConvert } from "@/utils/timestampConvert";
 import Comments from "@/components/comments/Comments";
 import { createComment } from "@/app/store/slice/postsSlice";
-import { likeEntity, unlikeEntity } from "@/app/store/slice/likesSlice";
+import {
+  likeEntity,
+  unlikeEntity,
+  createBookmark,
+  deleteBookmark,
+} from "@/app/store/slice/likesSlice";
 import { useRouter } from "next/navigation";
 import SettingsPostModal from "./SettingsPostModal";
 
@@ -27,6 +32,7 @@ export default function PostModal({ postId, togglePostModal }) {
   const post = useSelector((state) => state.posts.post);
   const likes = useSelector((state) => state.likes.likes);
   const currentUser = useSelector((state) => state.auth.currentUser);
+  const bookmarks = useSelector((state) => state.likes.bookmarks);
 
   useEffect(() => {
     dispatch(getPost(postId));
@@ -56,7 +62,11 @@ export default function PostModal({ postId, togglePostModal }) {
   };
 
   const handleBookmark = () => {
-    setBookmark(!bookmark);
+    if (bookmarks.some((bookmark) => bookmark.postId == post.id)) {
+      dispatch(deleteBookmark(post.id));
+    } else {
+      dispatch(createBookmark(post.id));
+    }
   };
 
   // console.log("PostModal rerender");
@@ -180,7 +190,9 @@ export default function PostModal({ postId, togglePostModal }) {
                   </div>
                   <div>
                     <button onClick={handleBookmark}>
-                      {bookmark ? (
+                      {bookmarks.some(
+                        (bookmark) => bookmark.postId == post.id
+                      ) ? (
                         <img
                           src="/posts/bookmark_fill.svg"
                           width={24}

@@ -1,25 +1,52 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "@/styles/register.module.scss";
+import isValidEmail from "@/utils/isFormValid";
+import isLatinLetters from "@/utils/isLatinLettes";
 
 const Step1 = ({ onNext, onInputChange, formData }) => {
   const [isFormValid, setIsFormValid] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleFormValidation = () => {
-    if (
-      formData.email.length > 4 &&
-      formData.full_name.length > 4 &&
-      formData.username.length > 4 &&
-      formData.password.length > 0
-    ) {
-      setIsFormValid(true);
-    } else {
-      setIsFormValid(false);
+    const { email, full_name, username, password } = formData;
+    const errors = {};
+    const latinLettersRegex = /^[a-zA-Z]+$/;
+
+    if (!isValidEmail(email) && email.length > 0) {
+      errors.email = "Электронный адрес некорректен";
     }
+
+    if (full_name.length < 4 && full_name.length > 0) {
+      errors.full_name = "Имя должно быть больше 4-х символов";
+    }
+
+    if (!isLatinLetters(username) && username.length > 0) {
+      errors.username = "Имя должно содержать только латинские буквы";
+    }
+
+    if (username.length < 4 && username.length > 0) {
+      errors.username = "Имя должно быть больше 4-х символов";
+    }
+
+    if (username.includes(" ") && username.length > 0) {
+      errors.username = "Имя не должно содержать пробелов";
+    }
+
+    setErrors(errors);
+    setIsFormValid(Object.keys(errors).length === 0);
   };
 
   useEffect(() => {
-    handleFormValidation();
+    if (
+      formData.email.length > 0 ||
+      formData.full_name.length > 0 ||
+      formData.username.length > 0 ||
+      formData.password.length > 0
+    ) {
+      console.log("rerender form");
+      handleFormValidation();
+    }
   }, [formData]);
 
   return (
@@ -39,12 +66,15 @@ const Step1 = ({ onNext, onInputChange, formData }) => {
 
       <input
         type="text"
-        placeholder="Моб.телефон или эл.адрес"
+        placeholder="Электронный адрес"
         className={styles.form__input}
         value={formData.email}
         onChange={onInputChange}
         name="email"
       />
+      {errors.email && (
+        <span className={styles.form__error}>{errors.email}</span>
+      )}
       <input
         type="text"
         placeholder="Имя и фамилия"
@@ -53,6 +83,9 @@ const Step1 = ({ onNext, onInputChange, formData }) => {
         onChange={onInputChange}
         name="full_name"
       />
+      {errors.full_name && (
+        <span className={styles.form__error}>{errors.full_name}</span>
+      )}
 
       <input
         type="text"
@@ -62,6 +95,9 @@ const Step1 = ({ onNext, onInputChange, formData }) => {
         onChange={onInputChange}
         name="username"
       />
+      {errors.username && (
+        <span className={styles.form__error}>{errors.username}</span>
+      )}
       <input
         type="password"
         placeholder="Пароль"

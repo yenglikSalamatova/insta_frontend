@@ -27,7 +27,7 @@ export default function EditProfile() {
     formData.append("full_name", full_name);
     formData.append("username", username);
     formData.append("bio", bio);
-    formData.append("avatar", newPhoto || photo);
+    formData.append("media", newPhoto || photo);
 
     dispatch(editUser(formData));
   };

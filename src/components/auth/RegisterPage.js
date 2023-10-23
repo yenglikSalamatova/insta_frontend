@@ -49,7 +49,7 @@ export default function RegisterPage() {
             <Step2
               onNext={nextStep}
               onPrev={prevStep}
-              onInputChange={handleInputChange}
+              setFormData={setFormData}
               formData={formData}
             />
           )}

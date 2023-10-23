@@ -76,3 +76,8 @@
     text-align: center;
   }
 }
+
+.form__error {
+  color: $color-red;
+  font-size: $regular-12-text;
+}

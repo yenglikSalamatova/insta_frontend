@@ -5,40 +5,42 @@ import { DaySelector, MonthSelector, YearSelector } from "./DateSelectors";
 import { useState } from "react";
 import axios from "axios";
 import { END_POINT } from "@/utils/endPoint";
+import { useEffect } from "react";
 
-const Step2 = ({ onNext, onPrev, onInputChange, formData }) => {
-  const [day, setDay] = useState("");
-  const [month, setMonth] = useState("");
-  const [year, setYear] = useState("");
+const Step2 = ({ onNext, onPrev, setFormData, formData }) => {
+  const [day, setDay] = useState("1");
+  const [month, setMonth] = useState("1");
+  const [year, setYear] = useState("2023");
   const [error, setError] = useState("");
 
   // const isFormValid = day && month && year;
 
   const handleDayChange = (event) => {
+    console.log(event.target.value);
     setDay(event.target.value);
-    updateBirthdayDate(event.target.value, month, year);
   };
 
   const handleMonthChange = (event) => {
+    console.log(event.target.value);
     setMonth(event.target.value);
-    updateBirthdayDate(day, event.target.value, year);
   };
 
   const handleYearChange = (event) => {
+    console.log(event.target.value);
     setYear(event.target.value);
-    updateBirthdayDate(day, month, event.target.value);
   };
 
   const updateBirthdayDate = (day, month, year) => {
+    console.log(day, month, year);
     if (day && month && year) {
       const birthday_date = `${year}/${month}/${day}`;
-      onInputChange({
-        target: { name: "birthday_date", value: birthday_date },
-      });
+      console.log(birthday_date);
+      setFormData({ ...formData, birthday_date });
     }
   };
 
   const handleRegistration = async () => {
+    updateBirthdayDate(day, month, year);
     try {
       const response = await axios.post(
         `${END_POINT}/api/auth/register`,
@@ -53,6 +55,10 @@ const Step2 = ({ onNext, onPrev, onInputChange, formData }) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    updateBirthdayDate(day, month, year);
+  }, [day, month, year]);
 
   return (
     <>

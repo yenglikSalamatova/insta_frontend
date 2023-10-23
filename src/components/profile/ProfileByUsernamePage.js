@@ -18,6 +18,7 @@ import {
   followUser,
   unfollowUser,
 } from "@/app/store/slice/subscriptionSlice";
+import { getBookmarks } from "@/app/store/slice/likesSlice";
 
 export default function ProfileByUsernamePage() {
   const [modal, setModal] = useState("");
@@ -29,7 +30,10 @@ export default function ProfileByUsernamePage() {
   const profilePosts = useSelector((state) => state.posts.profilePosts);
   const currentUser = useSelector((state) => state.auth.currentUser);
   const profileUser = useSelector((state) => state.posts.profile);
-  const savedPosts = [];
+  const savedPosts = useSelector((state) => state.likes.bookmarks);
+
+  console.log("profilePosts", profilePosts);
+  console.log("saved posts", savedPosts);
 
   // console.log("Profile", profileUser);
 
@@ -41,7 +45,10 @@ export default function ProfileByUsernamePage() {
   useEffect(() => {
     dispatch(getPostsByUsername(username));
     dispatch(getUserByUsername(username));
-    if (currentUser) dispatch(getFollowing(currentUser?.username));
+    if (currentUser) {
+      dispatch(getFollowing(currentUser?.username));
+      dispatch(getBookmarks());
+    }
 
     document.title = `@${username} | Instagram`;
   }, [dispatch, username, currentUser]);
@@ -189,7 +196,9 @@ export default function ProfileByUsernamePage() {
               <PostProfile key={post.id} post={post} />
             ))}
           {publicationsType == "saved" &&
-            savedPosts.map((post) => <PostProfile key={post.id} post={post} />)}
+            savedPosts.map((post) => (
+              <PostProfile key={post.id} post={post.post} saved={true} />
+            ))}
         </div>
       </div>
     </>

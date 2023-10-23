@@ -14,10 +14,15 @@ import { timestampConvert } from "@/utils/timestampConvert";
 import SettingsPostModal from "@/components/modals/SettingsPostModal";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment } from "@/app/store/slice/postsSlice";
-import { likeEntity, unlikeEntity } from "@/app/store/slice/likesSlice";
+import {
+  likeEntity,
+  unlikeEntity,
+  createBookmark,
+  deleteBookmark,
+} from "@/app/store/slice/likesSlice";
 
-const PostBlock = ({ post, isLiked }) => {
-  const [bookmark, setBookmark] = useState(false);
+const PostBlock = ({ post, isLiked, isBookmarked }) => {
+  console.log("POST");
   const [textarea, setTextarea] = useState("");
   const [postModal, setPostModal] = useState(false);
   const [settings, setSettings] = useState(false);
@@ -30,7 +35,11 @@ const PostBlock = ({ post, isLiked }) => {
   const dispatch = useDispatch();
 
   const handleBookmark = () => {
-    setBookmark(!bookmark);
+    if (isBookmarked) {
+      dispatch(deleteBookmark(post.id));
+    } else {
+      dispatch(createBookmark(post.id));
+    }
   };
 
   const handleLike = () => {
@@ -142,18 +151,10 @@ const PostBlock = ({ post, isLiked }) => {
                 alt="Comments icon"
               />
             </button>
-            <button>
-              <img
-                src="/posts/paper_plane.svg"
-                width={27}
-                height={27}
-                alt="Paper plane icon"
-              />
-            </button>
           </div>
           <div>
             <button onClick={handleBookmark}>
-              {bookmark ? (
+              {isBookmarked ? (
                 <img
                   src="/posts/bookmark_fill.svg"
                   width={24}
