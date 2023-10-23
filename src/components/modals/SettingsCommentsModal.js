@@ -7,7 +7,7 @@ export default function SettingsCommentsModal({ closeModal, comment }) {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    console.log("delete");
+    // console.log("delete");
     dispatch(deleteComment(comment.id, comment.postId));
     closeModal();
   };

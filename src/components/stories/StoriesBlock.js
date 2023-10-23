@@ -32,7 +32,7 @@ const StoriesBlock = ({ stories }) => {
   const [atLeft, setAtLeft] = useState(false);
   const ref = useRef();
   const currentUser = useSelector((state) => state.auth.currentUser);
-  console.log("StoriesBlock", stories);
+  // console.log("StoriesBlock", stories);
 
   const scrollLeft = () => {
     ref.current.scroll({

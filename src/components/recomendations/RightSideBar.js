@@ -21,7 +21,7 @@ const RightSideBar = () => {
     (state) => state.subscription.recomendations
   );
   const followings = useSelector((state) => state.subscription.following);
-  console.log(currentUser, isAuth);
+  // console.log(currentUser, isAuth);
   const dispatch = useDispatch();
   const router = useRouter();
 

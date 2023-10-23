@@ -51,9 +51,9 @@ export default function StoriesPageById() {
     }
   };
 
-  console.log("FollowedStories", followedStories);
-  console.log("Id", id);
-  console.log("stories", storiesById);
+  // console.log("FollowedStories", followedStories);
+  // console.log("Id", id);
+  // console.log("stories", storiesById);
 
   const goToNextStory = () => {
     if (currentStoryId === storiesById[storiesById.length - 1].id) {
@@ -62,7 +62,7 @@ export default function StoriesPageById() {
         const currentIndex = followedStories.findIndex((story) => {
           return story.userId === storiesById[storiesById.length - 1].userId;
         });
-        console.log(currentIndex);
+        // console.log(currentIndex);
         if (currentIndex !== -1 && currentIndex < followedStories.length - 1) {
           nextUserId = followedStories[currentIndex + 1].userId;
         }
@@ -99,7 +99,7 @@ export default function StoriesPageById() {
         const currentIndex = followedStories.findIndex(
           (story) => story.userId === storiesById[storiesById.length - 1].userId
         );
-        console.log(currentIndex);
+        // console.log(currentIndex);
         if (currentIndex !== -1 && currentIndex > 0) {
           prevUserId = followedStories[currentIndex - 1].userId;
         }
@@ -125,7 +125,7 @@ export default function StoriesPageById() {
     const currentStory = storiesById.find(
       (story) => story.id === currentStoryId
     );
-    console.log("CurrentStory", currentStory);
+    // console.log("CurrentStory", currentStory);
     return (
       <div className={styles.stories}>
         <Link href="/">

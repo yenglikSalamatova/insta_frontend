@@ -18,7 +18,7 @@ export default function WithoutAuth({ children }) {
 
   const checkAuth = async () => {
     try {
-      console.log("checkAuth");
+      // console.log("checkAuth");
       const token = localStorage.getItem("token");
 
       if (token) {

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import styles from "@/styles/register.module.scss";
 import Link from "next/link";
-import Layout from "@/components/layouts/Layout";
+import LayoutLogin from "@/components/layouts/LayoutLogin";
 import { useSelector, useDispatch } from "react-redux";
 import { loginAsync } from "@/app/store/slice/authSlice";
 
@@ -31,7 +31,7 @@ const LoginPage = () => {
   };
 
   return (
-    <Layout>
+    <LayoutLogin>
       <main className={styles.main_center}>
         <div className={`${styles.login_left} `}>
           <Image
@@ -87,7 +87,7 @@ const LoginPage = () => {
           </div>
         </div>
       </main>
-    </Layout>
+    </LayoutLogin>
   );
 };
 

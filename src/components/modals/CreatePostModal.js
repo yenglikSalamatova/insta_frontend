@@ -21,7 +21,7 @@ const CreatePostModal = ({ onToggle }) => {
   };
 
   const handleCreate = async () => {
-    console.log("created");
+    // console.log("created");
     const formData = new FormData();
     formData.append("media", selectedFile);
     formData.append("caption", textarea);

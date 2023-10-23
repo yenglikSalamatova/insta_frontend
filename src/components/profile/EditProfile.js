@@ -22,7 +22,7 @@ export default function EditProfile() {
   const success = useSelector((state) => state.auth.success);
 
   const handleEdit = () => {
-    console.log("edit");
+    // console.log("edit");
     const formData = new FormData();
     formData.append("full_name", full_name);
     formData.append("username", username);

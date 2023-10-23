@@ -19,7 +19,7 @@ const CreatePostModal = ({ onToggle, post, closeAll }) => {
   const router = useRouter();
 
   const handleEdit = async () => {
-    console.log("edit");
+    // console.log("edit");
     const formData = new FormData();
     formData.append("caption", textarea);
     try {

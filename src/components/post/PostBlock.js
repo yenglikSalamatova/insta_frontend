@@ -60,7 +60,7 @@ const PostBlock = ({ post, isLiked }) => {
     setTextarea("");
   };
 
-  console.log("Post", stories, post);
+  // console.log("Post", stories, post);
 
   if (!post || !post.media[0]?.url) {
     return null;

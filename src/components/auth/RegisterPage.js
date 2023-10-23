@@ -7,7 +7,7 @@ import styles from "@/styles/register.module.scss";
 import Step1 from "@/components/auth/Step1";
 import Step2 from "@/components/auth/Step2";
 import Step3 from "@/components/auth/Step3";
-import Layout from "@/components/layouts/Layout";
+import LayoutLogin from "@/components/layouts/LayoutLogin";
 
 export default function RegisterPage() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -35,7 +35,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <Layout>
+    <LayoutLogin>
       <main className={styles.register_main_center}>
         <form className={styles.form}>
           {currentStep === 1 && (
@@ -66,6 +66,6 @@ export default function RegisterPage() {
           </p>
         </div>
       </main>
-    </Layout>
+    </LayoutLogin>
   );
 }

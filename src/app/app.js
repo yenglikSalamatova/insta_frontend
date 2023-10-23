@@ -13,13 +13,13 @@ export default function App({ children }) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        console.log("checkAuth");
+        // console.log("checkAuth");
         const token = localStorage.getItem("token");
-        console.log(token);
+        // console.log(token);
         if (token) {
           const decodedToken = jwt_decode(token);
           if (decodedToken && decodedToken.exp * 1000 > Date.now()) {
-            console.log(decodedToken);
+            // console.log(decodedToken);
             const res = await axios.get(
               `${END_POINT}/api/users/${decodedToken.user.username}`,
               {}
@@ -38,6 +38,6 @@ export default function App({ children }) {
     };
     checkAuth();
   }, [dispatch]);
-  console.log(isAuth);
+  // console.log(isAuth);
   return <div className="app-main">{children}</div>;
 }

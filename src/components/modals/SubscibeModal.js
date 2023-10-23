@@ -31,8 +31,8 @@ export default function SubscribeModal({ closeModal, modal }) {
     }
   }, [dispatch, username, modal, currentUser]);
 
-  console.log("Subs", subscriptions);
-  console.log("Follow", following);
+  // console.log("Subs", subscriptions);
+  // console.log("Follow", following);
 
   function handleFollow(user) {
     dispatch(followUser(user, currentUser, true));

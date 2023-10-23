@@ -21,7 +21,7 @@ const CreateStorysModal = ({ onToggle }) => {
   };
 
   const handleCreate = async () => {
-    console.log("created");
+    // console.log("created");
     const formData = new FormData();
     formData.append("content", selectedFile);
     formData.append("title", "");

@@ -31,12 +31,12 @@ export default function ProfileByUsernamePage() {
   const profileUser = useSelector((state) => state.posts.profile);
   const savedPosts = [];
 
-  console.log("Profile", profileUser);
+  // console.log("Profile", profileUser);
 
   const dispatch = useDispatch();
 
   const following = useSelector((state) => state.subscription.following);
-  console.log("Profile", "followings", following);
+  // console.log("Profile", "followings", following);
 
   useEffect(() => {
     dispatch(getPostsByUsername(username));

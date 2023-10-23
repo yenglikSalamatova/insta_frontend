@@ -6,7 +6,7 @@ import Link from "next/link";
 import CreatePostModal from "../../modals/CreatePostModal";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { END_POINT } from "@/utils/endPoint";
 import {
   modalScrollBlocking,
@@ -14,6 +14,7 @@ import {
 } from "@/utils/modalScrollBlocking";
 import SearchBar from "./SearchBar";
 import MiniSearchBar from "./MiniSearchBar";
+import { logout } from "@/app/store/slice/authSlice";
 
 const NavBar = () => {
   const [createPost, setCreatePost] = useState(false);
@@ -25,6 +26,8 @@ const NavBar = () => {
     window.innerWidth >= 1280
   );
   const [extramini, setExtramini] = useState(window.innerWidth <= 720);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleResize = () => {
@@ -166,6 +169,17 @@ const NavBar = () => {
             />
             {!searchBar && viewportIsWide && "Профиль"}
           </Link>
+          <div className={styles.nav_end}>
+            <button onClick={() => dispatch(logout())}>
+              <Image
+                src="/posts/logout.svg"
+                width={24}
+                height={24}
+                alt="Logout button"
+              />
+              {!searchBar && viewportIsWide && "Выйти"}
+            </button>
+          </div>
         </nav>
       )}
       {extramini && (
@@ -248,6 +262,15 @@ const NavBar = () => {
               onChange={(e) => setSearchInput(e.target.value)}
               value={searchInput}
             />
+            <button onClick={() => dispatch(logout())}>
+              <Image
+                src="/posts/logout.svg"
+                width={24}
+                height={24}
+                alt="Logout button"
+              />
+              {!searchBar && viewportIsWide && "Выйти"}
+            </button>
           </div>
         </>
       )}

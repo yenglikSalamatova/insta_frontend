@@ -59,7 +59,7 @@ export default function PostModal({ postId, togglePostModal }) {
     setBookmark(!bookmark);
   };
 
-  console.log("PostModal rerender");
+  // console.log("PostModal rerender");
 
   if (!post.id || post.id !== postId) {
     return (

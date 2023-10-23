@@ -12,7 +12,7 @@ const Step2 = ({ onNext, onPrev, onInputChange, formData }) => {
   const [year, setYear] = useState("");
   const [error, setError] = useState("");
 
-  const isFormValid = day && month && year;
+  // const isFormValid = day && month && year;
 
   const handleDayChange = (event) => {
     setDay(event.target.value);
@@ -86,7 +86,6 @@ const Step2 = ({ onNext, onPrev, onInputChange, formData }) => {
         className={styles.button_blue}
         onClick={handleRegistration}
         type="button"
-        disabled={!isFormValid}
       >
         Далее
       </button>

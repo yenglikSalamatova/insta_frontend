@@ -2,7 +2,7 @@
 @import "typography.scss";
 
 .navbar.mini_navbar {
-  width: 10rem;
+  width: auto;
   transition: all 0.3s ease;
 }
 
@@ -14,6 +14,7 @@
   border-right: 0.1rem solid $light-gray;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 1rem;
   transition: all 0.3s ease;
 
@@ -35,6 +36,7 @@
   }
 
   a:not(:first-child) {
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 1.5rem;
@@ -97,6 +99,10 @@
   }
 }
 
+.navbar.mini_navbar a {
+  width: fit-content;
+}
+
 .search_withlogo {
   position: fixed;
   top: 0;
@@ -121,5 +127,26 @@
     font-size: $regular-14-text;
     background-color: #ededed;
     outline: none;
+  }
+}
+
+.nav_end {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: all 0.3s ease;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    text-decoration: none;
+    font-size: $regular-16-text;
+    color: $black;
+    padding: 1rem 1.6rem;
+    border-radius: 1rem;
+    transition: all 0.3 ease;
   }
 }

@@ -10,7 +10,7 @@ export default function SettingsPostModal({ closeModal, post }) {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    console.log("delete");
+    // console.log("delete");
     dispatch(deletePost(post.id, post.user.username));
     closeModal();
   };
