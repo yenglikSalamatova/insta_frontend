@@ -48,8 +48,8 @@
 
 @media (max-width: 1100px) {
   .modal__block {
-    width: calc(var(--index) * 38);
-    height: calc(var(--index) * 33);
+    width: calc(var(--index) * 30);
+    height: calc(var(--index) * 30);
   }
 }
 
@@ -150,6 +150,16 @@
     object-fit: cover;
     border-bottom-left-radius: 0.8rem;
     border-bottom-right-radius: 0.8rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .modal__block {
+    margin-top: 3rem;
+  }
+  .modal__close {
+    top: 5rem;
+    right: 0;
   }
 }
 

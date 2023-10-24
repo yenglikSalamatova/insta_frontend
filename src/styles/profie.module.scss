@@ -110,10 +110,17 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 680px) {
   .posts__container {
     grid-template-columns: repeat(3, calc(var(--index) * 12));
     grid-auto-rows: calc(var(--index) * 12);
+  }
+}
+
+@media (max-width: 560px) {
+  .posts__container {
+    grid-template-columns: repeat(3, calc(var(--index) * 10));
+    grid-auto-rows: repeat(3, calc(var(--index) * 10));
   }
 }
 
@@ -167,7 +174,7 @@
 
 .edit {
   padding: 2rem;
-  height: 70vh;
+  // height: 70vh;
 }
 
 .edit form {
@@ -244,4 +251,27 @@
   padding: 2rem;
   border-top: 0.1rem solid $light-gray;
   gap: 2rem;
+}
+
+@media (max-width: 1000px) {
+  .edit form {
+    width: 100%;
+
+    fieldset {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .profile_container {
+    width: 100%;
+    padding: 0.5rem;
+  }
+  .info__mini {
+    padding: 2rem 0;
+  }
 }
