@@ -16,10 +16,15 @@ const storiesSlice = createSlice({
     setStoriesById: (state, action) => {
       state.storiesById = action.payload;
     },
+    clearStories: (state) => {
+      state.followedStories = [];
+      state.storiesById = [];
+    },
   },
 });
 
-export const { setFollowedStories, setStoriesById } = storiesSlice.actions;
+export const { setFollowedStories, setStoriesById, clearStories } =
+  storiesSlice.actions;
 
 export const getFollowedStories = () => async (dispatch) => {
   try {

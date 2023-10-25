@@ -8,8 +8,9 @@ import { login, logout } from "@/app/store/slice/authSlice";
 import { END_POINT } from "@/utils/endPoint";
 import Spinner from "@/components/Spinner";
 import { useRouter } from "next/navigation";
+import StoriesByIdSkeleton from "../stories/StoriesByIdSkeleton";
 
-export default function WithAuth({ children }) {
+export default function WithAuth({ children, layout }) {
   const [loading, setLoading] = useState(true);
   const isAuth = useSelector((state) => state.auth.isAuth);
 
@@ -48,6 +49,9 @@ export default function WithAuth({ children }) {
   }, []);
 
   if (loading) {
+    if (layout === "stories") {
+      return <StoriesByIdSkeleton />;
+    }
     return <Spinner />;
   } else if (isAuth) {
     return children;

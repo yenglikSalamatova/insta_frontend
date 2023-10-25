@@ -33,10 +33,16 @@ const postsSlice = createSlice({
     setProfile(state, action) {
       state.profile = action.payload;
     },
+    clearPosts(state) {
+      state.profile = {};
+      state.profilePosts = [];
+      state.posts = [];
+      state.post = {};
+    },
   },
 });
 
-export const { setProfilePosts, setPosts, setPost, setProfile } =
+export const { setProfilePosts, setPosts, setPost, setProfile, clearPosts } =
   postsSlice.actions;
 
 export const getFollowedPosts = () => async (dispatch) => {

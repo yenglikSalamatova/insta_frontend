@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Profile() {
   return (
-    <WithAuth>
+    <WithAuth layout={"stories"}>
       <StoriesPageById />
     </WithAuth>
   );

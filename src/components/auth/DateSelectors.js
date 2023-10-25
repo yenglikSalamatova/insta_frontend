@@ -1,5 +1,6 @@
 import React from "react";
 
+// Date selectors
 const DaySelector = ({ value, onChange }) => {
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
 

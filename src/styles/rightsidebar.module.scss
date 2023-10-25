@@ -32,6 +32,12 @@
   }
 }
 
+.skeleton {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .recomended {
   margin-top: 2rem;
   display: flex;

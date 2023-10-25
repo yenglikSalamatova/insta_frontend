@@ -18,10 +18,15 @@ const likesSlice = createSlice({
     setBookmarks: (state, action) => {
       state.bookmarks = action.payload;
     },
+    clearLikesBookmarks: (state) => {
+      state.likes = [];
+      state.bookmarks = [];
+    },
   },
 });
 
-export const { setLikes, setBookmarks } = likesSlice.actions;
+export const { setLikes, setBookmarks, clearLikesBookmarks } =
+  likesSlice.actions;
 
 export const getLikes = () => async (dispatch) => {
   try {

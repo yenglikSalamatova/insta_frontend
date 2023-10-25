@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import SubscribeModal from "@/components/modals/SubscibeModal";
 import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostsByUsername } from "@/app/store/slice/postsSlice";
+import { getPostsByUsername, clearPosts } from "@/app/store/slice/postsSlice";
 import { getUserByUsername } from "@/app/store/slice/postsSlice";
 import PostProfile from "@/components/profile/ProfilePost";
 import { END_POINT } from "@/utils/endPoint";
@@ -17,6 +17,7 @@ import {
   getFollowing,
   followUser,
   unfollowUser,
+  clearSubscriptions,
 } from "@/app/store/slice/subscriptionSlice";
 import { getBookmarks } from "@/app/store/slice/likesSlice";
 
@@ -51,6 +52,11 @@ export default function ProfileByUsernamePage() {
     }
 
     document.title = `@${username} | Instagram`;
+
+    return () => {
+      dispatch(clearPosts());
+      dispatch(clearSubscriptions());
+    };
   }, [dispatch, username, currentUser]);
 
   useEffect(() => {

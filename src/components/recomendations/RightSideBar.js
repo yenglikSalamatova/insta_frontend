@@ -1,7 +1,6 @@
 "use client";
 import styles from "@/styles/rightsidebar.module.scss";
-import Image from "next/image";
-import Link from "next/link";
+
 import ProfileCard from "@/components/recomendations/ProfileCard";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "@/app/store/slice/authSlice";
@@ -12,9 +11,15 @@ import {
   getRecommendations,
   getFollowing,
 } from "@/app/store/slice/subscriptionSlice";
-import { useEffect } from "react";
+import { clearPosts } from "@/app/store/slice/postsSlice";
+import { clearStories } from "@/app/store/slice/storiesSlice";
+import { clearSubscriptions } from "@/app/store/slice/subscriptionSlice";
+import { clearLikesBookmarks } from "@/app/store/slice/likesSlice";
+import { useEffect, useState } from "react";
+import RightSideBarSkeleton from "./RightSideBarSkeleton";
 
 const RightSideBar = () => {
+  const [loading, setLoading] = useState(true);
   const isAuth = useSelector((state) => state.auth.isAuth);
   const currentUser = useSelector((state) => state.auth.currentUser);
   const recomendations = useSelector(
@@ -26,12 +31,16 @@ const RightSideBar = () => {
   const router = useRouter();
 
   useEffect(() => {
-    dispatch(getRecommendations());
+    dispatch(getRecommendations()).then(() => setLoading(false));
     dispatch(getFollowing(currentUser?.username));
   }, [dispatch, currentUser]);
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(clearPosts());
+    dispatch(clearStories());
+    dispatch(clearSubscriptions());
+    dispatch(clearLikesBookmarks());
     router.push("/login");
   };
 
@@ -42,6 +51,10 @@ const RightSideBar = () => {
   const handleUnfollow = (user) => {
     dispatch(unfollowUser(user, currentUser));
   };
+
+  if (loading) {
+    return <RightSideBarSkeleton />;
+  }
 
   return (
     <nav className={styles.nav}>

@@ -30,6 +30,13 @@ const subscriptionSlice = createSlice({
     setProfileFollowing: (state, action) => {
       state.profileFollowing = action.payload;
     },
+    clearSubscriptions: (state) => {
+      state.followers = [];
+      state.following = [];
+      state.recomendations = [];
+      state.profileFollowers = [];
+      state.profileFollowing = [];
+    },
   },
 });
 
@@ -39,6 +46,7 @@ export const {
   setRecomendations,
   setProfileFollowers,
   setProfileFollowing,
+  clearSubscriptions,
 } = subscriptionSlice.actions;
 
 export const getFollowers = (username) => async (dispatch) => {

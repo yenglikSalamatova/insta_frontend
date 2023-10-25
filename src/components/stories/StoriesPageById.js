@@ -14,7 +14,6 @@ import { useParams } from "next/navigation";
 
 import { useRouter } from "next/navigation";
 import StoryElById from "./StoryElById";
-import Spinner from "../Spinner";
 
 export default function StoriesPageById() {
   const [currentStoryId, setCurrentStoryId] = useState(null);
@@ -133,7 +132,7 @@ export default function StoriesPageById() {
             className={styles.logo}
             src="/logo.png"
             width={120}
-            height={120}
+            height={28}
             alt="Instagram logo"
           />
         </Link>

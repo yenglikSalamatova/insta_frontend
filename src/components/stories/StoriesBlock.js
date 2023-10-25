@@ -1,10 +1,13 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styles from "@/styles/storiesBlock.module.scss";
 import Image from "next/image";
 import Story from "./Story";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getFollowedStories } from "@/app/store/slice/storiesSlice";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const CustomPrevArrow = (props) => (
   <div className={styles.slider_prev} onClick={props.onClick}>
@@ -28,11 +31,21 @@ const CustomNextArrow = (props) => (
   </div>
 );
 
-const StoriesBlock = ({ stories }) => {
+const StoriesBlock = () => {
+  const [loading, setLoading] = useState(true);
   const [atLeft, setAtLeft] = useState(false);
   const ref = useRef();
   const currentUser = useSelector((state) => state.auth.currentUser);
   // console.log("StoriesBlock", stories);
+
+  const dispatch = useDispatch();
+  const stories = useSelector((state) => state.stories.followedStories);
+
+  useEffect(() => {
+    dispatch(getFollowedStories()).then(() => {
+      setLoading(false);
+    });
+  }, []);
 
   const scrollLeft = () => {
     ref.current.scroll({
@@ -57,6 +70,24 @@ const StoriesBlock = ({ stories }) => {
   const isCurrentUserHaveStory = stories.some(
     (story) => story.userId === currentUser.id
   );
+
+  if (loading) {
+    return (
+      <div className={styles.slider}>
+        <div className={styles.slides}>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <Skeleton
+              key={index}
+              width={50}
+              height={50}
+              circle
+              className={styles.slide}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.slider}>

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import styles from "@/styles/postBlock.module.scss";
 import Image from "next/image";
@@ -22,7 +22,7 @@ import {
 } from "@/app/store/slice/likesSlice";
 
 const PostBlock = ({ post, isLiked, isBookmarked }) => {
-  console.log("POST");
+  const [loading, setLoading] = useState(true);
   const [textarea, setTextarea] = useState("");
   const [postModal, setPostModal] = useState(false);
   const [settings, setSettings] = useState(false);
@@ -71,9 +71,11 @@ const PostBlock = ({ post, isLiked, isBookmarked }) => {
 
   // console.log("Post", stories, post);
 
-  if (!post || !post.media[0]?.url) {
-    return null;
-  }
+  useEffect(() => {
+    if (post.media.length > 0) {
+      setLoading(false);
+    }
+  }, [post]);
 
   return (
     <>
@@ -116,12 +118,14 @@ const PostBlock = ({ post, isLiked, isBookmarked }) => {
           </button>
         </div>
         <div className={styles.post__media}>
-          <img
-            src={`${END_POINT}${post.media[0].url}`}
-            alt="photo"
-            width={500}
-            height={500}
-          />
+          {post.media.length > 0 && (
+            <img
+              src={`${END_POINT}${post.media[0].url}`}
+              alt="photo"
+              width={500}
+              height={500}
+            />
+          )}
         </div>
         <div className={styles.post__actions}>
           <div>
