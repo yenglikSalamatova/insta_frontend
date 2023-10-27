@@ -66,7 +66,7 @@ const CreateStorysModal = ({ onToggle }) => {
       )}
 
       {selectedFile && (
-        <div className={styles.modal__block_auto}>
+        <div className={styles.modal__block}>
           <div className={styles.modal__header + " flex-between-center"}>
             <button className={styles.button_regular} onClick={handlePrev}>
               Назад
