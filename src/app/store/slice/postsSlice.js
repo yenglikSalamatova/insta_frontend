@@ -107,7 +107,7 @@ export const deletePost =
       const res = await axios.delete(`${END_POINT}/api/posts/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(res);
+      // console.log(res);
       dispatch(deletePost(id));
       dispatch(getFollowedPosts());
       if (username) {
@@ -118,12 +118,17 @@ export const deletePost =
     }
   };
 
-export const editPost = (id, post) => async (dispatch) => {
+export const editPost = (id, caption) => async (dispatch) => {
   try {
     const token = localStorage.getItem("token");
-    const res = await axios.patch(`${END_POINT}/api/posts/${id}`, post, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await axios.patch(
+      `${END_POINT}/api/posts/${id}`,
+      { caption },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    dispatch(getFollowedPosts());
   } catch (error) {
     console.log(error);
   }

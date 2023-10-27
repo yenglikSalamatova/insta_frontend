@@ -14,7 +14,7 @@ import {
 } from "@/utils/modalScrollBlocking";
 import SearchBar from "./SearchBar";
 
-import { logout } from "@/app/store/slice/authSlice";
+import { logoutAsync } from "@/app/store/slice/authSlice";
 
 import { useMediaQuery } from "@uidotdev/usehooks";
 
@@ -48,6 +48,10 @@ const NavBar = () => {
     return null;
   }
 
+  const logout = () => {
+    dispatch(logoutAsync());
+  };
+
   return (
     <>
       {createPost && <CreatePostModal onToggle={handleCreatePost} />}
@@ -59,7 +63,7 @@ const NavBar = () => {
           handleCreatePost={handleCreatePost}
           searchBar={searchBar}
           setSearchBar={setSearchBar}
-          logout={() => dispatch(logout())}
+          logout={logout}
           isWide={true}
         />
       )}
@@ -71,7 +75,7 @@ const NavBar = () => {
           handleCreatePost={handleCreatePost}
           searchBar={searchBar}
           setSearchBar={setSearchBar}
-          logout={() => dispatch(logout())}
+          logout={logout}
           isWide={false}
         />
       )}
@@ -83,7 +87,7 @@ const NavBar = () => {
           handleCreatePost={handleCreatePost}
           searchBar={searchBar}
           setSearchBar={setSearchBar}
-          logout={() => dispatch(logout())}
+          logout={logout}
           isWide={false}
         />
       )}
@@ -93,7 +97,7 @@ const NavBar = () => {
           currentUser={currentUser}
           pathname={pathname}
           handleCreatePost={handleCreatePost}
-          logout={() => dispatch(logout())}
+          logout={logout}
           isWide={false}
         />
       )}

@@ -35,7 +35,7 @@ export const getLikes = () => async (dispatch) => {
     const res = await axios.get(`${END_POINT}/api/likes`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(res);
+    // console.log(res);
     if (res.status === 200) dispatch(setLikes(res.data));
   } catch (error) {
     console.log(error);

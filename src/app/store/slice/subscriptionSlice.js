@@ -58,7 +58,7 @@ export const getFollowers = (username) => async (dispatch) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log(res);
+    // console.log(res);
     if (res.status === 200) {
       dispatch(setFollowers(res.data.followers));
     }
@@ -76,7 +76,7 @@ export const getProfileFollowers = (username) => async (dispatch) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log(res);
+    // console.log(res);
     if (res.status === 200) {
       dispatch(setProfileFollowers(res.data.followers));
     }
@@ -136,7 +136,7 @@ export const getRecommendations = () => async (dispatch) => {
 export const followUser =
   (profileUser, currentUser, noChange = false) =>
   async (dispatch) => {
-    console.log(profileUser, currentUser);
+    // console.log(profileUser, currentUser);
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
@@ -163,7 +163,7 @@ export const followUser =
 export const unfollowUser =
   (profileUser, currentUser, noChange = false) =>
   async (dispatch) => {
-    console.log(profileUser, currentUser);
+    // console.log(profileUser, currentUser);
     try {
       const token = localStorage.getItem("token");
       const res = await axios.delete(

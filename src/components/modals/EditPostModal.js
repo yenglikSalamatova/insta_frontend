@@ -20,11 +20,11 @@ const CreatePostModal = ({ onToggle, post, closeAll }) => {
 
   const handleEdit = async () => {
     // console.log("edit");
-    const formData = new FormData();
-    formData.append("caption", textarea);
+    const caption = textarea;
     try {
-      await dispatch(editPost(post.id, formData));
-      location.reload();
+      dispatch(editPost(post.id, caption)).then(() => {
+        closeAll();
+      });
     } catch (error) {
       console.error(error);
     }

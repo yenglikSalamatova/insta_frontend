@@ -33,8 +33,8 @@ export default function ProfileByUsernamePage() {
   const profileUser = useSelector((state) => state.posts.profile);
   const savedPosts = useSelector((state) => state.likes.bookmarks);
 
-  console.log("profilePosts", profilePosts);
-  console.log("saved posts", savedPosts);
+  // console.log("profilePosts", profilePosts);
+  // console.log("saved posts", savedPosts);
 
   // console.log("Profile", profileUser);
 

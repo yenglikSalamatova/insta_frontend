@@ -3,7 +3,7 @@ import styles from "@/styles/rightsidebar.module.scss";
 
 import ProfileCard from "@/components/recomendations/ProfileCard";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "@/app/store/slice/authSlice";
+import { logoutAsync } from "@/app/store/slice/authSlice";
 import { useRouter } from "next/navigation";
 import {
   followUser,
@@ -11,10 +11,7 @@ import {
   getRecommendations,
   getFollowing,
 } from "@/app/store/slice/subscriptionSlice";
-import { clearPosts } from "@/app/store/slice/postsSlice";
-import { clearStories } from "@/app/store/slice/storiesSlice";
-import { clearSubscriptions } from "@/app/store/slice/subscriptionSlice";
-import { clearLikesBookmarks } from "@/app/store/slice/likesSlice";
+
 import { useEffect, useState } from "react";
 import RightSideBarSkeleton from "./RightSideBarSkeleton";
 
@@ -36,11 +33,7 @@ const RightSideBar = () => {
   }, [dispatch, currentUser]);
 
   const handleLogout = () => {
-    dispatch(logout());
-    dispatch(clearPosts());
-    dispatch(clearStories());
-    dispatch(clearSubscriptions());
-    dispatch(clearLikesBookmarks());
+    dispatch(logoutAsync());
     router.push("/login");
   };
 

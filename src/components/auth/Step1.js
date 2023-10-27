@@ -44,7 +44,7 @@ const Step1 = ({ onNext, onInputChange, formData }) => {
       formData.username.length > 0 ||
       formData.password.length > 0
     ) {
-      console.log("rerender form");
+      // console.log("rerender form");
       handleFormValidation();
     }
   }, [formData]);

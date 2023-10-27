@@ -60,7 +60,7 @@ export const createStory = (data, onToggle) => async (dispatch) => {
     const res = await axios.post(`${END_POINT}/api/stories`, data, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(res);
+    // console.log(res);
     dispatch(getFollowedStories());
     onToggle();
   } catch (error) {

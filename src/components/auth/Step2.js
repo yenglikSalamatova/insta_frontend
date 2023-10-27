@@ -16,25 +16,21 @@ const Step2 = ({ onNext, onPrev, setFormData, formData }) => {
   // const isFormValid = day && month && year;
 
   const handleDayChange = (event) => {
-    console.log(event.target.value);
     setDay(event.target.value);
   };
 
   const handleMonthChange = (event) => {
-    console.log(event.target.value);
     setMonth(event.target.value);
   };
 
   const handleYearChange = (event) => {
-    console.log(event.target.value);
     setYear(event.target.value);
   };
 
   const updateBirthdayDate = (day, month, year) => {
-    console.log(day, month, year);
     if (day && month && year) {
       const birthday_date = `${year}/${month}/${day}`;
-      console.log(birthday_date);
+
       setFormData({ ...formData, birthday_date });
     }
   };

@@ -3,6 +3,10 @@ import axios from "axios";
 import { END_POINT } from "@/utils/endPoint";
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
+import { clearPosts } from "@/app/store/slice/postsSlice";
+import { clearStories } from "@/app/store/slice/storiesSlice";
+import { clearSubscriptions } from "@/app/store/slice/subscriptionSlice";
+import { clearLikesBookmarks } from "@/app/store/slice/likesSlice";
 
 const authSlice = createSlice({
   name: "auth",
@@ -105,6 +109,14 @@ export const getUserByUsername = (username) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const logoutAsync = () => async (dispatch) => {
+  dispatch(logout());
+  dispatch(clearPosts());
+  dispatch(clearStories());
+  dispatch(clearSubscriptions());
+  dispatch(clearLikesBookmarks());
 };
 
 export default authSlice.reducer;
