@@ -41,6 +41,8 @@ export default function WithAuth({ children, layout }) {
     } catch (err) {
       console.log(err);
       setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
 

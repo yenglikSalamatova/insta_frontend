@@ -40,6 +40,8 @@ export default function WithoutAuth({ children }) {
     } catch (err) {
       console.log(err);
       setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
 

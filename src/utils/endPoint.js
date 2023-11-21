@@ -1,1 +1,1 @@
-export const END_POINT = "https://api.inst.enlik.site";
+export const END_POINT = "https://instagramback-60270b3282d7.herokuapp.com";
