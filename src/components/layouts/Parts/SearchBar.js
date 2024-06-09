@@ -50,7 +50,7 @@ export default function SearchBar({ onClose }) {
             className={styles.search_card}
           >
             <img
-              src={`${END_POINT}/${item.profilePicture}`}
+              src={`${item.profilePicture}`}
               width={18}
               height={18}
               alt="Search Icon"

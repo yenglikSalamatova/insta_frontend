@@ -120,7 +120,7 @@ const PostBlock = ({ post, isLiked, isBookmarked }) => {
         <div className={styles.post__media}>
           {post.media.length > 0 && (
             <img
-              src={`${END_POINT}${post.media[0].url}`}
+              src={`${post.media[0].url}`}
               alt="photo"
               width={500}
               height={500}

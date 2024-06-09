@@ -14,14 +14,15 @@ import {
 
 import { useEffect, useState } from "react";
 import RightSideBarSkeleton from "./RightSideBarSkeleton";
+import { recomendations } from "@/data/recommended";
 
 const RightSideBar = () => {
   const [loading, setLoading] = useState(true);
   const isAuth = useSelector((state) => state.auth.isAuth);
   const currentUser = useSelector((state) => state.auth.currentUser);
-  const recomendations = useSelector(
-    (state) => state.subscription.recomendations
-  );
+  // const recomendations = useSelector(
+  //   (state) => state.subscription.recomendations
+  // );
   const followings = useSelector((state) => state.subscription.following);
   // console.log(currentUser, isAuth);
   const dispatch = useDispatch();
@@ -64,7 +65,7 @@ const RightSideBar = () => {
         recomendations.map((recomendation) => (
           <ProfileCard
             type={
-              followings.some((flw) => flw.followingId == recomendation.id)
+              followings.some((flw) => flw.id == recomendation.id)
                 ? "followers"
                 : "following"
             }
@@ -72,7 +73,7 @@ const RightSideBar = () => {
             profile={recomendation}
             key={recomendation.id}
             onClick={
-              followings.some((flw) => flw.followingId == recomendation.id)
+              followings.some((flw) => flw.id == recomendation.id)
                 ? () => handleUnfollow(recomendation)
                 : () => handleFollow(recomendation)
             }

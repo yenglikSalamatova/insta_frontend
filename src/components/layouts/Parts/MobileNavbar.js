@@ -64,7 +64,7 @@ function MobileNavbar({
         <NavbarLink
           label="Профиль"
           href={`/profile/${currentUser.username}`}
-          iconSrc={`${END_POINT}${currentUser.profilePicture}`}
+          iconSrc={`${currentUser.profilePicture}`}
           isWide={isWide}
           avatar={true}
         />

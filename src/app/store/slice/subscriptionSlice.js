@@ -16,10 +16,11 @@ const subscriptionSlice = createSlice({
   },
   reducers: {
     setFollowers: (state, action) => {
-      state.followers = action.payload;
+      state.followers = [...state.followers, action.payload];
     },
     setFollowing: (state, action) => {
-      state.following = action.payload;
+      state.following = [...state.following, action.payload];
+      console.log("Following", state.following);
     },
     setRecomendations: (state, action) => {
       state.recomendations = action.payload;
@@ -37,6 +38,11 @@ const subscriptionSlice = createSlice({
       state.profileFollowers = [];
       state.profileFollowing = [];
     },
+    unFollowUser: (state, action) => {
+      state.following = state.following.filter(
+        (user) => user.id !== action.payload.id
+      );
+    },
   },
 });
 
@@ -47,6 +53,7 @@ export const {
   setProfileFollowers,
   setProfileFollowing,
   clearSubscriptions,
+  unFollowUser,
 } = subscriptionSlice.actions;
 
 export const getFollowers = (username) => async (dispatch) => {
@@ -138,23 +145,17 @@ export const followUser =
   async (dispatch) => {
     // console.log(profileUser, currentUser);
     try {
-      const token = localStorage.getItem("token");
-      const res = await axios.post(
-        `${END_POINT}/api/subscriptions/${profileUser.id}`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      if (res.status === 201 && !noChange) {
-        dispatch(getFollowers(currentUser.username));
-        dispatch(getFollowing(currentUser.username));
-        dispatch(getUserByUsername(profileUser.username));
-      } else if (res.status === 201 && noChange) {
-        dispatch(getFollowers(currentUser.username));
-        dispatch(getFollowing(currentUser.username));
-        dispatch(getProfileFollowers(currentUser.username));
-      }
+      // OFF FOR NOW
+      // const token = localStorage.getItem("token");
+      // const res = await axios.post(
+      //   `${END_POINT}/api/subscriptions/${profileUser.id}`,
+      //   {},
+      //   {
+      //     headers: { Authorization: `Bearer ${token}` },
+      //   }
+      // );
+      console.log("Follow user", profileUser, currentUser);
+      dispatch(setFollowing(profileUser));
     } catch (error) {
       console.log(error);
     }
@@ -165,22 +166,14 @@ export const unfollowUser =
   async (dispatch) => {
     // console.log(profileUser, currentUser);
     try {
-      const token = localStorage.getItem("token");
-      const res = await axios.delete(
-        `${END_POINT}/api/subscriptions/${profileUser.id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      if (res.status === 201 && !noChange) {
-        dispatch(getFollowers(currentUser.username));
-        dispatch(getFollowing(currentUser.username));
-        dispatch(getUserByUsername(profileUser.username));
-      } else if (res.status === 201 && noChange) {
-        dispatch(getFollowers(currentUser.username));
-        dispatch(getFollowing(currentUser.username));
-        dispatch(getProfileFollowers(currentUser.username));
-      }
+      // const token = localStorage.getItem("token");
+      // const res = await axios.delete(
+      //   `${END_POINT}/api/subscriptions/${profileUser.id}`,
+      //   {
+      //     headers: { Authorization: `Bearer ${token}` },
+      //   }
+      // );
+      dispatch(unFollowUser(profileUser));
     } catch (error) {
       console.log(error);
     }

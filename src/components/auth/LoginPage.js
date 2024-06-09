@@ -9,8 +9,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginAsync } from "@/app/store/slice/authSlice";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@example.com");
+  const [password, setPassword] = useState("testpassword");
   const error = useSelector((state) => state.auth.error);
 
   const dispatch = useDispatch();
@@ -41,6 +41,7 @@ const LoginPage = () => {
             alt="Instagram Mobile"
           />
         </div>
+
         <div className={styles.login_right}>
           <form className={styles.form}>
             <div className={styles.form__header}>
@@ -52,7 +53,10 @@ const LoginPage = () => {
                 alt="Instagram logo"
               />
             </div>
-
+            <div>
+              Это клон инстаграма, часть пет-проекта. Вход осуществляется через
+              тестовые данные.
+            </div>
             <input
               type="text"
               placeholder="Моб.телефон или эл.адрес"

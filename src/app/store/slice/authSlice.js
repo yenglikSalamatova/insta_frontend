@@ -53,22 +53,34 @@ export const { login, logout, setError, setNewCurrentUser, setSuccess } =
 
 export const loginAsync = (email, password) => async (dispatch) => {
   try {
-    const res = await axios.post(`${END_POINT}/api/auth/login`, {
-      email,
-      password,
-    });
-    if (res.status === 200) {
-      const { token } = res.data;
-      if (token) {
-        const decodedToken = jwt_decode(token);
-        if (decodedToken && decodedToken.exp * 1000 > Date.now()) {
-          const user = {
-            ...decodedToken.user,
-          };
-          dispatch(login({ token, user }));
-        }
-      }
-    }
+    // Commented out because of app demo doesn't have a backend
+    // const res = await axios.post(`${END_POINT}/api/auth/login`, {
+    //   email,
+    //   password,
+    // });
+    // if (res.status === 200) {
+    //   const { token } = res.data;
+    //   if (token) {
+    //     const decodedToken = jwt_decode(token);
+    //     if (decodedToken && decodedToken.exp * 1000 > Date.now()) {
+    //       const user = {
+    //         ...decodedToken.user,
+    //       };
+    //       dispatch(login({ token, user }));
+    //     }
+    //   }
+    // }
+
+    dispatch(
+      login({
+        token: "token",
+        user: {
+          id: 1,
+          username: "testuser",
+          profilePicture: "/default_avatar.webp",
+        },
+      })
+    );
   } catch (error) {
     console.log(error);
     if (error.response?.data.error)

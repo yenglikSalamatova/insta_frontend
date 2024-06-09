@@ -12,25 +12,13 @@ import Footer from "@/components/layouts/Parts/Footer";
 import NavBar from "@/components/layouts/Parts/NavBar";
 
 const PostsPage = () => {
-  const likes = useSelector((state) => state.likes.likes);
-  const bookmarks = useSelector((state) => state.likes.bookmarks);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getLikes());
-    dispatch(getBookmarks());
-  }, [dispatch]);
-
-  const postLikes = likes.filter((like) => like.postId !== null);
-
   return (
     <div className="container-main">
       <NavBar />
       <div className="container">
         <main className="main">
           <StoriesBlock />
-          <PostsBlock postLikes={postLikes} bookmarks={bookmarks} />
+          <PostsBlock />
         </main>
         <RightSideBar />
         <Footer />

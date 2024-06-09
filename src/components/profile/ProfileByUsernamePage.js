@@ -105,7 +105,7 @@ export default function ProfileByUsernamePage() {
       <div className={styles.profile_container}>
         <div className={styles.profile__avatar}>
           <img
-            src={`${END_POINT}/${profileUser.profilePicture}`}
+            src={`${profileUser.profilePicture}`}
             width={150}
             height={150}
             alt="avatar "

@@ -88,8 +88,9 @@ const Step2 = ({ onNext, onPrev, setFormData, formData }) => {
         className={styles.button_blue}
         onClick={handleRegistration}
         type="button"
+        disabled={true}
       >
-        Далее
+        Регистрация отключена в демо-версии
       </button>
       <button className={styles.button_regular} onClick={onPrev}>
         Назад

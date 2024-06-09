@@ -46,7 +46,7 @@ export default function Comment({ comment }) {
       )}
 
       <img
-        src={`${END_POINT}${comment.user.profilePicture}`}
+        src={`${comment.user.profilePicture}`}
         width={30}
         height={30}
         className={styles.avatar}

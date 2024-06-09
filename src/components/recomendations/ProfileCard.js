@@ -14,7 +14,7 @@ const ProfileCard = ({ type, onLogout, profile, onClick, currentUser = 0 }) => {
         >
           <img
             className="avatar"
-            src={`${END_POINT}/${profile.profilePicture}`}
+            src={`${profile.profilePicture}`}
             width={44}
             height={44}
             alt="Profile Image"
@@ -40,7 +40,7 @@ const ProfileCard = ({ type, onLogout, profile, onClick, currentUser = 0 }) => {
         >
           <img
             className="avatar"
-            src={`${END_POINT}/${profile.profilePicture}`}
+            src={`${profile.profilePicture}`}
             width={44}
             height={44}
             alt="Profile Image"
@@ -66,7 +66,7 @@ const ProfileCard = ({ type, onLogout, profile, onClick, currentUser = 0 }) => {
         >
           <img
             className="avatar"
-            src={`${END_POINT}/${profile.profilePicture}`}
+            src={`${profile.profilePicture}`}
             width={44}
             height={44}
             alt="Profile Image"
@@ -92,7 +92,7 @@ const ProfileCard = ({ type, onLogout, profile, onClick, currentUser = 0 }) => {
         >
           <img
             className="avatar"
-            src={`${END_POINT}/${profile.profilePicture}`}
+            src={`${profile.profilePicture}`}
             width={44}
             height={44}
             alt="Profile Image"

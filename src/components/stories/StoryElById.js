@@ -50,7 +50,7 @@ export default function StoryElById({
         <div className={styles.header_user}>
           <div className={styles.user_avatar}>
             <img
-              src={`${END_POINT}/${item.user.profilePicture}`}
+              src={`${item.user.profilePicture}`}
               width={32}
               height={32}
               alt="Avatar"

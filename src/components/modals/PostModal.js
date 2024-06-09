@@ -108,7 +108,7 @@ export default function PostModal({ postId, togglePostModal }) {
                   {post.story === true ? (
                     <Link href="/">
                       <img
-                        src={`${END_POINT}${post.user.profilePicture}`}
+                        src={`${post.user.profilePicture}`}
                         width={38}
                         height={38}
                         className={styles.avatar__active}
@@ -118,7 +118,7 @@ export default function PostModal({ postId, togglePostModal }) {
                   ) : (
                     <Link href="/">
                       <img
-                        src={`${END_POINT}${post.user.profilePicture}`}
+                        src={`}${post.user.profilePicture}`}
                         width={38}
                         height={38}
                         className={styles.avatar}
